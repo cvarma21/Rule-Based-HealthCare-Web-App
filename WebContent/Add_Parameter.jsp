@@ -57,7 +57,9 @@ Datatype:
 </select>
 <br><br>
 
-<input type="submit" value="ADD"></input> <br><br>
+<input type="submit" value="ADD" name="action"></input> <br><br>
+<input type="submit" value="DEL" name="action"></input> <br><br>
+
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Go to Home Page</a> 
 <br><br><br>

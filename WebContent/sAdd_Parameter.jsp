@@ -14,6 +14,11 @@ int flag=0;
 int check_param_name_count = -1;
 String redirect_page = "";
 String param_check_value = "";
+String action = request.getParameter("action");
+System.out.println("ACTION ="+action);
+
+if(action.equals("ADD"))
+{
 //we need to create a new table 
 Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
@@ -140,6 +145,76 @@ if (!redirect_page.equals("") )
 {
 	response.sendRedirect(redirect_page+"?param_check="+param_check_value);
 }
+}
+else if(action.equals("DEL"))
+{
+	//we need to create a new table 
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
+
+	//////////////////////////////////////////
+	//Before entering new parameter; check whether parameter name exist. If yes, please tell user to enter some other name
+	PreparedStatement check_param_name = con.prepareStatement("select count(*) from parameters where parameterName = '"+param_name+"'");
+	String ans_check="";
+	try
+	{
+			ResultSet rs1 = check_param_name.executeQuery();
+			//System.out.println("rs_max1 = " +rs1);
+			while (rs1.next()) {
+			check_param_name_count = rs1.getInt("count(*)"); }
+			System.out.println("check_param_name_count = "+ check_param_name_count);
+			//System.out.println("rs_max2 = " +rs1.getInt("count(*)")); }
+			redirect_page = "Add_Parameter.jsp";
+			param_check_value = "1";
+
+	}
+	catch(Exception e)
+	{
+			System.out.println("ans_check =" + e);
+			//e.printStackTrace();
+	}
+	/////////////////////////////////////////
+
+
+	//////////////////////////////////////////
+
+	if (check_param_name_count ==1)
+	{
+		System.out.println("Deleting new varibale = "+param_name);
+
+		PreparedStatement statement1=con.prepareStatement("DELETE FROM parameters where parameterName ='"+param_name+"'");
+		PreparedStatement statement2=con.prepareStatement("DROP TABLE "+param_name+"");
+
+		try
+		{	
+			statement1.executeUpdate();
+			statement2.executeUpdate();
+			param_check_value = "2";
+		}
+		catch(Exception e)
+		{
+			System.out.println("Insert into parameters Exception = "+ e);//MySQLIntegrityConstraintViolationException
+			//close scriptlet within script tag alert("already exists!"); open scriptlet
+			redirect_page = "Add_Parameter.jsp";
+			param_check_value = "1";
+
+		}
+		PreparedStatement statement_max=con.prepareStatement("select * from max_clauses");
+		ResultSet rs_max=statement_max.executeQuery();
+
+		int total_clauses=0;
+		while(rs_max.next())
+		{
+			total_clauses=Integer.parseInt(rs_max.getString("no"));
+		}
+
+	}
+	if (!redirect_page.equals("") )
+	{
+		response.sendRedirect(redirect_page+"?param_check="+param_check_value);
+	}
+}
+
 
 %>
 

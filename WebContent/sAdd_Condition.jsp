@@ -13,7 +13,17 @@
 String flag_status;
 flag_status=request.getParameter("flag");
 String radiobutton=request.getParameter("input");
+String action = request.getParameter("action");
+try{
+
+System.out.println("ACTION ="+action);
 //System.out.println(flag_status);
+}
+catch(Exception e)
+{
+	e.printStackTrace();
+}
+
 
 %>
 

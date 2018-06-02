@@ -58,7 +58,7 @@ choose input parameter:<br>
 <div><%=radiobuttons %></div>
 <%}%>
 
-<input type="submit" value="Add Condition"></input> <br><br> <br>
+<input type="submit" value="Add Condition" name="action" ></input> <br><br> <br>
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Home Page</a>
 </form>
