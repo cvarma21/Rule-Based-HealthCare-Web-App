@@ -16,7 +16,7 @@ String radiobutton=request.getParameter("input");
 String action = request.getParameter("action");
 try{
 
-System.out.println("ACTION ="+action);
+System.out.println("ACTION in s ="+action);
 //System.out.println(flag_status);
 }
 catch(Exception e)
@@ -46,16 +46,19 @@ function alertName()
 
 
 <%
+String datatype = "";
+String table = "";
+
 
 //String radiobutton=request.getParameter("input");
 //System.out.println(radiobutton);
-
+if(action.equals("Add Condition"))
+{
 Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
 
 PreparedStatement statement=con.prepareStatement("select * from parameters");
 
-String datatype = "";
 ResultSet result = null;
 try{
 	result = statement.executeQuery();
@@ -78,7 +81,6 @@ catch(Exception e)
 //make condition selector 
 PreparedStatement statement2=con.prepareStatement("select * from "+radiobutton);
 int flagtable = 0;
-String table = "";
 ResultSet result2 = null;
 try
 {
@@ -117,28 +119,99 @@ catch(Exception e)
 	System.out.println("select * from "+radiobutton+" cannot be executed" );
 	response.sendRedirect("/rulebase/Add_Condition.jsp?radio_button=0");
 }
+}
+else if(action.equals("Delete Condition"))
+{
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
 
+	PreparedStatement statement=con.prepareStatement("select * from parameters");
+
+	ResultSet result = null;
+	try{
+		result = statement.executeQuery();
+		
+		while(result.next())
+		{
+			if((result.getString("parameterName")).equals(radiobutton))
+				{
+					datatype=result.getString("datatype");
+				}
+		}
+	}
+	catch(Exception e)
+	{
+		System.out.println("select * from parameters not exceuted");	
+	}
+
+
+	//display that table 
+	//make condition selector 
+	PreparedStatement statement2=con.prepareStatement("select * from "+radiobutton);
+	int flagtable = 0;
+	ResultSet result2 = null;
+	try
+	{
+		result2 = statement2.executeQuery();
+		if(datatype.equals("number"))
+		{
+			while(result2.next())
+			{
+				flagtable=1;
+				table+="<tr><td>"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
+			}
+
+			if(flagtable==1)
+			{
+				table="<br><br><table border='1'><th>id</th><th>left_limit</th><th>right_limit</th>"+table;
+				table+="</table>";
+			}
+		}
+		else
+		{
+			while(result2.next())
+			{
+				flagtable=1;
+				table+="<tr><td>"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td></tr>";	
+			}
+
+			if(flagtable==1)
+			{
+				table="<br><br><table border='1'><th>id</th><th>value</th>"+table;
+				table+="</table>";
+			}	
+		}
+	}
+	catch(Exception e)
+	{
+		System.out.println("select * from "+radiobutton+" cannot be executed" );
+		response.sendRedirect("/rulebase/Add_Condition.jsp?radio_button=0");
+	}
+}
 %>
 
 <body onload="alertName()">
-<form action="ssAdd_Condition.jsp">
+<form action="ssAdd_Condition.jsp" ">
+<p><%=datatype %></p>
 
 <p><%=radiobutton %></p>
-<p><%=datatype %></p>
 
 
 <% 
-if(datatype.equals("number"))
+if(datatype.equals("number") && action.equals("Add Condition"))
 {%>
 Make Condition: 
 <input type="text" name="ll" id='ll' placeholder="leftlimit"></input>
 <= <%=radiobutton %> <=
 <input type="text" name="rl" id='rl' placeholder="rightlimit"></input>
+<input type="submit" value="Add Condition" name="action"></input>
+
 <%}
-else
+else if(datatype.equals("number") && action.equals("Delete Condition"))
 {%>
 Make Condition: 
-<%=radiobutton %> = <input type="text" name="val" value="value" id='val'></input>
+<%=radiobutton %> = <input type="text" name="val" value="value" id='val'><input type="submit" value="Delete Condition" name="action"></input>
+</input>
 <% }%>
 
 <div><%=table %></div>
@@ -148,7 +221,7 @@ Make Condition:
 
 <br>
 
-<input type="submit" value="Add Condition"></input>
+
 <br><br>
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Home Page</a> 

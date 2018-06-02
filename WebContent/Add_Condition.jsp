@@ -57,8 +57,10 @@ radiobuttons+="<input type='radio' name='input' value="+result.getString("parame
 choose input parameter:<br>
 <div><%=radiobuttons %></div>
 <%}%>
+<br> <br>
+<input type="submit" value="Add Condition" name="action" ></input> <br>
+<input type="submit" value="Delete Condition" name="action" ></input> <br><br> <br>
 
-<input type="submit" value="Add Condition" name="action" ></input> <br><br> <br>
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Home Page</a>
 </form>
