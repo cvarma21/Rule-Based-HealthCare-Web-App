@@ -1,0 +1,149 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+     <%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+
+<script>
+
+function formula_open()
+{
+	alert("clicked");
+	//window.open("Formula_Calculator.jsp");
+	}
+
+
+</script>
+
+
+<%
+String inputstring="";
+String outputstring="";
+String inputdrop="<select id='inputdrop' name='inputdrop'>";
+String outputtext="<div><br>";
+String inputtables="<div>";
+
+String[] input=request.getParameterValues("input");
+String[] output=request.getParameterValues("output");
+
+//System.out.println("inot "+input);
+if((input == null) || (output == null))
+{
+	response.sendRedirect("Add_Rule.jsp?io_flag=0");	
+}
+
+
+try{
+	
+		
+		
+		for(int i=0;i<output.length;i++)
+		{
+			if(i!= (output.length-1))
+				outputstring+=output[i]+",";
+			else
+				outputstring+=output[i];
+		}
+		
+		
+		/*for(int i=0;i<input.length;i++)
+			{
+			
+			if(i!=(input.length-1))
+			inputstring+=input[i]+",";
+			else
+			inputstring+=input[i];
+			}
+		*/
+
+		/*
+		<select>
+		  <option value="volvo">Volvo</option>
+		  <option value="saab">Saab</option>
+		  <option value="opel">Opel</option>
+		  <option value="audi">Audi</option>
+		</select>
+		  
+		
+		
+		*/
+		
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
+		
+		
+		
+		
+		for(int i=0;i<output.length;i++)
+		{
+		outputtext+=output[i]+"<input type='text' name='"+output[i]+"'  id='"+output[i]+"'></input><input type='button' value='Formula' onclick='formula_open()'></input><br><br>";
+			
+		}
+		
+		for(int i=0;i<input.length;i++)
+		{
+		String table="<table>";
+		PreparedStatement statement=con.prepareStatement("select * from "+input[i]);
+		
+		ResultSet result=statement.executeQuery();
+		ResultSetMetaData rsmd = result.getMetaData();
+		int columnsNumber = rsmd.getColumnCount();
+		if(columnsNumber==3)
+		{
+			table+="<table border='1'><th>id</th><th>left_limit</th><th>right_limit</th>";
+			while(result.next())
+			{
+				inputstring+=result.getString(1)+",";
+			inputdrop+="<option value="+result.getString(1)+">"+result.getString(1)+"</option>";
+			table+="<tr><td>"+result.getString(1)+"</td><td>"+result.getString(2)+"</td><td>"+result.getString(3)+"</td></tr>";	
+			}
+			table+="</table>";
+		}
+		else
+		{
+			table+="<table border='1'><th>id</th><th>value</th>";
+			while(result.next())
+			{
+				inputstring+=result.getString(1)+",";
+			inputdrop+="<option value="+result.getString(1)+">"+result.getString(1)+"</option>";
+			table+="<tr><td>"+result.getString(1)+"</td><td>"+result.getString(2)+"</td></tr>";	
+			}
+			table+="</table>";
+		}
+		
+		inputtables+="<br>"+table;
+		
+		
+		}
+		
+		inputdrop+="</select>";
+		
+		inputtables+="</div>";
+		outputtext+="</div>";
+		
+		inputstring=inputstring.substring(0,inputstring.length()-1);
+		response.sendRedirect("Add_Rule.jsp?tables="+inputtables+"&inputdrop="+inputdrop+"&outputtext="+outputtext+"&inputstring="+inputstring+"&outputstring="+outputstring);
+}
+catch(Exception e)
+{
+	System.out.println("Exception to Add rule : " + e);	
+	
+}
+
+
+%>
+<body>
+
+
+<%=inputtables %>
+<%=inputdrop %>
+<%=outputtext %>
+<%=inputstring %>
+</body>
+</html>
