@@ -12,7 +12,8 @@
 String datatype=request.getParameter("datatype");
 String radiobutton=request.getParameter("radiobutton");
 String hel="";
-
+//String my=request.getParameter("id");
+//System.out.println("MY = "+my);
 //System.out.println(datatype +" "+ radiobutton );
 
 Class.forName("com.mysql.jdbc.Driver");

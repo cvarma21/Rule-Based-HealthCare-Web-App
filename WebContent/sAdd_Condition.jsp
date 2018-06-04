@@ -90,7 +90,7 @@ try
 		while(result2.next())
 		{
 			flagtable=1;
-			table+="<tr><td>"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
+			table+="<tr><br><td><input type=\"radio\" name=\"id\" value=\"result2.getString(1)\" >"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
 		}
 
 		if(flagtable==1)
@@ -160,7 +160,7 @@ else if(action.equals("Delete Condition"))
 			while(result2.next())
 			{
 				flagtable=1;
-				table+="<tr><td>"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
+				table+="<tr><td><input type=\"radio\">"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
 			}
 
 			if(flagtable==1)
@@ -192,6 +192,7 @@ else if(action.equals("Delete Condition"))
 }
 %>
 
+
 <body onload="alertName()">
 <form action="ssAdd_Condition.jsp" ">
 <p><%=datatype %></p>
@@ -222,6 +223,9 @@ Enter Variable to Delete:
 <input type="hidden" value='<%=datatype%>' id="datatype" name="datatype" ></input>
 
 <br>
+
+<input type="submit" value="Submit">
+
 
 
 <br><br>
