@@ -113,11 +113,13 @@ try
 			table+="</table>";
 		}	
 	}
+	//response.sendRedirect("sAdd_Condition.jsp?input=hel&action=Add+Condition");
+
 }
 catch(Exception e)
 {
 	System.out.println("select * from "+radiobutton+" cannot be executed" );
-	response.sendRedirect("/rulebase/Add_Condition.jsp?radio_button=0");
+	response.sendRedirect("sAdd_Condition.jsp?input=hel&action=Add+Condition");
 }
 }
 else if(action.equals("Delete Condition"))
@@ -185,7 +187,7 @@ else if(action.equals("Delete Condition"))
 	catch(Exception e)
 	{
 		System.out.println("select * from "+radiobutton+" cannot be executed" );
-		response.sendRedirect("/rulebase/Add_Condition.jsp?radio_button=0");
+		response.sendRedirect("/rulebase/sAdd_Condition.jsp?input=hel&action=Delete+Condition");
 	}
 }
 %>
@@ -209,8 +211,8 @@ Make Condition:
 <%}
 else if(datatype.equals("number") && action.equals("Delete Condition"))
 {%>
-Make Condition: 
-<%=radiobutton %> = <input type="text" name="val" value="value" id='val'><input type="submit" value="Delete Condition" name="action"></input>
+Enter Variable to Delete: 
+<%=radiobutton %> = <input type="text" name="val" value="Enter name" id='val'><input type="submit" value="Delete Condition" name="action"></input>
 </input>
 <% }%>
 
