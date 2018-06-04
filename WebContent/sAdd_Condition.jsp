@@ -240,6 +240,7 @@ else if(datatype.equals("number") && action.equals("Delete Condition"))
 Enter Variable to Delete: 
 <%=radiobutton %> = <input type="text" name="val" value="Enter name" id='val'><input type="submit" value="Delete Condition" name="action" onclick="alert();" ></input>
 </input>
+
 <% }%>
 
 <div><%=table %></div>
@@ -249,7 +250,6 @@ Enter Variable to Delete:
 
 <br>
 
-<input type="submit" value="Delete Condition"  name="action" onclick="alert();">
 
 
 
