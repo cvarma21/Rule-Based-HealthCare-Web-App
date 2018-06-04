@@ -58,7 +58,6 @@ Datatype:
 <br><br>
 
 <input type="submit" value="ADD" name="action"></input> <br><br>
-<input type="submit" value="DEL" name="action"></input> <br><br>
 
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Go to Home Page</a> 
@@ -125,6 +124,17 @@ if(ii!=0){ %>
 <div><%= outputString %></div>
 <%} %>
 
+
+
+    <h5> Delete Variable Selection</h5>
+        <select name='item'>
+        <%   result = statement.executeQuery();
+
+        while(result.next()){ %>
+            <option selected><%= result.getString("parameterName")%></option>
+        <% } %>
+        </select>
+<input type="submit" value="DEL" name="action"></input> <br><br>
 
 </form>
 

@@ -9,6 +9,8 @@
 String type=request.getParameter("type");
 String datatype=request.getParameter("datatype");
 String param_name=request.getParameter("parameter_name");
+String check = request.getParameter("item");
+System.out.println("Check ="+check);
 
 int flag=0;
 int check_param_name_count = -1;
@@ -154,7 +156,7 @@ else if(action.equals("DEL"))
 
 	//////////////////////////////////////////
 	//Before entering new parameter; check whether parameter name exist. If yes, please tell user to enter some other name
-	PreparedStatement check_param_name = con.prepareStatement("select count(*) from parameters where parameterName = '"+param_name+"'");
+	PreparedStatement check_param_name = con.prepareStatement("select count(*) from parameters where parameterName = '"+check+"'");
 	String ans_check="";
 	try
 	{
@@ -180,10 +182,10 @@ else if(action.equals("DEL"))
 
 	if (check_param_name_count ==1)
 	{
-		System.out.println("Deleting new varibale = "+param_name);
+		System.out.println("Deleting new variable = "+param_name);
 
-		PreparedStatement statement1=con.prepareStatement("DELETE FROM parameters where parameterName ='"+param_name+"'");
-		PreparedStatement statement2=con.prepareStatement("DROP TABLE "+param_name+"");
+		PreparedStatement statement1=con.prepareStatement("DELETE FROM parameters where parameterName ='"+check+"'");
+		PreparedStatement statement2=con.prepareStatement("DROP TABLE "+check+"");
 
 		try
 		{	
