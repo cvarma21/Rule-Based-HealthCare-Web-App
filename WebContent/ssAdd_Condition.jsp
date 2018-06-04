@@ -11,6 +11,7 @@
 <%
 String datatype=request.getParameter("datatype");
 String radiobutton=request.getParameter("radiobutton");
+String hel="";
 
 //System.out.println(datatype +" "+ radiobutton );
 
@@ -20,6 +21,8 @@ String action = request.getParameter("action");
 System.out.println("Action in SS = "+action);
 if(action.equals("Add Condition"))
 {
+	
+System.out.println("In add condition");
 PreparedStatement statement = con.prepareStatement("select * from "+radiobutton);
 
 try 
@@ -27,11 +30,58 @@ try
 	ResultSet result = statement.executeQuery();
 	PreparedStatement statement2;
 	int count=0;
-
+	int i=0, dig, num=0, fi=0;
+	char ch, ch1;
+	
 	while(result.next())
 	{
-		count++;
+		i=0;
+		//count++;
+		//hel=result.getString(1);
+		//System.out.println(result.getString(1));
+		hel=result.getString(1);
+		
+		while(i<hel.length())
+		{
+			ch=hel.charAt(i);
+			if(ch=='_')
+			{
+				i++;
+				while(i<hel.length())
+				{
+					
+					System.out.println("Index = "+i);
+					ch1=hel.charAt(i);
+					dig=(int)(ch1);
+					dig=dig-48;
+					num=(num*10)+dig;
+					i++;
+				}
+				
+				
+				
+			}
+			
+			i++;
+			
+		}
+		
+		if(num>fi)
+			fi=num;
+		
+		num=0;
 	}
+	
+	System.out.println("fi= "+fi);
+	
+	
+	
+	
+	System.out.println("Num = "+num);
+	num++;
+	
+	fi++;
+	//System.out.println("Hello ===="+hel);
 	
 	//System.out.println("String = "+result.getString(1));
 
@@ -39,12 +89,12 @@ try
 	{
 		int ll=Integer.parseInt(request.getParameter("ll"));
 		int rl=Integer.parseInt(request.getParameter("rl"));
-		statement2=con.prepareStatement("insert into "+radiobutton+" values('"+radiobutton+"_"+count+"',"+ll+","+rl+")");
+		statement2=con.prepareStatement("insert into "+radiobutton+" values('"+radiobutton+"_"+fi+"',"+ll+","+rl+")");
 	}
 	else
 	{
 		String val=request.getParameter("val");
-		statement2=con.prepareStatement("insert into "+radiobutton+" values('"+radiobutton+"_"+count+"','"+val+"')");
+		statement2=con.prepareStatement("insert into "+radiobutton+" values('"+radiobutton+"_"+fi+"','"+val+"')");
 	}
 
 	System.out.println("the statement2 is "+statement2);
