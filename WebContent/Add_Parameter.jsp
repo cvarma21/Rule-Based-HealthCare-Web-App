@@ -26,12 +26,18 @@ function alertName()
 	else if ((par == '2'))
 	{	alert("New variable added successfully");}
 } 
+	
+
+function delete()
+{
+	alert("Variable Successfully Deleted");	
+}
+}
 </script> 
 
 
 
 
-<body onload = "alertName()">
 
 <center> <b>Add New Parameter </b></center><br><br> 
 <form action="sAdd_Parameter.jsp">
@@ -126,15 +132,15 @@ if(ii!=0){ %>
 
 
 
-    <h5> Delete Variable Selection</h5>
-        <select name='item'>
+    <h5> DELETE PARAMETER SECTION</h5>
+        <select name='item' value = 'Select Parameter to Delete'>
         <%   result = statement.executeQuery();
 
         while(result.next()){ %>
             <option selected><%= result.getString("parameterName")%></option>
         <% } %>
         </select>
-<input type="submit" value="DEL" name="action"></input> <br><br>
+<input type="submit" value="DEL" name="action" onClick='delete()'></input> <br><br>
 
 </form>
 

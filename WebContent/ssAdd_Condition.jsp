@@ -12,9 +12,15 @@
 String datatype=request.getParameter("datatype");
 String radiobutton=request.getParameter("radiobutton");
 String hel="";
-//String my=request.getParameter("id");
-//System.out.println("MY = "+my);
-//System.out.println(datatype +" "+ radiobutton );
+
+String option  = request.getParameter("rule");
+System.out.println("Option = "+option);
+
+String op="";
+int i=0;
+char c;
+
+
 
 Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
@@ -31,7 +37,7 @@ try
 	ResultSet result = statement.executeQuery();
 	PreparedStatement statement2;
 	int count=0;
-	int i=0, dig, num=0, fi=0;
+	int dig, num=0, fi=0;
 	char ch, ch1;
 	
 	while(result.next())
@@ -102,7 +108,8 @@ try
 	
 	statement2.executeUpdate();
 	//response.sendRedirect("sAdd_Condition.jsp?input="+radiobutton+"&flag=0");
-	response.sendRedirect("sAdd_Condition.jsp?input=feg&action=Add+Condition");
+	//response.sendRedirect("sAdd_Condition.jsp?input=feg&action=Add+Condition");
+	
 }
 catch (Exception e)
 {
@@ -114,6 +121,19 @@ catch (Exception e)
 }
 else if(action.equals("Delete Condition"))
 {
+	while(i!=option.length())
+	{
+		c=option.charAt(i);
+		if(c!='+')
+			op+=c;
+		else
+			break;
+		
+		i++;
+
+	}
+
+	System.out.println("OP = "+op);
 	System.out.println("Delete Condition starting");
 	System.out.println("Radiobutton = "+radiobutton);
 	String vals=request.getParameter("val");
@@ -123,7 +143,7 @@ else if(action.equals("Delete Condition"))
 	if(datatype.equals("number"))
 	{
 		try{
-			statement2=con.prepareStatement("delete from "+radiobutton+" where id = '"+vals+"'");
+			statement2=con.prepareStatement("delete from "+radiobutton+" where id = '"+op+"'");
 			statement2.executeUpdate();
 
 		}
@@ -142,7 +162,7 @@ else if(action.equals("Delete Condition"))
 	//System.out.println("the statement2 is "+statement2);
 	
 	//response.sendRedirect("sAdd_Condition.jsp?input="+radiobutton+"&flag=0");
-	response.sendRedirect("sAdd_Condition.jsp?input=feg&action=Delete+Condition");
+	//response.sendRedirect("sAdd_Condition.jsp?input=feg&action=Delete+Condition");
 }
 %>
 <body>

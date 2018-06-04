@@ -17,6 +17,7 @@ String action = request.getParameter("action");
 try{
 
 System.out.println("ACTION in s ="+action);
+System.out.println("Radiobutton = "+radiobutton);
 //System.out.println(flag_status);
 }
 catch(Exception e)
@@ -42,6 +43,27 @@ function alertName()
 		alert("Please enter left and right limit for "+radio_par);
 	}	
 } 
+
+function alert()
+{
+	alert("Hi");		
+}
+
+function uncheck()
+{
+	if( document.getElementById('myRadio').checked = true )
+ 		document.getElementById('myRadio').checked = false;        
+}
+
+function check()
+{
+	if( document.getElementById('myRadio').checked = false )	
+		document.getElementById('myRadio').checked = true;        
+}
+function setRadio(obj) 
+{
+    obj.checked = false;
+}
 </script> 
 
 
@@ -90,7 +112,8 @@ try
 		while(result2.next())
 		{
 			flagtable=1;
-			table+="<tr><br><td><input type=\"radio\" name=\"id\" value=\"result2.getString(1)\" >"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
+			table+="<tr><br><td><input id=\"myRadio\" type=\"radio\" name=\"action\" value=\"result2.getString(1)\" onclick=\"alert();uncheck();check();\">"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";
+			
 		}
 
 		if(flagtable==1)
@@ -119,7 +142,7 @@ try
 catch(Exception e)
 {
 	System.out.println("select * from "+radiobutton+" cannot be executed" );
-	response.sendRedirect("sAdd_Condition.jsp?input=hel&action=Add+Condition");
+	response.sendRedirect("sAdd_Condition.jsp?input=YES&action=Add+Condition");
 }
 }
 else if(action.equals("Delete Condition"))
@@ -155,13 +178,16 @@ else if(action.equals("Delete Condition"))
 	try
 	{
 		result2 = statement2.executeQuery();
+		
 		if(datatype.equals("number"))
 		{
 			while(result2.next())
 			{
 				flagtable=1;
-				table+="<tr><td><input type=\"radio\">"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";	
+				table+="<tr><br><td><input id=\"myRadio\" type=\"radio\" name=\"rule\" value="+result2.getString(1)+" checked=\"checked\" onclick=\"alert(\'adf\');\"></input>"+result2.getString(1)+"</td><td>"+result2.getString(2)+"</td><td>"+result2.getString(3)+"</td></tr>";
+				
 			}
+			
 
 			if(flagtable==1)
 			{
@@ -187,14 +213,13 @@ else if(action.equals("Delete Condition"))
 	catch(Exception e)
 	{
 		System.out.println("select * from "+radiobutton+" cannot be executed" );
-		response.sendRedirect("/rulebase/sAdd_Condition.jsp?input=hel&action=Delete+Condition");
+		response.sendRedirect("/rulebase/sAdd_Condition.jsp?input=+"+radiobutton+"+&action=Delete+Condition");
 	}
 }
 %>
 
-
 <body onload="alertName()">
-<form action="ssAdd_Condition.jsp" ">
+<form action="ssAdd_Condition.jsp" >
 <p><%=datatype %></p>
 
 <p><%=radiobutton %></p>
@@ -213,7 +238,7 @@ Make Condition:
 else if(datatype.equals("number") && action.equals("Delete Condition"))
 {%>
 Enter Variable to Delete: 
-<%=radiobutton %> = <input type="text" name="val" value="Enter name" id='val'><input type="submit" value="Delete Condition" name="action"></input>
+<%=radiobutton %> = <input type="text" name="val" value="Enter name" id='val'><input type="submit" value="Delete Condition" name="action" onclick="alert();" ></input>
 </input>
 <% }%>
 
@@ -224,7 +249,7 @@ Enter Variable to Delete:
 
 <br>
 
-<input type="submit" value="Submit">
+<input type="submit" value="Delete Condition"  name="action" onclick="alert();">
 
 
 
