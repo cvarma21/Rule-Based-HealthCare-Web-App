@@ -184,6 +184,11 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	}
 	
+	if(suc==0)
+	{
+		System.out.println("Continuing due to error");
+		continue;
+	}
 	if(i==1)
 	{
 	
