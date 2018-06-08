@@ -18,6 +18,8 @@ String redirect_page = "";
 String param_check_value = "";
 String action = request.getParameter("action");
 System.out.println("ACTION ="+action);
+ResultSet rs2;
+
 
 if(action.equals("ADD"))
 {
@@ -53,7 +55,7 @@ catch(Exception e)
 
 if (check_param_name_count < 1)
 {
-	System.out.println("Adding new varibale = "+param_name);
+	System.out.println("Adding new variable = "+param_name);
 
 	PreparedStatement statement=con.prepareStatement("insert into parameters values ('"+param_name+"','"+type+"','"+datatype+"')");
 
@@ -179,18 +181,20 @@ else if(action.equals("DEL"))
 
 
 	//////////////////////////////////////////
-
 	if (check_param_name_count ==1)
 	{
 		System.out.println("Deleting new variable = "+param_name);
 
 		PreparedStatement statement1=con.prepareStatement("DELETE FROM parameters where parameterName ='"+check+"'");
 		PreparedStatement statement2=con.prepareStatement("DROP TABLE "+check+"");
+	
 
+		
 		try
 		{	
 			statement1.executeUpdate();
 			statement2.executeUpdate();
+			
 			param_check_value = "2";
 		}
 		catch(Exception e)
@@ -205,6 +209,9 @@ else if(action.equals("DEL"))
 		ResultSet rs_max=statement_max.executeQuery();
 
 		int total_clauses=0;
+		
+		
+		
 		while(rs_max.next())
 		{
 			total_clauses=Integer.parseInt(rs_max.getString("no"));
@@ -216,6 +223,24 @@ else if(action.equals("DEL"))
 		response.sendRedirect(redirect_page+"?param_check="+param_check_value);
 	}
 }
+else if(action.equals("CHECK"))
+{
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
+
+	
+
+	PreparedStatement statement3=con.prepareStatement("select count(*) from clause1 where "+check+"1 is not null");
+	System.out.println("The statement is = "+"select count(*) from clause1 where "+check+"1 is not null");
+	rs2=statement3.executeQuery();
+	
+	while(rs2.next())
+	{
+		//out.println("In rs2");
+		out.println("Do you want to continue ? Number of rules existing =  "+rs2.getString(1));
+	}
+}
+
 
 
 %>
