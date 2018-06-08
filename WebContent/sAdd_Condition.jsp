@@ -7,6 +7,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New Condition</title>
+
+<script type="text/javascript">
+
+
+function alert()
+{
+	alert("Hi");		
+}
+
+
+</script> 
+
 </head>
 
 <% 
@@ -28,43 +40,7 @@ catch(Exception e)
 
 %>
 
-<script type="text/javascript">
-function alertName()
-{
-	//alert(par);
-	var flag_par = '<%=flag_status%>';
-	var radio_par = '<%=radiobutton%>';
-	if (flag_par == '0')
-	{
-		alert("Condition inserted for "+radio_par);
-	}	
-	else if (flag_par == '1')
-	{
-		alert("Please enter left and right limit for "+radio_par);
-	}	
-} 
 
-function alert()
-{
-	alert("Hi");		
-}
-
-function uncheck()
-{
-	if( document.getElementById('myRadio').checked = true )
- 		document.getElementById('myRadio').checked = false;        
-}
-
-function check()
-{
-	if( document.getElementById('myRadio').checked = false )	
-		document.getElementById('myRadio').checked = true;        
-}
-function setRadio(obj) 
-{
-    obj.checked = false;
-}
-</script> 
 
 
 <%
@@ -218,7 +194,7 @@ else if(action.equals("Delete Condition"))
 }
 %>
 
-<body onload="alertName()">
+<body onload="alert()">
 <form action="ssAdd_Condition.jsp" >
 <p><%=datatype %></p>
 
@@ -229,17 +205,17 @@ else if(action.equals("Delete Condition"))
 if(datatype.equals("number") && action.equals("Add Condition"))
 {%>
 Make Condition: 
-<input type="text" name="ll" id='ll' placeholder="leftlimit"></input>
+<input type="text" name="ll" id='ll'  onclick="alert()"></input>
 <= <%=radiobutton %> <=
-<input type="text" name="rl" id='rl' placeholder="rightlimit"></input>
-<input type="submit" value="Add Condition" name="action"></input>
+<input type="text" name="rl" id='rl' ></input>
+<input type="submit" value="Add Condition" name="action" onclick="alert()"></input>
 
 <%}
 else if(datatype.equals("number") && action.equals("Delete Condition"))
 {%>
 Enter Variable to Delete: 
 <%=radiobutton %> = <input type="text" name="val" value="Enter name" id='val'><input type="submit" value="Delete Condition" name="action" onclick="alert();" ></input>
-</input>
+
 
 <% }%>
 

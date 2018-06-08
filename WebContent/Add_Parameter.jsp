@@ -14,13 +14,14 @@ param_check=request.getParameter("param_check");
 %>
 
 <script type="text/javascript">
+
 function alertName()
 {
 	//if(param_check.equals(1)){
 	var par = '<%= param_check%>';
 	if (par == '1')
 	{
-		alert("Varibale name exists; please provide a different name" );
+		alert("Variable name exists; please provide a different name" );
 		//alert(par);
 	}	
 	else if ((par == '2'))
@@ -28,11 +29,7 @@ function alertName()
 } 
 	
 
-function delete()
-{
-	alert("Variable Successfully Deleted");	
-}
-}
+
 </script> 
 
 
@@ -63,7 +60,7 @@ Datatype:
 </select>
 <br><br>
 
-<input type="submit" value="ADD" name="action"></input> <br><br>
+<input type="submit" value="ADD" name="action" onclick="alertName()"></input> <br><br>
 
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Go to Home Page</a> 
@@ -140,7 +137,7 @@ if(ii!=0){ %>
             <option selected><%= result.getString("parameterName")%></option>
         <% } %>
         </select>
-<input type="submit" value="DEL" name="action" onClick='delete()'></input> <br><br>
+<input type="submit" value="DEL" name="action" ></input> <br><br>
 
 </form>
 

@@ -11,8 +11,13 @@
 <body>
 
 <% 
+String col="";
+String my="", my1="";
+
 System.out.println(request.getParameter("outputstring"));
 String[] outputvalues=(request.getParameter("outputstring")).split(",");
+String rn=request.getParameter("rule_name");
+String outp="";
 
 String[] parameter_names=new String[1000];int pi=0;
 Class.forName("com.mysql.jdbc.Driver");
@@ -91,7 +96,6 @@ statementforupdate.executeUpdate();
 
 //insert query insert into clause1  (rule_name,anc1,plt1,null) values ('R2','anc_0','plt_0','null',)
 //insert query insert into clause2  (rule_name,plt2) values ('R2','plt_0')
-
 int suc=1;
 for(int i=1;i<=no_of_clauses;i++)
 {
@@ -103,33 +107,81 @@ for(int i=1;i<=no_of_clauses;i++)
 	for(int k=0;k<select.length;k++)
 	{
 		int in=select[k].indexOf("_");
-		String col=select[k].substring(0,in)+i;
+		 col=select[k].substring(0,in)+i;
 		insert+=col+",";
-		
+		//break;
 	}
+	System.out.println("col = "+col);
+	
+	PreparedStatement statement111=con.prepareStatement("select * from clause"+i+" where "+col+" is not NULL");
+	System.out.println("The query is = "+"select * from clause"+i+" where "+col+" is not NULL");
+	ResultSet result1 = statement111.executeQuery();
+	//System.out.println("ResultName  = "+rn);
+	
+	
+	System.out.println("insert now is = "+insert);
+	
 	if(i==1)
 	{
 		for(int x=0;x<outputvalues.length;x++)
 		{
 			insert+=outputvalues[x]+",";
+			outp=outputvalues[x];
 		}
-		
+		System.out.println("Outp= "+outp);
+		my=request.getParameter(outp);
+		System.out.println("Output Value = "+my);
 		insert+="no_of_clauses,";
 	}
 	//to remove last comma
+	String rnn="";
 	insert=insert.substring(0,insert.length()-1);
 	insert+=") values ('"+request.getParameter("rule_name")+"',";
 	for(int j=0;j<select.length;j++)
 	{
 		if(j!=(select.length-1))
+		{
 		insert+="'"+select[j]+"',";
+		rnn=rnn+select[j];
+		}
 		else if(i!=1 && j==select.length-1)
+		{
 		insert+="'"+select[j]+"')";
+		rnn=rnn+select[j];
+		}
 	else{
 		
 		insert+="'"+select[j]+"',";
-		
+		rnn=rnn+select[j];
 	}
+	}
+	System.out.println("Rnn = "+rnn);
+	System.out.println("Insert here is = "+insert);
+	
+	System.out.println("Let us check the results of resultset - ");
+
+	System.out.println("Value required to be inserted  ="+my);
+	
+	while(result1.next())
+	{
+		System.out.println("result1.getString(col) = "+result1.getString(col));
+		my1=result1.getString(outp);
+		System.out.println("Rule value existing in table = = "+my1);
+
+
+		if(result1.getString(col).equals(rnn))
+		{
+			
+			if(my1.equals(my)==false && my1!=null && my!=null )
+			{
+				out.println("Conflict for action = "+ result1.getString(col)+"!");
+				out.println("Rule value existing in table = "+my1);
+				out.println("but value required to be inserted = "+my);
+				suc=0;
+				break;
+			}
+		}
+	
 	}
 	
 	if(i==1)
