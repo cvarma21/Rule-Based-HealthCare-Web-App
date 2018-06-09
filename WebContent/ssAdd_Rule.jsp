@@ -166,7 +166,11 @@ for(int i=1;i<=no_of_clauses;i++)
 	{
 		System.out.println("result1.getString(col) = "+result1.getString(col));
 		my1=result1.getString(outp);
+		
 		System.out.println("Rule value existing in table = = "+my1);
+		
+		if(my1==null)
+			continue;
 
 
 		if(result1.getString(col).equals(rnn))

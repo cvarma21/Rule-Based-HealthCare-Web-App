@@ -18,7 +18,7 @@ String redirect_page = "";
 String param_check_value = "";
 String action = request.getParameter("action");
 System.out.println("ACTION ="+action);
-ResultSet rs2, rs4, rs5;
+ResultSet rs2, rs4, rs5=null, rs6;
 //ResultSet rs3
 
 
@@ -253,12 +253,11 @@ else if(action.equals("CHECK"))
 	}
 	else
 	{
-	
+		//First we check for putput variables
 		PreparedStatement statement5=con.prepareStatement("select * from parameters where type='o'");
 		rs4=statement5.executeQuery();
 		
-		//if(rs4.next())
-			//System.out.println("value = "+rs4.getString(1));
+		
 		
 		int flg=0;
 		
@@ -267,31 +266,77 @@ else if(action.equals("CHECK"))
 			System.out.println("Output String = "+rs4.getString(1));
 			if(rs4.getString(1).equals(check))
 			{
-				PreparedStatement statement6=con.prepareStatement("select count(*) from clause1 where "+check+" is not null");
-				rs5=statement6.executeQuery();
-				while(rs5.next())
+				PreparedStatement statement7=con.prepareStatement("SELECT * from max_clauses");
+				rs6=statement7.executeQuery();
+				
+				rs6.next();
+				
+				int no=rs6.getInt(1);
+				System.out.println("No of clauses = "+no);
+				
+				for(int i=1;i<=no;i++)
 				{
-					//out.println("In rs2");
-					out.println("Do you want to continue ? Number of rules existing =  "+rs5.getString(1));
-					flg=1;
+					try
+					{
+						PreparedStatement statement6=con.prepareStatement("select count(*) from clause"+i+" where "+check+" is not null");
+						System.out.println("select count(*) from clause"+i+" where "+check+" is not null");
+						rs5=statement6.executeQuery();
+					}
+					catch(Exception e)
+					{
+						
+					}
+					while(rs5.next())
+					{
+						out.println("Do you want to continue ? Number of rules existing =  "+rs5.getString(1));
+						flg=1;
+					}
 				}
-				break;
+				
+				
+
 			}
 
 		}
 	
-		
+		//Now check for input variables
 
 		if(flg==0)
 		{
-			PreparedStatement statement3=con.prepareStatement("select count(*) from clause1 where "+check+"1 is not null");
-			System.out.println("The statement is = "+"select count(*) from clause1 where "+check+"1 is not null");
-			rs2=statement3.executeQuery();
+			PreparedStatement statement7=con.prepareStatement("SELECT * from max_clauses");
+			rs6=statement7.executeQuery();
 			
-			while(rs2.next())
+			rs6.next();
+			
+			int no=rs6.getInt(1);
+			System.out.println("No of clauses = "+no);
+			int flg1=0;
+
+			for(int i=1;i<=no;i++)
 			{
-				//out.println("In rs2");
-				out.println("Do you want to continue ? Number of rules existing =  "+rs2.getString(1));
+				PreparedStatement statement3=con.prepareStatement("select count(*) from clause"+i+" where "+check+i+" is not null");
+				System.out.println("The statement is = "+"select count(*) from clause"+i+" where "+check+i+" is not null");
+				rs2=statement3.executeQuery();
+				
+				while(rs2.next())
+				{
+					//out.println("In rs2");
+					if(!(rs2.getString(1)).equals("0"))
+
+					{
+						out.println( "Number of rules existing in clause"+i+" = "+rs2.getString(1)+".\n");
+						out.println("<br>");
+						out.newLine();
+						flg1=1;
+					}
+				}
+				
+			
+			}
+			
+			if(flg1==0)
+			{
+				out.println("No rules existing. Parameter can be safely deleted");
 			}
 		}
 	}
