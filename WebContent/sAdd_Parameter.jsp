@@ -18,7 +18,8 @@ String redirect_page = "";
 String param_check_value = "";
 String action = request.getParameter("action");
 System.out.println("ACTION ="+action);
-ResultSet rs2;
+ResultSet rs2, rs4, rs5;
+//ResultSet rs3
 
 
 if(action.equals("ADD"))
@@ -228,16 +229,71 @@ else if(action.equals("CHECK"))
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
 
-	
-
-	PreparedStatement statement3=con.prepareStatement("select count(*) from clause1 where "+check+"1 is not null");
-	System.out.println("The statement is = "+"select count(*) from clause1 where "+check+"1 is not null");
-	rs2=statement3.executeQuery();
-	
-	while(rs2.next())
+	PreparedStatement statement4=con.prepareStatement("SELECT * from max_clauses");
+	ResultSet rs3=null;
+	try
 	{
-		//out.println("In rs2");
-		out.println("Do you want to continue ? Number of rules existing =  "+rs2.getString(1));
+		rs3=statement4.executeQuery();
+		
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	
+	if(rs3.next())
+		System.out.println("Max clauses = "+rs3.getString(1));
+
+	
+	if(rs3.getString(1).equals("0"))
+	{
+		out.println("Number of rules existing = 0");
+		
+		
+	}
+	else
+	{
+	
+		PreparedStatement statement5=con.prepareStatement("select * from parameters where type='o'");
+		rs4=statement5.executeQuery();
+		
+		//if(rs4.next())
+			//System.out.println("value = "+rs4.getString(1));
+		
+		int flg=0;
+		
+		while(rs4.next())
+		{
+			System.out.println("Output String = "+rs4.getString(1));
+			if(rs4.getString(1).equals(check))
+			{
+				PreparedStatement statement6=con.prepareStatement("select count(*) from clause1 where "+check+" is not null");
+				rs5=statement6.executeQuery();
+				while(rs5.next())
+				{
+					//out.println("In rs2");
+					out.println("Do you want to continue ? Number of rules existing =  "+rs5.getString(1));
+					flg=1;
+				}
+				break;
+			}
+
+		}
+	
+		
+
+		if(flg==0)
+		{
+			PreparedStatement statement3=con.prepareStatement("select count(*) from clause1 where "+check+"1 is not null");
+			System.out.println("The statement is = "+"select count(*) from clause1 where "+check+"1 is not null");
+			rs2=statement3.executeQuery();
+			
+			while(rs2.next())
+			{
+				//out.println("In rs2");
+				out.println("Do you want to continue ? Number of rules existing =  "+rs2.getString(1));
+			}
+		}
 	}
 }
 
