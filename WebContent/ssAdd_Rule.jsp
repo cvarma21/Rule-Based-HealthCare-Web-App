@@ -13,11 +13,18 @@
 <% 
 String col="";
 String my="", my1="";
+//int j;
 
-System.out.println(request.getParameter("outputstring"));
+System.out.println("Output String = "+request.getParameter("outputstring"));
 String[] outputvalues=(request.getParameter("outputstring")).split(",");
+
+for( int j=0;j<outputvalues.length;j++)
+	System.out.println("Output String value = "+outputvalues[j]);
+
 String rn=request.getParameter("rule_name");
 String outp="";
+
+ResultSet rs1;
 
 String[] parameter_names=new String[1000];int pi=0;
 Class.forName("com.mysql.jdbc.Driver");
@@ -87,9 +94,23 @@ statementforcreate.executeUpdate();
 	}
 	
 }
+PreparedStatement statement1=con.prepareStatement("select parameterName from parameters where type='o'");
+rs1=statement1.executeQuery();
 
+String stat="select * from clause1 where ";
+//while(rs1.next())
+	//System.out.println("Output parameters are = "+rs1.getString("parameterName"));
 
+//PreparedStatement statement1=con.prepareStatement("select * from clause"+i+" where "+col+" is not NULL");
+//for(int x=0;x<outputvalues.length;x++)
+//{
+//PreparedStatement statement2=con.prepareStatement("select * from clause1");
+//rs1=statement1.executeQuery();
 
+//while(rs1.next())
+
+//stat+=outputvalue[x]+"='"+
+//}
 PreparedStatement statementforupdate=con.prepareStatement("update max_clauses set no="+no);
 statementforupdate.executeUpdate();
 
@@ -100,6 +121,7 @@ int suc=1;
 for(int i=1;i<=no_of_clauses;i++)
 {
      //if i =1 total clause; 
+    
 	
 	String[] select=request.getParameterValues("select"+i);
 	String insert="insert into clause"+i+"  (rule_name,";
@@ -123,14 +145,49 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	if(i==1)
 	{
+		int flag=0;
+
 		for(int x=0;x<outputvalues.length;x++)
 		{
+			if(flag==1)
+				stat=stat+"and ";
 			insert+=outputvalues[x]+",";
 			outp=outputvalues[x];
+			my=request.getParameter(outp);
+			System.out.println("Outp= "+outp);
+			System.out.println("Output Value = "+my);
+			stat+=outp+"='"+my+"' ";
+			flag=1;
+
 		}
-		System.out.println("Outp= "+outp);
-		my=request.getParameter(outp);
-		System.out.println("Output Value = "+my);
+		
+		System.out.println("Stat = "+stat);
+		String temp;
+		while(rs1.next())
+		{
+			flag=0;
+			temp=rs1.getString("parameterName");
+			System.out.println("Temp = "+temp);
+			for(int x=0;x<outputvalues.length;x++)
+			{
+				if(temp.equals(outputvalues[x]))
+				{
+					flag=1;
+					break;
+				}
+			}
+			
+			if(flag==0)
+				stat=stat+"and "+temp+" is null ";
+			
+			
+		}
+		
+		System.out.println("temp = "+stat);
+
+		//System.out.println("Outp= "+outp);
+		//my=request.getParameter(outp);
+		//System.out.println("Output Value = "+my);
 		insert+="no_of_clauses,";
 	}
 	//to remove last comma
