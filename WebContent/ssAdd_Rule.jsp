@@ -24,8 +24,7 @@ for( int j=0;j<outputvalues.length;j++)
 String rn=request.getParameter("rule_name");
 String outp="";
 
-ResultSet rs1, rs2, rs3;
-
+ResultSet rs1, rs2, rs3, rs4;
 String[] parameter_names=new String[1000];int pi=0;
 Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
@@ -190,7 +189,15 @@ for(int i=1;i<=no_of_clauses;i++)
 		PreparedStatement statement2=con.prepareStatement(stat);
 		rs2=statement2.executeQuery();
 		
-		if(rs2.next()==false)
+		PreparedStatement statement3=con.prepareStatement("select count(*) from clause1");
+		rs3=statement3.executeQuery();
+		
+		rs3.next();
+			
+		String cou = rs3.getString(1);
+		System.out.println("Count = "+cou);
+		
+		if(rs2.next()==false && rs3.next()!=false && cou.equals("0")==false)
 		{
 			System.out.println("Result set in java is empty");
 			// If empty then we need to check for the consistency of the rule
@@ -210,13 +217,18 @@ for(int i=1;i<=no_of_clauses;i++)
 					System.out.println("col = "+col);
 					rs2.first();
 					
-					PreparedStatement statement3=con.prepareStatement("select "+col+ " from clause"+i);
-					rs3=statement3.executeQuery();
+					PreparedStatement statement4=con.prepareStatement("select "+col+ " from clause"+i);
+					System.out.println("select "+col+ " from clause"+i);
+					rs4=statement4.executeQuery();
 					
 					while(rs3.next())
 					{
 						String go=rs3.getString(col);
-						if(go.equals())
+						if(go.equals(select[k]))
+						{
+							out.println("Error");
+							
+						}
 					}
 
 				
@@ -229,8 +241,15 @@ for(int i=1;i<=no_of_clauses;i++)
 		{
 			System.out.println("Result set is not empty");
 			String rnn="";
+			System.out.println("Insert check = "+insert);
+			
+			insert+="no_of_clauses ";
+			
 			insert=insert.substring(0,insert.length()-1);
 			insert+=") values ('"+request.getParameter("rule_name")+"',";
+			
+			System.out.println("Insert check = "+insert);
+			
 			for(int j=0;j<select.length;j++)
 			{
 				if(j!=(select.length-1))
@@ -258,6 +277,7 @@ for(int i=1;i<=no_of_clauses;i++)
 			
 			while(result1.next())
 			{
+				i=1;
 				System.out.println("result1.getString(col) = "+result1.getString(col));
 				my1=result1.getString(outp);
 				
@@ -291,15 +311,15 @@ for(int i=1;i<=no_of_clauses;i++)
 			{
 			
 			
-			for(int b=0;b<outputvalues.length;b++)
-			{
-				
-		        insert+="'"+request.getParameter(outputvalues[b])+"',";
-
+				for(int b=0;b<outputvalues.length;b++)
+				{
 					
-			}	
-			
-			insert+=no_of_clauses+")";
+			        insert+="'"+request.getParameter(outputvalues[b])+"',";
+	
+						
+				}	
+				
+				insert+=no_of_clauses+")";
 			
 			}
 			
