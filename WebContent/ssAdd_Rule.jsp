@@ -197,7 +197,7 @@ for(int i=1;i<=no_of_clauses;i++)
 		String cou = rs3.getString(1);
 		System.out.println("Count = "+cou);
 		
-		if(rs2.next()==false && rs3.next()!=false && cou.equals("0")==false)
+		if(rs2.next()==false && cou.equals("0")==false)
 		{
 			System.out.println("Result set in java is empty");
 			// If empty then we need to check for the consistency of the rule
@@ -221,12 +221,14 @@ for(int i=1;i<=no_of_clauses;i++)
 					System.out.println("select "+col+ " from clause"+i);
 					rs4=statement4.executeQuery();
 					
-					while(rs3.next())
+					while(rs4.next())
 					{
-						String go=rs3.getString(col);
+						//System.out.println("In rs4");
+						String go=rs4.getString(col);
 						if(go.equals(select[k]))
 						{
-							out.println("Error");
+							out.println("Conflict in rule due to existing =  "+go);
+							break;
 							
 						}
 					}
