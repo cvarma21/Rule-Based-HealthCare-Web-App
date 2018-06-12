@@ -24,7 +24,7 @@ for( int j=0;j<outputvalues.length;j++)
 String rn=request.getParameter("rule_name");
 String outp="";
 
-ResultSet rs1, rs2;
+ResultSet rs1, rs2, rs3;
 
 String[] parameter_names=new String[1000];int pi=0;
 Class.forName("com.mysql.jdbc.Driver");
@@ -128,12 +128,14 @@ for(int i=1;i<=no_of_clauses;i++)
 	System.out.println("here insert is "+insert);
 	for(int k=0;k<select.length;k++)
 	{
+		System.out.println("Select = "+select[k]);
 		int in=select[k].indexOf("_");
 		 col=select[k].substring(0,in)+i;
+		System.out.println("col = "+col);
+
 		insert+=col+",";
 		//break;
 	}
-	System.out.println("col = "+col);
 	
 	PreparedStatement statement111=con.prepareStatement("select * from clause"+i+" where "+col+" is not NULL");
 	System.out.println("The query is = "+"select * from clause"+i+" where "+col+" is not NULL");
@@ -167,7 +169,7 @@ for(int i=1;i<=no_of_clauses;i++)
 		{
 			flag=0;
 			temp=rs1.getString("parameterName");
-			System.out.println("Temp = "+temp);
+			//System.out.println("Temp = "+temp);
 			for(int x=0;x<outputvalues.length;x++)
 			{
 				if(temp.equals(outputvalues[x]))
@@ -191,6 +193,37 @@ for(int i=1;i<=no_of_clauses;i++)
 		if(rs2.next()==false)
 		{
 			System.out.println("Result set in java is empty");
+			// If empty then we need to check for the consistency of the rule
+			
+			for( i=1;i<=no_of_clauses;i++)
+			{
+			     //if i =1 total clause; 
+			    
+				
+				select=request.getParameterValues("select"+i);
+				
+				for(int k=0;k<select.length;k++)
+				{
+					System.out.println("Select to be inserted = "+select[k]);
+					int in=select[k].indexOf("_");
+					 col=select[k].substring(0,in)+i;
+					System.out.println("col = "+col);
+					rs2.first();
+					
+					PreparedStatement statement3=con.prepareStatement("select "+col+ " from clause"+i);
+					rs3=statement3.executeQuery();
+					
+					while(rs3.next())
+					{
+						String go=rs3.getString(col);
+						if(go.equals())
+					}
+
+				
+					//break;
+				}
+				
+			}
 		}
 		else
 		{
