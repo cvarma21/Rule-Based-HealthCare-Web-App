@@ -71,7 +71,7 @@ while(result.next())
 %>
 
 
-<body onload = "alertName()">
+
 
 
 

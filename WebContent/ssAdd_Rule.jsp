@@ -20,6 +20,22 @@ System.out.println("Hello = "+hello);
 String rule = request.getParameter("rule");
 System.out.println("Rule = "+rule);
 
+if(hello.equals("DEL RULE"))
+{
+	
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
+	PreparedStatement statement1=con.prepareStatement("select * from max_clauses");
+	
+
+	ResultSet rs1 = statement1.executeQuery();
+	
+	rs1.next();
+	//String no = rs1.getString(1);
+	int no = rs1.getInt(1);
+	System.out.println("Max clauses= "+no);
+}
+
 
 
 String[] outputvalues=(request.getParameter("outputstring")).split(",");

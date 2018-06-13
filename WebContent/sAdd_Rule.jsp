@@ -37,6 +37,52 @@ System.out.println("Rule = "+rule);
 String hello = request.getParameter("submit");
 
 System.out.println("Hello = "+hello);
+
+if(hello.equals("DEL RULE"))
+{
+	
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
+	PreparedStatement statement1=con.prepareStatement("select * from max_clauses");
+	
+
+	ResultSet rs1 = statement1.executeQuery();
+	
+	rs1.next();
+	//String no = rs1.getString(1);
+	int no = rs1.getInt(1);
+	System.out.println("Max clauses= "+no);
+	
+	for(int i=1;i<=no;i++)
+	{
+		PreparedStatement statement2=con.prepareStatement("delete  FROM clause"+i+" WHERE rule_name="+rule);
+		System.out.println("Rule  = "+statement2);
+		statement2.executeUpdate();
+		
+		PreparedStatement statement3=con.prepareStatement("select count(*) from clause"+i);
+		ResultSet rs3=statement3.executeQuery();
+
+		rs3.next();
+		
+		String check=rs3.getString(1);
+		System.out.println("Number of tuples in clause"+i+" = "+check);
+		
+		
+		if(rs3.equals("0"))
+		{
+			PreparedStatement statement4=con.prepareStatement("drop table clause"+i);
+
+		}
+
+
+	}
+	
+	
+
+}
+else
+{
+
 //System.out.println("inot "+input);
 if((input == null) || (output == null))
 {
@@ -217,7 +263,7 @@ catch(Exception e)
 	
 }
 
-
+}
 %>
 <body>
 
