@@ -34,6 +34,9 @@ String[] output=request.getParameterValues("output");
 String rule = request.getParameter("rule");
 System.out.println("Rule = "+rule);
 
+String hello = request.getParameter("submit");
+
+System.out.println("Hello = "+hello);
 //System.out.println("inot "+input);
 if((input == null) || (output == null))
 {

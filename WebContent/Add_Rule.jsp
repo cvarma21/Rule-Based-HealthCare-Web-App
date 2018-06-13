@@ -104,7 +104,7 @@ while(result.next())
 
 <!-- %=tables %-->
 
-<input type="submit" name="submit"   value="DEL RULE"></input>
+<input type="submit" name="submit"  action = "hello" value="DEL RULE"></input>
 
 <br><hr>
 

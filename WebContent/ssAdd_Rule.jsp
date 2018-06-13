@@ -12,7 +12,8 @@
 
 <% 
 System.out.println(request.getParameter("outputstring"));
-String hello = request.getParameter("submit");
+
+String hello = request.getParameter("hello");
 
 System.out.println("Hello = "+hello);
 
