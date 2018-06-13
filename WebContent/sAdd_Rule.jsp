@@ -31,6 +31,9 @@ String inputtables="<div>";
 String[] input=request.getParameterValues("input");
 String[] output=request.getParameterValues("output");
 
+String rule = request.getParameter("rule");
+System.out.println("Rule = "+rule);
+
 //System.out.println("inot "+input);
 if((input == null) || (output == null))
 {
@@ -147,7 +150,7 @@ try{
 			for(int j=1;j<=colno;j++)
 			{
 				String colname =rsmd.getColumnName(j);
-				System.out.println("Column Name = "+colname);
+				//System.out.println("Column Name = "+colname);
 				//table1+="<td>"+"<th>"+colname+"</th>";	
 				//table1+="<td>"+colname;	
 				table1+="<th>"+colname+"</th>";	
@@ -168,12 +171,13 @@ try{
 					
 
 					String colval = rs2.getString(j);
-		
+					String colname =rsmd.getColumnName(j);
+
 					System.out.println("String = "+colval);
 					
 					if(j!=1 && flag==0 )
 					{
-						table1+="<input id=\"myRadio\" type= \"radio\" value = "+colval+"</input>"; 
+						table1+="<input id=\"myRadio\" type= \"radio\" name=\"rule\"  value = "+rs2.getString(1)+" </input>"; 
 						flag=1;
 					}
 					table1+="<td>"+colval;	
