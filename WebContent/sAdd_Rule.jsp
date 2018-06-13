@@ -148,8 +148,11 @@ try{
 			{
 				String colname =rsmd.getColumnName(j);
 				System.out.println("Column Name = "+colname);
-				table1+="<td>"+colname;	
+				//table1+="<td>"+"<th>"+colname+"</th>";	
+				//table1+="<td>"+colname;	
+				table1+="<th>"+colname+"</th>";	
 
+				
 				
 			}
 			
@@ -169,6 +172,7 @@ try{
 				table1+="<tr>";
 			}
 			
+			table1+="<br>";
 			//table1+="</table>";
 
 			
@@ -178,7 +182,7 @@ try{
 
 		}
 		table1+="</table>";
-		inputtables+="<br>"+table1;
+		inputtables+="<br>"+table1+"<br>";
 
 		
 		inputdrop+="</select>";
