@@ -12,6 +12,10 @@
 
 <% 
 System.out.println(request.getParameter("outputstring"));
+String hello = request.getParameter("submit");
+
+System.out.println("Hello = "+hello);
+
 String[] outputvalues=(request.getParameter("outputstring")).split(",");
 
 String[] parameter_names=new String[1000];int pi=0;

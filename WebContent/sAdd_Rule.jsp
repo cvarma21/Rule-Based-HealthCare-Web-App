@@ -161,12 +161,23 @@ try{
 			
 			while(rs2.next())
 			{
+				int flag=0;
+				//table1+="<input id=\"myRadio\" type=\"radio \" </input>";
 				for(int j=1;j<=colno;j++)
 				{
-					String colval = rs2.getString(j);
-					System.out.println("String = "+colval);
-					table1+="<td>"+colval;	
 					
+
+					String colval = rs2.getString(j);
+		
+					System.out.println("String = "+colval);
+					
+					if(j!=1 && flag==0 )
+					{
+						table1+="<input id=\"myRadio\" type= \"radio\" value = "+colval+"</input>"; 
+						flag=1;
+					}
+					table1+="<td>"+colval;	
+					//table1+="<td><input id=\"myRadio\" type=\"radio \" </input>"+colval;
 				}
 				
 				table1+="<tr>";

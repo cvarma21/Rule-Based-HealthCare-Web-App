@@ -104,6 +104,7 @@ while(result.next())
 
 <!-- %=tables %-->
 
+<input type="submit" name="submit" onclick="getclauses();"  value="DEL RULE"></input>
 
 <br><hr>
 
@@ -117,6 +118,7 @@ while(result.next())
 
 <input type="hidden" value="<%=inputstring %>" id="inputstring" name="inputstring"></input>
 <input type="hidden" value="<%=outputstring %>" id="outputstring" name="outputstring"></input>
+
 
 
 Rule Name:<br>
@@ -144,6 +146,7 @@ then:
 
 <br>
 <input type="submit" name="submit" onclick="getclauses();"  value="ADD RULE"></input>
+
 
 
 </form>
