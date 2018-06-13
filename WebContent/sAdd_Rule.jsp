@@ -122,6 +122,65 @@ try{
 		
 		}
 		
+		PreparedStatement statement1=con.prepareStatement("select * from max_clauses");
+		ResultSet rs1 = statement1.executeQuery();
+		
+		rs1.next();
+		//String no = rs1.getString(1);
+		int no = rs1.getInt(1);
+		System.out.println("Max clauses= "+no);
+		String table1="<table>";
+
+		int colno;
+		for(int i=1;i<=no;i++)
+		{
+			PreparedStatement statement2=con.prepareStatement("select * from clause"+i);
+			ResultSet rs2=statement2.executeQuery();
+			ResultSetMetaData rsmd = rs2.getMetaData();
+			
+			colno = rsmd.getColumnCount();
+			System.out.println("Number of columns = "+colno);
+			
+			table1+="<table border='1'>";
+
+			
+			for(int j=1;j<=colno;j++)
+			{
+				String colname =rsmd.getColumnName(j);
+				System.out.println("Column Name = "+colname);
+				table1+="<td>"+colname;	
+
+				
+			}
+			
+			table1+="<tr>";
+			//rs2.next();
+			
+			while(rs2.next())
+			{
+				for(int j=1;j<=colno;j++)
+				{
+					String colval = rs2.getString(j);
+					System.out.println("String = "+colval);
+					table1+="<td>"+colval;	
+					
+				}
+				
+				table1+="<tr>";
+			}
+			
+			//table1+="</table>";
+
+			
+			
+			
+			
+
+		}
+		table1+="</table>";
+		inputtables+="<br>"+table1;
+
+		
 		inputdrop+="</select>";
 		
 		inputtables+="</div>";
