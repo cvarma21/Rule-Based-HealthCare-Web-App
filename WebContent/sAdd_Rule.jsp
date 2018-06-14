@@ -17,7 +17,11 @@ function formula_open()
 	//window.open("Formula_Calculator.jsp");
 	}
 
-
+function deleted()
+{
+	
+	alert("rule successfully deleted");
+}
 </script>
 
 
@@ -38,7 +42,9 @@ String hello = request.getParameter("submit");
 
 System.out.println("Hello = "+hello);
 
-if(hello.equals("DEL RULE"))
+
+
+if(hello.equals("DEL RULE") && hello.equals("null")==false)
 {
 	
 	Class.forName("com.mysql.jdbc.Driver");
@@ -68,19 +74,36 @@ if(hello.equals("DEL RULE"))
 		System.out.println("Number of tuples in clause"+i+" = "+check);
 		
 		
-		if(rs3.equals("0"))
+		if(check.equals("0"))
 		{
+			System.out.println("Tupes = 0");
+			
 			PreparedStatement statement4=con.prepareStatement("drop table clause"+i);
+			statement4.executeUpdate();
+			System.out.println("Table dropped");
+			
+			int no1=no-1;
+			PreparedStatement statement5=con.prepareStatement("update max_clauses set no="+no1);
+			statement5.executeUpdate();
+			
+			System.out.println("New numbe rof max_clauses = "+no1);
+			
 
 		}
+		
+
+		
+		
 
 
 	}
+	response.sendRedirect("Add_Rule.jsp?io_flag=0");	
 	
 	
 
 }
-else
+else 
+	//if(hello.equals("SHOW TABLES")==false)
 {
 
 //System.out.println("inot "+input);

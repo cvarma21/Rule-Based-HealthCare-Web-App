@@ -24,6 +24,11 @@ function alertName()
 	}	
 
 }
+function deleted()
+{
+	
+	alert("Rule Successfully Deleted");
+}
 
 
 function formula_open()
@@ -88,7 +93,7 @@ while(result.next())
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Home Page</a>
 <br> <hr>
 
-<input type="submit" name="submit" value="Show tables"></input>
+<input type="submit" name="submit" value="SHOW TABLES" action="Show Tables" "></input>
 <br>
 
 <%
@@ -104,7 +109,7 @@ while(result.next())
 
 <!-- %=tables %-->
 
-<input type="submit" name="submit"  action = "hello" value="DEL RULE"></input>
+<input type="submit" name="submit"  action = "hello" value="DEL RULE" onclick="deleted()"></input>
 
 <br><hr>
 

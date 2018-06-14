@@ -12,7 +12,7 @@
 
 <% 
 System.out.println(request.getParameter("outputstring"));
-
+/*
 String hello = request.getParameter("hello");
 
 System.out.println("Hello = "+hello);
@@ -36,7 +36,7 @@ if(hello.equals("DEL RULE"))
 	System.out.println("Max clauses= "+no);
 }
 
-
+*/
 
 String[] outputvalues=(request.getParameter("outputstring")).split(",");
 
