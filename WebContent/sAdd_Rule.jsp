@@ -26,6 +26,24 @@ function deleted()
 
 
 <%
+String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.txt";
+PrintWriter outputStream = null;
+try
+{
+ outputStream = new PrintWriter(new File (filename));
+outputStream.write("Hi there file !");
+outputStream.println();
+outputStream.close();
+}
+catch(IOException e)
+{
+    System.err.println("error is: "+e.getMessage());
+}
+
+System.out.println("File Created!");
+
+
+String filemat;
 String inputstring="";
 String outputstring="";
 String inputdrop="<select id='inputdrop' name='inputdrop'>";
