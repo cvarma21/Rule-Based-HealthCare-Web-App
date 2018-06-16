@@ -28,6 +28,7 @@ function deleted()
 <%
 String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.txt";
 PrintWriter outputStream = null;
+/*
 try
 {
  outputStream = new PrintWriter(new File (filename));
@@ -41,6 +42,7 @@ catch(IOException e)
 }
 
 System.out.println("File Created!");
+*/
 
 
 Process ls=null;
@@ -49,25 +51,43 @@ String line=null;
 
     try {
 
-           ls= Runtime.getRuntime().exec(new String[]{"ls", "-l"});
+           //ls= Runtime.getRuntime().exec("z3 example1.smt");
+           
+           ls= Runtime.getRuntime().exec("z3 out.smt");
+           
            input1 = new BufferedReader(new InputStreamReader(ls.getInputStream()));
 
-        } catch (IOException e1) {
+	        } catch (IOException e1) {
             e1.printStackTrace();  
+            System.out.println("In try 1");
+            		
             System.exit(1);
         }
         
-       
+       int flag1=0;
        try {
                while( (line=input1.readLine())!=null)
+               {
                 System.out.println(line);
+                if(line.equals("sat"))
+                	flag1=1;
+                	
+                //System.out.println("In printing stage");
+               }
 
         } catch (IOException e1) {
             e1.printStackTrace();  
+            System.out.println("In try 2");
+            		
             System.exit(0);
         }         
-
-
+		if(flag1==1)
+			System.out.println("SAT");
+            		else
+            			System.out.println("UNSAT");
+            		
+            	
+            		
 String filemat;
 String inputstring="";
 String outputstring="";
