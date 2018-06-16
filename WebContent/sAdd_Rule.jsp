@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     <%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+     <%@ page import = "java.io.*,java.util.*,java.sql.*,  java.io.PrintWriter;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,6 +41,31 @@ catch(IOException e)
 }
 
 System.out.println("File Created!");
+
+
+Process ls=null;
+BufferedReader input1=null;
+String line=null;
+
+    try {
+
+           ls= Runtime.getRuntime().exec(new String[]{"ls", "-l"});
+           input1 = new BufferedReader(new InputStreamReader(ls.getInputStream()));
+
+        } catch (IOException e1) {
+            e1.printStackTrace();  
+            System.exit(1);
+        }
+        
+       
+       try {
+               while( (line=input1.readLine())!=null)
+                System.out.println(line);
+
+        } catch (IOException e1) {
+            e1.printStackTrace();  
+            System.exit(0);
+        }         
 
 
 String filemat;
