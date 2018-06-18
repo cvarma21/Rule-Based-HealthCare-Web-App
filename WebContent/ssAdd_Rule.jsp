@@ -239,14 +239,15 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	for( int k=1;k<=no1;k++)
 	{
-		PreparedStatement statement3=con.prepareStatement("select *  FROM clause"+k);
+		PreparedStatement statement3=con.prepareStatement("select *  FROM clause"+k+" order by rule_name + 0 ASC");
+		
 		ResultSet rs3=statement3.executeQuery();
 		
 		while(rs3.next())
 		{
 			int no2=rs3.getInt("rule_name");
-			//System.out.println("no = "+no2);
-			
+			System.out.println("no = "+no2);
+			/*
 			for(int l=0;l<select.length;l++)
 			{
 				int in=select[l].indexOf("_");
@@ -257,6 +258,8 @@ for(int i=1;i<=no_of_clauses;i++)
 				//outputStream.println();
 			
 			}
+			*/
+			
 			
 			
 			

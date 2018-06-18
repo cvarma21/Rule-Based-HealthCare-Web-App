@@ -278,7 +278,7 @@ try{
 		int colno;
 		for(int i=1;i<=no;i++)
 		{
-			PreparedStatement statement2=con.prepareStatement("select * from clause"+i);
+			PreparedStatement statement2=con.prepareStatement("select * from clause"+i+" order by rule_name + 0 ASC");
 			ResultSet rs2=statement2.executeQuery();
 			ResultSetMetaData rsmd = rs2.getMetaData();
 			
