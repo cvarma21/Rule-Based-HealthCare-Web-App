@@ -133,6 +133,8 @@ for(int i=1;i<=no_of_clauses;i++)
 		insert+=col+",";
 		
 	}
+	System.out.println("And here insert is = "+insert);
+	
 	if(i==1)
 	{
 		for(int x=0;x<outputvalues.length;x++)
@@ -203,8 +205,16 @@ for(int i=1;i<=no_of_clauses;i++)
 		while(rs3.next())
 		{
 			int no2=rs3.getInt("rule_name");
-			System.out.println("no = "+no);
+			//System.out.println("no = "+no2);
 			
+			for(int l=0;l<select.length;l++)
+			{
+				int in=select[l].indexOf("_");
+				String col=select[l].substring(0,in)+i;
+				System.out.println("Col = "+col);
+				
+			
+			}
 		}
 	}
 		
