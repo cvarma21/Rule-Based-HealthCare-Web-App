@@ -26,6 +26,7 @@ function deleted()
 
 
 <%
+/*
 String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.txt";
 PrintWriter outputStream = null;
 
@@ -86,11 +87,12 @@ String line=null;
             		else
             			System.out.println("UNSAT");
             		
-            	*/
+            	
             		
 outputStream.write("(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))");
 outputStream.println();
 outputStream.close();
+5*/
             		
 String filemat;
 String inputstring="";

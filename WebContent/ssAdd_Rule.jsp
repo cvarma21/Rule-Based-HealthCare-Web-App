@@ -11,7 +11,31 @@
 <body>
 
 <% 
+
+String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.txt";
+PrintWriter outputStream = null;
+
+try
+{
+ outputStream = new PrintWriter(new File (filename));
+//outputStream.write("Hi there file !");
+outputStream.println();
+//outputStream.close();
+}
+catch(IOException e)
+{
+    System.err.println("error is: "+e.getMessage());
+}
+
+System.out.println("File Created!");
+
+
+
 System.out.println(request.getParameter("outputstring"));
+
+outputStream.write("(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))");
+outputStream.println();
+//outputStream.close();
 /*
 String hello = request.getParameter("hello");
 
@@ -213,8 +237,16 @@ for(int i=1;i<=no_of_clauses;i++)
 				String col=select[l].substring(0,in)+i;
 				System.out.println("Col = "+col);
 				
+				outputStream.write("(declare-fun "+col+" () Int)");
+				outputStream.println();
 			
 			}
+			
+			outputStream.close();
+			
+			
+			
+			
 		}
 	}
 		
