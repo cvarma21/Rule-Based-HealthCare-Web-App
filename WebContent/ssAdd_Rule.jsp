@@ -211,6 +211,22 @@ for(int i=1;i<=no_of_clauses;i++)
 	}
     	
 	
+	//PreparedStatement statement111=con.prepareStatement("select * from parameters where type = 'i'");
+	PreparedStatement statement111=con.prepareStatement("select * from parameters ");
+	ResultSet rs111=statement111.executeQuery();
+	
+	while(rs111.next())
+	{
+		String para = rs111.getString("parameterName");
+		System.out.println("Parameter = "+para);
+		
+		outputStream.write("(declare-fun "+para+" () Int)");
+		outputStream.println();
+		
+	}
+	
+	//Now we have added the delarations for the input variables in the out.txt, to do the same for the putput parameters
+	
 	PreparedStatement statement2=con.prepareStatement("select * from max_clauses");
 	
 
@@ -237,17 +253,19 @@ for(int i=1;i<=no_of_clauses;i++)
 				String col=select[l].substring(0,in)+i;
 				System.out.println("Col = "+col);
 				
-				outputStream.write("(declare-fun "+col+" () Int)");
-				outputStream.println();
+				//outputStream.write("(declare-fSun "+col+" () Int)");
+				//outputStream.println();
 			
 			}
 			
-			outputStream.close();
+			
 			
 			
 			
 			
 		}
+		outputStream.close();
+		
 	}
 		
 }
