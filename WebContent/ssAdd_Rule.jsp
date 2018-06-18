@@ -185,7 +185,28 @@ for(int i=1;i<=no_of_clauses;i++)
 	}
     	
 	
+	PreparedStatement statement2=con.prepareStatement("select * from max_clauses");
 	
+
+	ResultSet rs2 = statement2.executeQuery();
+	
+	rs2.next();
+	//String no = rs1.getString(1);
+	int no1 = rs2.getInt(1);
+	System.out.println("Max clauses= "+no1);
+	
+	for( int k=1;k<=no1;k++)
+	{
+		PreparedStatement statement3=con.prepareStatement("select *  FROM clause"+k);
+		ResultSet rs3=statement3.executeQuery();
+		
+		while(rs3.next())
+		{
+			int no2=rs3.getInt("rule_name");
+			System.out.println("no = "+no);
+			
+		}
+	}
 		
 }
 
