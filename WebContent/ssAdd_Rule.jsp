@@ -236,30 +236,32 @@ for(int i=1;i<=no_of_clauses;i++)
 	//String no = rs1.getString(1);
 	int no1 = rs2.getInt(1);
 	System.out.println("Max clauses= "+no1);
-	
+	/*
 	for( int k=1;k<=no1;k++)
 	{
 		PreparedStatement statement3=con.prepareStatement("select *  FROM clause"+k+" order by rule_name + 0 ASC");
 		
 		ResultSet rs3=statement3.executeQuery();
-		
+		String col="";
 		while(rs3.next())
 		{
 			int no2=rs3.getInt("rule_name");
-			System.out.println("no = "+no2);
-			/*
+			System.out.println("No = "+no2);
+			
+			
 			for(int l=0;l<select.length;l++)
 			{
 				int in=select[l].indexOf("_");
-				String col=select[l].substring(0,in)+i;
+				 col=select[l].substring(0,in);
 				System.out.println("Col = "+col);
 				
-				//outputStream.write("(declare-fSun "+col+" () Int)");
+				//outputStream.write("(declare-fun "+col+" () Int)");
 				//outputStream.println();
 			
 			}
-			*/
-			
+			outputStream.write("(declare-fun "+col+" () Int)");
+			outputStream.println();
+			//Now try to add to the input clauses here
 			
 			
 			
@@ -270,6 +272,40 @@ for(int i=1;i<=no_of_clauses;i++)
 		outputStream.close();
 		
 	}
+	*/
+	
+	PreparedStatement statement3=con.prepareStatement("select *  FROM clause1 order by rule_name + 0 ASC");
+	
+	ResultSet rs3=statement3.executeQuery();
+	String col="";
+	while(rs3.next())
+	{
+		int no2=rs3.getInt("rule_name");
+		System.out.println("No = "+no2);
+		
+		
+		for(int l=0;l<select.length;l++)
+		{
+			int in=select[l].indexOf("_");
+			 col=select[l].substring(0,in);
+			System.out.println("Col = "+col);
+			
+			//outputStream.write("(declare-fun "+col+" () Int)");
+			//outputStream.println();
+		
+		}
+		outputStream.write("(define-fun rule"+no2+"_applies () Bool");
+		outputStream.println();
+		//Now try to add to the input clauses here
+		
+		
+		
+		
+		
+		
+	}
+	outputStream.close();
+	
 		
 }
 
