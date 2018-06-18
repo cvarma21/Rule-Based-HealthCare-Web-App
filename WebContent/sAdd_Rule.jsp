@@ -28,13 +28,13 @@ function deleted()
 <%
 String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.txt";
 PrintWriter outputStream = null;
-/*
+
 try
 {
  outputStream = new PrintWriter(new File (filename));
-outputStream.write("Hi there file !");
+//outputStream.write("Hi there file !");
 outputStream.println();
-outputStream.close();
+//outputStream.close();
 }
 catch(IOException e)
 {
@@ -42,9 +42,9 @@ catch(IOException e)
 }
 
 System.out.println("File Created!");
-*/
 
 
+/*
 Process ls=null;
 BufferedReader input1=null;
 String line=null;
@@ -86,7 +86,11 @@ String line=null;
             		else
             			System.out.println("UNSAT");
             		
-            	
+            	*/
+            		
+outputStream.write("(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))");
+outputStream.println();
+outputStream.close();
             		
 String filemat;
 String inputstring="";
@@ -139,7 +143,7 @@ if(hello.equals("DEL RULE") && hello.equals("null")==false)
 		
 		if(check.equals("0"))
 		{
-			System.out.println("Tupes = 0");
+			System.out.println("Tuples = 0");
 			
 			PreparedStatement statement4=con.prepareStatement("drop table clause"+i);
 			statement4.executeUpdate();
@@ -341,7 +345,25 @@ try{
 		outputtext+="</div>";
 		
 		inputstring=inputstring.substring(0,inputstring.length()-1);
+		
+		
 		response.sendRedirect("Add_Rule.jsp?tables="+inputtables+"&inputdrop="+inputdrop+"&outputtext="+outputtext+"&inputstring="+inputstring+"&outputstring="+outputstring);
+		
+		
+		PreparedStatement statement2=con.prepareStatement("select * from max_clauses");
+		
+
+		ResultSet rs2 = statement1.executeQuery();
+		
+		rs1.next();
+		//String no = rs1.getString(1);
+		int no1 = rs1.getInt(1);
+		System.out.println("Max clauses= "+no);
+		
+		for(int i=1;i<=no1;i++)
+		{
+			PreparedStatement statement3=con.prepareStatement("");
+		}
 }
 catch(Exception e)
 {

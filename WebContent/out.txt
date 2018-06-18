@@ -1,1 +1,2 @@
-Hi there file !
+
+(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))
