@@ -4,3 +4,17 @@
 (declare-fun def () Int)
 (declare-fun outp () Int)
 (define-fun rule1_applies () Bool (and 
+(range abc 10 20 )
+(define-fun rule2_applies () Bool (and 
+(range abc 10 20 )
+(define-fun rule3_applies () Bool (and 
+(range abc 10 20 )
+(define-fun rule4_applies () Bool (and 
+(range abc 10 20 )
+(define-fun rule5_applies () Bool (and 
+(range abc 10 20 )
+(define-fun rule6_applies () Bool (and 
+(range abc 10 20 )
+(define-fun rule7_applies () Bool (and 
+(or (range abc 10 20 )
+(range def 20 30 )

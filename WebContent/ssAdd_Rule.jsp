@@ -281,7 +281,7 @@ for(int i=1;i<=no_of_clauses;i++)
 	while(rs3.next())
 	{
 		int no2=rs3.getInt("rule_name");
-		System.out.println("No = "+no2);
+		System.out.println("Current rule No = "+no2);
 		
 		
 		for(int l=0;l<select.length;l++)
@@ -294,7 +294,11 @@ for(int i=1;i<=no_of_clauses;i++)
 			//outputStream.println();
 		
 		}
+		String temp="";
 		outputStream.write("(define-fun rule"+no2+"_applies () Bool (and " );
+		temp+="(define-fun rule"+no2+"_applies () Bool (and ";
+		
+		outputStream.println();
 		
 		PreparedStatement statement4=con.prepareStatement("select * from clause1 where rule_name='"+no2+"'");
 		System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
@@ -405,16 +409,22 @@ for(int i=1;i<=no_of_clauses;i++)
 				System.out.println("Right limit = "+rr);
 				
 				//Before writing here we need to check if the rule exists in different clauses or not
-				outputStream.write("");
+				
+				if(flag==0)// This means there is only 1 
+					outputStream.write("(range "+inp1+" "+ll+" "+rr+" )");
+				else // This means that there is more than 1
+					outputStream.write("(or (range "+inp1+" "+ll+" "+rr+" )");
+					
 				outputStream.println();
 			}
 			
-			outputStream.close();
 	
 		
 		}
 
 	}
+	outputStream.close();
+
 }
 
 if(suc==1){
