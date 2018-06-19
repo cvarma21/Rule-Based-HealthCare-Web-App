@@ -142,7 +142,8 @@ statementforupdate.executeUpdate();
 //insert query insert into clause1  (rule_name,anc1,plt1,null) values ('R2','anc_0','plt_0','null',)
 //insert query insert into clause2  (rule_name,plt2) values ('R2','plt_0')
 
-int suc=1;
+int suc=1;					 int cnt=0;
+
 for(int i=1;i<=no_of_clauses;i++)
 {
      //if i =1 total clause; 
@@ -356,6 +357,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					
 					
 					 boolean numeric1  = true;
+					 cnt=0;
 					
 					
 				       if(inpt!=null)
@@ -374,6 +376,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					if(inpt!=null && numeric1==false)
 					{
 						System.out.println("There is a value which is not null and it is equal to = "+inpt);
+						cnt++;
 						flag=1;
 						break;
 						
@@ -413,11 +416,13 @@ for(int i=1;i<=no_of_clauses;i++)
 				{
 					outputStream.write("(range "+inp1+" "+ll+" "+rr+" )");
 					temp+="(range "+inp1+" "+ll+" "+rr+" )";
+					cnt--;
 				}
 				else // This means that there is more than 1
 				{
 					outputStream.write("(or (range "+inp1+" "+ll+" "+rr+" )");
 					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
+					cnt--;
 				}
 				
 				int lb = 0, rb = 0, diff=0;
@@ -434,15 +439,19 @@ for(int i=1;i<=no_of_clauses;i++)
 				
 				if(lb>rb)
 					 diff=lb-rb;
-				while(diff>0)
+				System.out.println("cnt= "+cnt);
+				if(cnt==-1)
 				{
-					outputStream.write(")");
-					diff--;
+					while(diff>0)
+					{
+						outputStream.write(")");
+						diff--;
 
+					}
+					
 				}
 				
-				
-								outputStream.println();
+								//outputStream.println();
 			}
 			
 			//outputStream.println();
@@ -450,6 +459,8 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 		
 		}
+		outputStream.println();
+
 
 	}
 	outputStream.close();
