@@ -300,7 +300,7 @@ for(int i=1;i<=no_of_clauses;i++)
 		System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
 		
 		ResultSet rs4=statement4.executeQuery();
-		rs4.next();
+		rs4.next();// This contains the results of the query of the rule which is currenlty being produced
 		
 		ResultSetMetaData rsmd = rs3.getMetaData();
 		
@@ -332,20 +332,62 @@ for(int i=1;i<=no_of_clauses;i++)
 		        }
 	       }
 	        
-			
+			/*
 	        if(numeric)
 	            System.out.println(inp + " is a number");
 	        else
 	            System.out.println(inp + " is not a number");
+			*/
 			
 			if(inp!=null && numeric==false)
-			{
+			{	
+				//This means that the rule has atleast 1 predicate and now we need to check for the rest of the predicates
+				int flag=0;
+				for(int k=j+1;k<=colno;k++)
+				{
+					String colname1 =rsmd.getColumnName(k);
+					System.out.println("Column Name in the loop = "+colname1);
+					
+					String inpt = rs4.getString(colname1);
+					System.out.println("inpt in the loop = "+inpt);
+					
+					
+					 boolean numeric1  = true;
+					
+					
+				       if(inpt!=null)
+				       {
+				    	   try
+					        {
+					            Double num = Double.parseDouble(inpt);
+					            
+					        } 
+					        catch (NumberFormatException e)
+					        {
+					            numeric1 = false;
+					        }
+				       }
+				        
+					if(inpt!=null && numeric1==false)
+					{
+						System.out.println("There is a value which is not null and it is equal to = "+inpt);
+						flag=1;
+						break;
+						
+					}
+						
+				}
+				if(flag==0)
+					System.out.println("There is only 1");
+				else
+					System.out.println("There is more than 1");
+				
 				//This means that the string inp is the input variable and we need to access it
 				String inp1 = inp.substring(0, inp.length()-2);
 				System.out.println("Inp1 = "+inp1);
 				
 				PreparedStatement statement5=con.prepareStatement("select * from "+inp1+" where id = '"+inp+"'");
-				ResultSet rs5=statement5.executeQuery();
+				ResultSet rs5=statement5.executeQuery();//This contains the result of the query which contains the limits
 				
 				rs5.next();
 				
