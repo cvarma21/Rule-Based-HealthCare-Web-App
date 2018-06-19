@@ -294,8 +294,35 @@ for(int i=1;i<=no_of_clauses;i++)
 			//outputStream.println();
 		
 		}
-		outputStream.write("(define-fun rule"+no2+"_applies () Bool");
+		outputStream.write("(define-fun rule"+no2+"_applies () Bool (and " );
 		outputStream.println();
+		
+		PreparedStatement statement4=con.prepareStatement("select * from clause1 where rule_name='"+no2+"'");
+		System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
+		
+		ResultSet rs4=statement4.executeQuery();
+		rs4.next();
+		
+		ResultSetMetaData rsmd = rs3.getMetaData();
+		
+		int colno = rsmd.getColumnCount();
+		System.out.println("Number of columns = "+colno);
+		
+		
+		
+		for(int j=1;j<=colno;j++)
+		{
+			String colname =rsmd.getColumnName(j);
+			System.out.println("Column Name = "+colname);
+			
+			String inp = rs4.getString(colname);
+			System.out.println("inp = "+inp);
+			
+			if(inp!=null &&)
+			
+			
+		}
+		
 		//Now try to add to the input clauses here
 		
 		
