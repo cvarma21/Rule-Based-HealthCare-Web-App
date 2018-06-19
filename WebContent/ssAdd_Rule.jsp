@@ -317,33 +317,52 @@ for(int i=1;i<=no_of_clauses;i++)
 			
 			String inp = rs4.getString(colname);
 			System.out.println("inp = "+inp);
+			boolean numeric  = true;
 			
-			if(inp!=null &&)
 			
+	       if(inp!=null)
+	       {
+	    	   try
+		        {
+		            Double num = Double.parseDouble(inp);
+		            
+		        } 
+		        catch (NumberFormatException e)
+		        {
+		            numeric = false;
+		        }
+	       }
+	        
 			
-		}
-		
-		//Now try to add to the input clauses here
-		
-		
-		
-		
-		
-		
-	}
-	outputStream.close();
+	        if(numeric)
+	            System.out.println(inp + " is a number");
+	        else
+	            System.out.println(inp + " is not a number");
+			
+			if(inp!=null && numeric==false)
+			{
+				//This means that the string inp is the input variable and we need to access it
+				String inp1 = inp.substring(0, inp.length()-2);
+				System.out.println("Inp1 = "+inp1);
+				
+				//PreparedStatement statement4=con.prepareStatement("select * from "+ where rule_name='"+no2+"'");
+
+				
+			}
+			
+			outputStream.close();
 	
 		
+		}
+
+	}
 }
 
-
-
 if(suc==1){
-%><a href="Add_Rule.jsp">Success ! Go to Add rule page</a>
-<%}else {%>
-<a href="Add_Rule.jsp">Fail! Try again</a>
-<%} %>
-
+			%><a href="Add_Rule.jsp">Success ! Go to Add rule page</a>
+			<%}else {%>
+			<a href="Add_Rule.jsp">Fail! Try again</a>
+			<%} %>
 
 
 </body>
