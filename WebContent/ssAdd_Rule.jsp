@@ -298,7 +298,6 @@ for(int i=1;i<=no_of_clauses;i++)
 		outputStream.write("(define-fun rule"+no2+"_applies () Bool (and " );
 		temp+="(define-fun rule"+no2+"_applies () Bool (and ";
 		
-		outputStream.println();
 		
 		PreparedStatement statement4=con.prepareStatement("select * from clause1 where rule_name='"+no2+"'");
 		System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
@@ -411,13 +410,43 @@ for(int i=1;i<=no_of_clauses;i++)
 				//Before writing here we need to check if the rule exists in different clauses or not
 				
 				if(flag==0)// This means there is only 1 
+				{
 					outputStream.write("(range "+inp1+" "+ll+" "+rr+" )");
+					temp+="(range "+inp1+" "+ll+" "+rr+" )";
+				}
 				else // This means that there is more than 1
+				{
 					outputStream.write("(or (range "+inp1+" "+ll+" "+rr+" )");
+					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
+				}
+				
+				int lb = 0, rb = 0, diff=0;
+				for(int l=0;l<temp.length();l++)
+				{
+					char ch = temp.charAt(l);
+					if(ch=='(')
+							lb++;
+					else if(ch==')')
+						rb++;
 					
-				outputStream.println();
+					
+				}
+				
+				if(lb>rb)
+					 diff=lb-rb;
+				while(diff>0)
+				{
+					outputStream.write(")");
+					diff--;
+
+				}
+				
+				
+								outputStream.println();
 			}
 			
+			//outputStream.println();
+
 	
 		
 		}
