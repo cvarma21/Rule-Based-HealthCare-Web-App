@@ -295,7 +295,6 @@ for(int i=1;i<=no_of_clauses;i++)
 		
 		}
 		outputStream.write("(define-fun rule"+no2+"_applies () Bool (and " );
-		outputStream.println();
 		
 		PreparedStatement statement4=con.prepareStatement("select * from clause1 where rule_name='"+no2+"'");
 		System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
@@ -348,6 +347,8 @@ for(int i=1;i<=no_of_clauses;i++)
 				PreparedStatement statement5=con.prepareStatement("select * from "+inp1+" where id = '"+inp+"'");
 				ResultSet rs5=statement5.executeQuery();
 				
+				rs5.next();
+				
 				String inp1l = inp1+"L";
 				String inp1r = inp1+"R";
 				
@@ -360,8 +361,10 @@ for(int i=1;i<=no_of_clauses;i++)
 				
 				System.out.println("Left limit = "+ll);
 				System.out.println("Right limit = "+rr);
-
 				
+				//Before writing here we need to check if the rule exists in different clauses or not
+				outputStream.write("");
+				outputStream.println();
 			}
 			
 			outputStream.close();
