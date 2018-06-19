@@ -424,7 +424,97 @@ for(int i=1;i<=no_of_clauses;i++)
 					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
 					cnt--;
 				}
-				
+				/*
+				for(int m=2;m<=no1;m++)
+				{
+					System.out.println("Currently in clause = "+m);
+					PreparedStatement statement6=con.prepareStatement("select * from clause"+m+" where rule_name = '"+no2+"'");
+					ResultSet rs6=statement6.executeQuery();
+					
+					rs6.next();
+					
+
+					ResultSetMetaData rsmd1 = rs6.getMetaData();
+					
+					colno = rsmd1.getColumnCount();
+					System.out.println("Number of columns = "+colno);
+					
+					for(int n=1;n<=colno;n++)
+					{
+						colname =rsmd1.getColumnName(n);
+						System.out.println("Column Name = "+colname);
+						rs6.next();
+						String inpx = rs6.getString(colname);
+						System.out.println("inp = "+inpx);
+						numeric  = true;
+						
+						
+				       if(inpx!=null)
+				       {
+				    	   try
+					        {
+					            Double num = Double.parseDouble(inp);
+					            
+					        } 
+					        catch (NumberFormatException e)
+					        {
+					            numeric = false;
+					        }
+				       }
+				        
+						/*
+				        if(numeric)
+				            System.out.println(inp + " is a number");
+				        else
+				            System.out.println(inp + " is not a number");
+						
+						
+						if(inpx!=null && numeric==false)
+						{	
+							//This means that the rule has atleast 1 predicate and now we need to check for the rest of the predicates
+							 flag=0;
+							for(int o=n+1;o<=colno;n++)
+							{
+								String colname1 =rsmd.getColumnName(o);
+								System.out.println("Column Name in the loop = "+colname1);
+								
+								String inpt = rs4.getString(colname1);
+								System.out.println("inpt in the loop = "+inpt);
+								
+								
+								 boolean numeric1  = true;
+								 cnt=0;
+								
+								
+							       if(inpt!=null)
+							       {
+							    	   try
+								        {
+								            Double num = Double.parseDouble(inpt);
+								            
+								        } 
+								        catch (NumberFormatException e)
+								        {
+								            numeric1 = false;
+								        }
+							       }
+							        
+								if(inpt!=null && numeric1==false)
+								{
+									System.out.println("There is a value which is not null and it is equal to = "+inpt);
+									cnt++;
+									flag=1;
+									break;
+									
+								}
+									
+							}
+						}
+					}
+					
+
+				}
+				*/
 				int lb = 0, rb = 0, diff=0;
 				for(int l=0;l<temp.length();l++)
 				{
