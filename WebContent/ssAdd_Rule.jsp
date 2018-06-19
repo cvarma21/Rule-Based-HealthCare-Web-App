@@ -345,7 +345,21 @@ for(int i=1;i<=no_of_clauses;i++)
 				String inp1 = inp.substring(0, inp.length()-2);
 				System.out.println("Inp1 = "+inp1);
 				
-				//PreparedStatement statement4=con.prepareStatement("select * from "+ where rule_name='"+no2+"'");
+				PreparedStatement statement5=con.prepareStatement("select * from "+inp1+" where id = '"+inp+"'");
+				ResultSet rs5=statement5.executeQuery();
+				
+				String inp1l = inp1+"L";
+				String inp1r = inp1+"R";
+				
+				System.out.println("inp1l = "+inp1l);
+				System.out.println("inp1r = "+inp1r);
+				
+				
+				int ll = rs5.getInt(inp1l);
+				int rr = rs5.getInt(inp1r);
+				
+				System.out.println("Left limit = "+ll);
+				System.out.println("Right limit = "+rr);
 
 				
 			}
