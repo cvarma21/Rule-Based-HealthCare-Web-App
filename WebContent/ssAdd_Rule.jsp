@@ -212,6 +212,7 @@ for(int i=1;i<=no_of_clauses;i++)
     	
 	
 	//PreparedStatement statement111=con.prepareStatement("select * from parameters where type = 'i'");
+	
 	PreparedStatement statement111=con.prepareStatement("select * from parameters ");
 	ResultSet rs111=statement111.executeQuery();
 	
@@ -234,7 +235,7 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	rs2.next();
 	//String no = rs1.getString(1);
-	int no1 = rs2.getInt(1);
+	int no1 = rs2.getInt(1); //No1 holds the quantity of max_clauses
 	//System.out.println("Max clauses= "+no1);
 	/*
 	for( int k=1;k<=no1;k++)
@@ -276,12 +277,12 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	PreparedStatement statement3=con.prepareStatement("select *  FROM clause1 order by rule_name + 0 ASC");
 	
-	ResultSet rs3=statement3.executeQuery();
+	ResultSet rs3=statement3.executeQuery();//rs3 contains the rules in ascending order 
 	String col="";
 	while(rs3.next())
 	{
 		int no2=rs3.getInt("rule_name");
-		//System.out.println("Current rule No = "+no2);
+		System.out.println("Current rule No = "+no2);
 		
 		
 		for(int l=0;l<select.length;l++)
@@ -302,7 +303,7 @@ for(int i=1;i<=no_of_clauses;i++)
 		PreparedStatement statement4=con.prepareStatement("select * from clause1 where rule_name='"+no2+"'");
 		//System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
 		
-		ResultSet rs4=statement4.executeQuery();
+		ResultSet rs4=statement4.executeQuery();//rs4 contains the specific rule 
 		rs4.next();// This contains the results of the query of the rule which is currenlty being produced
 		
 		ResultSetMetaData rsmd = rs3.getMetaData();
@@ -321,7 +322,7 @@ for(int i=1;i<=no_of_clauses;i++)
 			//System.out.println("inp = "+inp);
 			boolean numeric  = true;
 			
-			
+			//check if inp is a number or a string
 	       if(inp!=null)
 	       {
 	    	   try
@@ -358,7 +359,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					 boolean numeric1  = true;
 					 cnt=0;
 					
-					
+					//check if inpt is a number or a string
 				       if(inpt!=null)
 				       {
 				    	   try
@@ -371,7 +372,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					            numeric1 = false;
 					        }
 				       }
-				        
+				        //check if it is not null and a string
 					if(inpt!=null && numeric1==false)
 					{
 						//System.out.println("There is a value which is not null and it is equal to = "+inpt);
@@ -426,7 +427,193 @@ for(int i=1;i<=no_of_clauses;i++)
 					cnt--;
 				}
 				System.out.println("No1 = "+no1);
-				
+			}
+		}
+		// Now we will check the same rule for other clauses/tables - run a loop for the number of clauses
+		for(int m = 2;m<=no1;m++)
+		{
+			System.out.println("In clause = "+m);
+			
+			PreparedStatement statement6=con.prepareStatement("select * from clause"+m+" where rule_name = '"+no2+"'");
+			ResultSet rs6=statement6.executeQuery();
+			ResultSetMetaData rsmd1 = rs6.getMetaData();
+			
+			while(rs6.next())
+			{
+				// IN the specific rule
+				colno = rsmd1.getColumnCount();
+						System.out.println("Number of columns = "+colno);
+						String inpx="";
+						
+				for(int n=1;n<=colno;n++)
+						{
+							int flag=1;
+							System.out.println("Value of N currently is = "+n);
+							String colname =rsmd1.getColumnName(n);
+							
+							inpx = rs6.getString(colname);
+							System.out.println("inpx = "+inpx);
+							boolean numeric  = true;
+						
+							if(inpx!=null)
+						       {
+						    	   try
+							        {
+							            Double num = Double.parseDouble(inpx);
+							            
+							        } 
+							        catch (NumberFormatException e)
+							        {
+							            numeric = false;
+							        }
+						       }
+						     /*
+							if(inpx!=null && numeric==false && first==1)
+							{
+								//At least 1 clause not null and this is the first time we have found a non null predicate
+								first=0;
+							}
+							
+							if(inpx!=null && numeric==false && first==0)
+							{
+								
+							}
+							*/
+							
+							if(inpx!=null && numeric==false)
+							{
+								
+								int flast=1;
+								for(int o=n+1;o<=colno;o++)
+								{	
+									flast=0;  flag=1;
+									String colname1 =rsmd1.getColumnName(o);
+									System.out.println("Column Name in the loop = "+colname1);
+									
+									 inpx = rs6.getString(colname1);
+									System.out.println("inpx in the loop = "+inpx);
+									
+									
+									 boolean numeric1  = true;
+									 cnt=0;
+									
+									
+								       if(inpx!=null)
+								       {
+								    	   try
+									        {
+									            Double num = Double.parseDouble(inpx);
+									            
+									        } 
+									        catch (NumberFormatException e)
+									        {
+									            numeric1 = false;
+									        }
+								       }
+								        
+									if(inpx!=null && numeric1==false)
+									{
+										System.out.println("There is a value which is not null and it is equal to = "+inpx);
+										cnt++;
+										flag=1;
+										break;
+										
+									}
+										
+								}
+								if(flast==1)
+								{
+									String inp2 = inpx.substring(0, inpx.length()-2);
+									//System.out.println("Inp1 = "+inp1);
+									
+									PreparedStatement statement7=con.prepareStatement("select * from "+inp2+" where id = '"+inpx+"'");
+									ResultSet rs7=statement7.executeQuery();//This contains the result of the query which contains the limits
+									
+									rs7.next();
+									
+									String inp1l = inp2+"L";
+									String inp1r = inp2+"R";
+									
+									//System.out.println("inp1l = "+inp1l);
+									//System.out.println("inp1r = "+inp1r);
+									
+									
+									int ll = rs7.getInt(inp1l);
+									int rr = rs7.getInt(inp1r);
+									
+									System.out.println("Left limit = "+ll);
+									System.out.println("Right limit = "+rr);
+									
+									outputStream.write("(range "+inp2+" "+ll+" "+rr);
+									//no1=0;
+									//
+								}
+								if(flag==1 && flast==0)
+								{
+									outputStream.write("( and");
+									
+									for(int o=1;o<=colno;o++)
+									{
+										String colname1 =rsmd1.getColumnName(o);
+										System.out.println("Column Name in the loop = "+colname1);
+										
+										 inpx = rs6.getString(colname1);
+										System.out.println("inpx in the loop = "+inpx);
+										
+										
+										 boolean numeric1  = true;
+										 cnt=0;
+										
+										
+									       if(inpx!=null)
+									       {
+									    	   try
+										        {
+										            Double num = Double.parseDouble(inpx);
+										            
+										        } 
+										        catch (NumberFormatException e)
+										        {
+										            numeric1 = false;
+										        }
+									       }
+									        
+										if(inpx!=null && numeric1==false)
+										{
+											String inp2 = inpx.substring(0, inpx.length()-2);
+											//System.out.println("Inp1 = "+inp1);
+											
+											PreparedStatement statement7=con.prepareStatement("select * from "+inp2+" where id = '"+inpx+"'");
+											ResultSet rs7=statement7.executeQuery();//This contains the result of the query which contains the limits
+											
+											rs7.next();
+											
+											String inp1l = inp2+"L";
+											String inp1r = inp2+"R";
+											
+											//System.out.println("inp1l = "+inp1l);
+											//System.out.println("inp1r = "+inp1r);
+											
+											
+											int ll = rs7.getInt(inp1l);
+											int rr = rs7.getInt(inp1r);
+											
+											System.out.println("Left limit = "+ll);
+											System.out.println("Right limit = "+rr);
+											
+											outputStream.write("(range "+inp2+" "+ll+" "+rr);
+											
+										}
+									}
+									no1=0;
+									//This means that we have a extra predicate and not only 1
+																	
+								}
+							}
+						}
+			}
+		}
+			/*
 				for(int m=2;m<=no1;m++)
 				{
 					System.out.println("In clause = "+m);
@@ -474,7 +661,7 @@ for(int i=1;i<=no_of_clauses;i++)
 							{
 								
 							}
-							*/
+							
 							
 							if(inpx!=null && numeric==false)
 							{
@@ -930,22 +1117,16 @@ for(int i=1;i<=no_of_clauses;i++)
 					
 				}
 				
-								//outputStream.println();
+								outputStream.println();
 			}
 			
-			//outputStream.println();
+			outputStream.println();
 
-	
-		
-		}
-		outputStream.println();
-
-
-	}
 	outputStream.close();
-	
 
-	}
+		
+}
+
 
 if(suc==1){
 			%><a href="Add_Rule.jsp">Success ! Go to Add rule page</a>
