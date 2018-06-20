@@ -424,27 +424,30 @@ for(int i=1;i<=no_of_clauses;i++)
 					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
 					cnt--;
 				}
-				/*
+				
 				for(int m=2;m<=no1;m++)
 				{
 					System.out.println("Currently in clause = "+m);
 					PreparedStatement statement6=con.prepareStatement("select * from clause"+m+" where rule_name = '"+no2+"'");
 					ResultSet rs6=statement6.executeQuery();
 					
-					rs6.next();
 					
 
 					ResultSetMetaData rsmd1 = rs6.getMetaData();
 					
+					//rs6.next();
+
+					
 					colno = rsmd1.getColumnCount();
 					System.out.println("Number of columns = "+colno);
-					
+					String inpx="";
 					for(int n=1;n<=colno;n++)
 					{
 						colname =rsmd1.getColumnName(n);
 						System.out.println("Column Name = "+colname);
 						rs6.next();
-						String inpx = rs6.getString(colname);
+						if(rs6.next()!=false)
+						 inpx = rs6.getString(colname);
 						System.out.println("inp = "+inpx);
 						numeric  = true;
 						
@@ -462,7 +465,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					        }
 				       }
 				        
-						/*
+						
 				        if(numeric)
 				            System.out.println(inp + " is a number");
 				        else
@@ -473,7 +476,7 @@ for(int i=1;i<=no_of_clauses;i++)
 						{	
 							//This means that the rule has atleast 1 predicate and now we need to check for the rest of the predicates
 							 flag=0;
-							for(int o=n+1;o<=colno;n++)
+							for(int o=n+1;o<=colno;o++)
 							{
 								String colname1 =rsmd.getColumnName(o);
 								System.out.println("Column Name in the loop = "+colname1);
@@ -514,7 +517,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					
 
 				}
-				*/
+				
 				int lb = 0, rb = 0, diff=0;
 				for(int l=0;l<temp.length();l++)
 				{
