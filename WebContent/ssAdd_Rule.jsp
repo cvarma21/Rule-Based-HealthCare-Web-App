@@ -428,18 +428,30 @@ for(int i=1;i<=no_of_clauses;i++)
 				}
 				System.out.println("No1 = "+no1);
 			}
+
 		}
+		outputStream.write(")");
+
 		// Now we will check the same rule for other clauses/tables - run a loop for the number of clauses
 		for(int m = 2;m<=no1;m++)
-		{
-			System.out.println("In clause = "+m);
+		{	ResultSet rs6=null;
+			System.out.println("In clause = "+m+"and the value of no2 = "+no2);
 			
 			PreparedStatement statement6=con.prepareStatement("select * from clause"+m+" where rule_name = '"+no2+"'");
-			ResultSet rs6=statement6.executeQuery();
+			try{
+			 rs6=statement6.executeQuery();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Some random exception");
+				
+			}
 			ResultSetMetaData rsmd1 = rs6.getMetaData();
 			
 			while(rs6.next())
 			{
+				System.out.println("In the rs6 loop");
+				//rs6.next();
 				// IN the specific rule
 				colno = rsmd1.getColumnCount();
 						System.out.println("Number of columns = "+colno);
@@ -612,6 +624,7 @@ for(int i=1;i<=no_of_clauses;i++)
 								}
 							}
 						}
+				//rs6.next();
 			}
 		}
 			/*
