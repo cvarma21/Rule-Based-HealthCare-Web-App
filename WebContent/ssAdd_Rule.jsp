@@ -550,6 +550,7 @@ for(int i=1;i<=no_of_clauses;i++)
 								}
 								if(flag==1 && flast==0)
 								{
+									System.out.println("It was not the last and that is why we are here");
 									outputStream.write("( and");
 									
 									for(int o=1;o<=colno;o++)
@@ -605,7 +606,7 @@ for(int i=1;i<=no_of_clauses;i++)
 											
 										}
 									}
-									no1=0;
+									//no1=0;
 									//This means that we have a extra predicate and not only 1
 																	
 								}
