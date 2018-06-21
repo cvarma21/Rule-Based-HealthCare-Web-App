@@ -34,7 +34,7 @@ System.out.println("File Created!");
 System.out.println(request.getParameter("outputstring"));
 
 outputStream.write("(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))");
-outputStream.println();
+//outputStream.println();
 //outputStream.close();
 /*
 String hello = request.getParameter("hello");
@@ -210,7 +210,8 @@ for(int i=1;i<=no_of_clauses;i++)
 		System.out.println("Exception "+e);
 	}
     	
-	
+
+
 	//PreparedStatement statement111=con.prepareStatement("select * from parameters where type = 'i'");
 	
 	PreparedStatement statement111=con.prepareStatement("select * from parameters ");
@@ -221,8 +222,11 @@ for(int i=1;i<=no_of_clauses;i++)
 		String para = rs111.getString("parameterName");
 		//System.out.println("Parameter = "+para);
 		
+		if(i==no_of_clauses)
+		{
 		outputStream.write("(declare-fun "+para+" () Int)");
 		outputStream.println();
+		}
 		
 	}
 	
@@ -236,44 +240,7 @@ for(int i=1;i<=no_of_clauses;i++)
 	rs2.next();
 	//String no = rs1.getString(1);
 	int no1 = rs2.getInt(1); //No1 holds the quantity of max_clauses
-	//System.out.println("Max clauses= "+no1);
-	/*
-	for( int k=1;k<=no1;k++)
-	{
-		PreparedStatement statement3=con.prepareStatement("select *  FROM clause"+k+" order by rule_name + 0 ASC");
-		
-		ResultSet rs3=statement3.executeQuery();
-		String col="";
-		while(rs3.next())
-		{
-			int no2=rs3.getInt("rule_name");
-			System.out.println("No = "+no2);
-			
-			
-			for(int l=0;l<select.length;l++)
-			{
-				int in=select[l].indexOf("_");
-				 col=select[l].substring(0,in);
-				System.out.println("Col = "+col);
-				
-				//outputStream.write("(declare-fun "+col+" () Int)");
-				//outputStream.println();
-			
-			}
-			outputStream.write("(declare-fun "+col+" () Int)");
-			outputStream.println();
-			//Now try to add to the input clauses here
-			
-			
-			
-			
-			
-			
-		}
-		outputStream.close();
-		
-	}
-	*/
+	
 	
 	PreparedStatement statement3=con.prepareStatement("select *  FROM clause1 order by rule_name + 0 ASC");
 	
@@ -296,9 +263,11 @@ for(int i=1;i<=no_of_clauses;i++)
 		
 		}
 		String temp="";
+		if(i==no_of_clauses)
+		{
 		outputStream.write("(define-fun rule"+no2+"_applies () Bool (and " );
 		temp+="(define-fun rule"+no2+"_applies () Bool (and ";
-		
+		}
 		
 		PreparedStatement statement4=con.prepareStatement("select * from clause1 where rule_name='"+no2+"'");
 		//System.out.println("The query is = select * from clause1 where rule_name='"+no2+"'");
@@ -416,16 +385,22 @@ for(int i=1;i<=no_of_clauses;i++)
 				
 				if(flag==0)// This means there is only 1 
 				{
+					if(i==no_of_clauses)
+					{
 					outputStream.write("(range "+inp1+" "+ll+" "+rr+" )");
 					temp+="(range "+inp1+" "+ll+" "+rr+" )";
+					}
 					cnt--;
 					System.out.println("We are printing the range here - xyz flag");
 
 				}
 				else // This means that there is more than 1
 				{
+					if(i==no_of_clauses)
+					{
 					outputStream.write("(or (range "+inp1+" "+ll+" "+rr+" )");
 					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
+					}
 					cnt--;
 					System.out.println("We are printing the range here - abc flag");
 
@@ -434,6 +409,7 @@ for(int i=1;i<=no_of_clauses;i++)
 			}
 
 		}
+		if(i==no_of_clauses)
 		outputStream.write(")");
 
 		// Now we will check the same rule for other clauses/tables - run a loop for the number of clauses
@@ -488,15 +464,16 @@ for(int i=1;i<=no_of_clauses;i++)
 						       }
 						   
 							//int check=0;
-
+							String inpxx="";
 							if(inpx!=null && numeric==false)
 							{	
 								
 								
-								
+								inpxx=inpx;
 								flast=1;
 								int flaganother=0;
 								//check=1;
+								//for the last predicate of the table this will not run
 								for(int o=n+1;o<=colno;o++)
 								{	
 									//check=0;
@@ -538,11 +515,76 @@ for(int i=1;i<=no_of_clauses;i++)
 									}
 										
 								}
-								
+								if(flaganother==0 && inpxx!=null)
+								{
+									System.out.println("There is no other variable in this table");
+									
+									String inp2 = inpxx.substring(0, inpxx.length()-2);
+									//System.out.println("Inp1 = "+inp1);
+									
+									PreparedStatement statement7=con.prepareStatement("select * from "+inp2+" where id = '"+inpxx+"'");
+									ResultSet rs7=statement7.executeQuery();//This contains the result of the query which contains the limits
+									
+									rs7.next();
+									
+									String inp1l = inp2+"L";
+									String inp1r = inp2+"R";
+									
+									//System.out.println("inp1l = "+inp1l);
+									//System.out.println("inp1r = "+inp1r);
+									
+									
+									int ll = rs7.getInt(inp1l);
+									int rr = rs7.getInt(inp1r);
+									
+									System.out.println("Left limit = "+ll);
+									System.out.println("Right limit = "+rr);
+									
+									System.out.println("Inp2 in inpxx = "+inp2);
+									if(i==no_of_clauses)
+									{
+									outputStream.write("(range "+inp2+" "+ll+" "+rr+")");
+									temp+="(range "+inp2+" "+ll+" "+rr+")";
+									}
+									System.out.println("We are printing the range here in inpxx");
+									/*
+									System.out.println("The value of cnt in inpxx = "+cnt);
+									
+									cnt=-1;
+									int lb = 0, rb = 0, diff=0;
+									for(int l=0;l<temp.length();l++)
+									{
+										char ch = temp.charAt(l);
+										if(ch=='(')
+												lb++;
+										else if(ch==')')
+											rb++;
+										
+										
+									}
+									
+									if(lb>rb)
+										 diff=lb-rb;
+									System.out.println("cnt= "+cnt);
+									if(cnt==-1)
+									{
+										while(diff>0)
+										{
+											outputStream.write(")");
+											diff--;
+
+										}
+										
+									}*/
+									
+									
+									
+								}
 								if(flaganother==1 && flast==0)// if there is another variable and it is not the last of the table
 								{
 									System.out.println("It was not the last and that is why we are here");
 									//outputStream.write("( ");
+									if(i==no_of_clauses)
 									outputStream.write("( or");
 									System.out.println("We are printing or here");
 									for(int o=1;o<=colno;o++)
@@ -593,12 +635,15 @@ for(int i=1;i<=no_of_clauses;i++)
 											
 											System.out.println("Left limit = "+ll);
 											System.out.println("Right limit = "+rr);
-											
+											if(i==no_of_clauses)
+											{
 											outputStream.write("(range "+inp2+" "+ll+" "+rr+")");
 											System.out.println("We are printing the range here");
-											
+											}
+											cnt=-1;
 											check=1;
 											flast=0;
+											n=colno+1;
 										}
 										
 										//here
@@ -621,6 +666,7 @@ for(int i=1;i<=no_of_clauses;i++)
 										{
 											while(diff>0)
 											{
+												if(i==no_of_clauses)
 												outputStream.write(")");
 												diff--;
 
@@ -662,9 +708,11 @@ for(int i=1;i<=no_of_clauses;i++)
 										
 										System.out.println("Left limit = "+ll);
 										System.out.println("Right limit = "+rr);
-										
+										if(i==no_of_clauses)
+										{
 										outputStream.write("(range "+inp2+" "+ll+" "+rr);
 										System.out.println("We are printing the range here - 111 flag");
+										}
 
 										//no1=0;
 										//
@@ -697,22 +745,26 @@ for(int i=1;i<=no_of_clauses;i++)
 				{
 					while(diff>0)
 					{
+						if(i==no_of_clauses)
+						{
 						outputStream.write(")");
+						}
 						diff--;
+						
 
 					}
 					
 				}
-				
+								if(i==no_of_clauses)
 								outputStream.println();
 			}
 			
 			outputStream.println();
 
-			outputStream.close();
 
 		
 }
+outputStream.close();
 
 
 if(suc==1){
