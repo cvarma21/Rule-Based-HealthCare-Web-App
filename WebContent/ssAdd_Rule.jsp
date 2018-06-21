@@ -412,7 +412,11 @@ for(int i=1;i<=no_of_clauses;i++)
 
 		}
 		if(i==no_of_clauses)
-		outputStream.write(")");
+		{
+			System.out.println("Printing at 3");
+			outputStream.write(")");
+			temp+=")";
+		}
 
 		// Now we will check the same rule for other clauses/tables - run a loop for the number of clauses
 		for(int m = 2;m<=no1;m++)
@@ -587,7 +591,10 @@ for(int i=1;i<=no_of_clauses;i++)
 									System.out.println("It was not the last and that is why we are here");
 									//outputStream.write("( ");
 									if(i==no_of_clauses)
-									outputStream.write("(or ");
+									{
+										outputStream.write("(or ");
+										temp+="(or ";
+									}
 									System.out.println("We are printing or here");
 									for(int o=1;o<=colno;o++)
 									{
@@ -640,6 +647,7 @@ for(int i=1;i<=no_of_clauses;i++)
 											if(i==no_of_clauses)
 											{
 											outputStream.write("(range "+inp2+" "+ll+" "+rr+")");
+											temp+="(range "+inp2+" "+ll+" "+rr+")";
 											System.out.println("We are printing the range here");
 											}
 											cnt=-1;
@@ -713,6 +721,7 @@ for(int i=1;i<=no_of_clauses;i++)
 										if(i==no_of_clauses)
 										{
 										outputStream.write("(range "+inp2+" "+ll+" "+rr);
+										temp+="(range "+inp2+" "+ll+" "+rr;
 										System.out.println("We are printing the range here - 111 flag");
 										}
 
@@ -720,7 +729,12 @@ for(int i=1;i<=no_of_clauses;i++)
 										//
 									}
 									//checking here
-									outputStream.write(")");
+									if(i==no_of_clauses)//change from ! to equal
+									{
+										System.out.println("Printing at 1");
+										outputStream.write(")");
+										temp+=")";
+									}
 						
 								}
 							}
@@ -751,7 +765,9 @@ for(int i=1;i<=no_of_clauses;i++)
 					{
 						if(i==no_of_clauses)
 						{
-						outputStream.write(")");
+							System.out.println("Printing at 2");
+							outputStream.write(")");
+							temp+=")";
 						}
 						diff--;
 						
@@ -760,10 +776,15 @@ for(int i=1;i<=no_of_clauses;i++)
 					
 				}
 								if(i==no_of_clauses)
-								outputStream.println();
+								{
+									outputStream.println();
+									System.out.println("Printing in the next line 1");
+								}
 			}
 			
 			outputStream.println();
+			System.out.println("Printing in the next line 2");
+			
 
 
 		
