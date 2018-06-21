@@ -387,7 +387,9 @@ for(int i=1;i<=no_of_clauses;i++)
 				{
 					if(i==no_of_clauses)
 					{
-					outputStream.write("(range "+inp1+" "+ll+" "+rr+" )");
+					//outputStream.write("(range "+inp1+" "+ll+" "+rr);
+					outputStream.write("(range "+inp1+" "+ll+" "+rr+")");
+
 					temp+="(range "+inp1+" "+ll+" "+rr+" )";
 					}
 					cnt--;
@@ -585,7 +587,7 @@ for(int i=1;i<=no_of_clauses;i++)
 									System.out.println("It was not the last and that is why we are here");
 									//outputStream.write("( ");
 									if(i==no_of_clauses)
-									outputStream.write("( or");
+									outputStream.write("(or ");
 									System.out.println("We are printing or here");
 									for(int o=1;o<=colno;o++)
 									{
@@ -645,7 +647,7 @@ for(int i=1;i<=no_of_clauses;i++)
 											flast=0;
 											n=colno+1;
 										}
-										
+										/*
 										//here
 										int lb = 0, rb = 0, diff=0;
 										for(int l=0;l<temp.length();l++)
@@ -673,7 +675,7 @@ for(int i=1;i<=no_of_clauses;i++)
 											}
 											
 										}
-										
+										*/
 									}
 									
 
@@ -717,7 +719,9 @@ for(int i=1;i<=no_of_clauses;i++)
 										//no1=0;
 										//
 									}
-																
+									//checking here
+									outputStream.write(")");
+						
 								}
 							}
 						}
