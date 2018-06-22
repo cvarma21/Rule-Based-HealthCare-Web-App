@@ -754,8 +754,10 @@ for(int i=1;i<=no_of_clauses;i++)
 										//no1=0;
 										//
 									}
+									// inset here
+									
 									//checking here
-									if(i==no_of_clauses && check==0)//change from ! to equal
+									if(i!=1 && check==0 && n==(colno+1))//change from ! to equal
 									{
 										System.out.println("Printing at 1 just a single bracket");
 										outputStream.write(")");
