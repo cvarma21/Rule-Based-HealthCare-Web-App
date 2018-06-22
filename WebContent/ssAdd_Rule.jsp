@@ -281,9 +281,11 @@ for(int i=1;i<=no_of_clauses;i++)
 		//System.out.println("Number of columns = "+colno);
 		
 		
-		
+		int lflag=0;
 		for(int j=1;j<=colno;j++)
 		{
+			System.out.println("We are in 1 ");
+			
 			String colname =rsmd.getColumnName(j);
 			//System.out.println("Column Name = "+colname);
 			
@@ -312,12 +314,20 @@ for(int i=1;i<=no_of_clauses;i++)
 	            System.out.println(inp + " is not a number");
 			*/
 			 fin=0;
+			
 			if(inp!=null && numeric==false && fin==0)
 			{	
 				//This means that the rule has atleast 1 predicate and now we need to check for the rest of the predicates
-				int flag=0;
+				int flagx=0;
+			
 				for(int k=j+1;k<=colno;k++)
-				{
+				{	
+					System.out.println("We are in 2");
+					
+					System.out.println("STarting val of flagx = "+flagx);
+					System.out.println("Starting val of lflag = "+lflag);
+					if(flagx==1)
+						lflag=1;
 					String colname1 =rsmd.getColumnName(k);
 					//System.out.println("Column Name in the loop = "+colname1);
 					
@@ -342,16 +352,19 @@ for(int i=1;i<=no_of_clauses;i++)
 					        }
 				       }
 				        //check if it is not null and a string
-					if(inpt!=null && numeric1==false)
+					if(inpt!=null && numeric1==false && lflag==0)
 					{
 						//System.out.println("There is a value which is not null and it is equal to = "+inpt);
 						cnt++;
-						flag=1;
+						flagx=1;
 						break;
 						
 					}
 						
 				}
+				
+				System.out.println("Val of flagx = "+flagx);
+				System.out.println("Val of lflag ="+lflag);
 				/*
 				if(flag==0)
 					//System.out.println("There is only 1");
@@ -383,7 +396,7 @@ for(int i=1;i<=no_of_clauses;i++)
 				
 				//Before writing here we need to check if the rule exists in different clauses or not
 				
-				if(flag==0)// This means there is only 1 
+				if(flagx==0)// This means there is only 1; change from 0 to 1
 				{
 					if(i==no_of_clauses)
 					{
@@ -393,6 +406,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					temp+="(range "+inp1+" "+ll+" "+rr+" )";
 					}
 					cnt--;
+					System.out.println("inp1 ="+inp1);
 					System.out.println("We are printing the range here - xyz flag");
 
 				}
@@ -404,7 +418,9 @@ for(int i=1;i<=no_of_clauses;i++)
 					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
 					}
 					cnt--;
+					System.out.println("inp1 = "+inp1);
 					System.out.println("We are printing the range here - abc flag");
+					lflag=1;
 
 				}
 				System.out.println("No1 = "+no1);
