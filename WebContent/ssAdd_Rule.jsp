@@ -284,6 +284,7 @@ for(int i=1;i<=no_of_clauses;i++)
 		int lflag=0;
 		for(int j=1;j<=colno;j++)
 		{
+			if(i==no_of_clauses)
 			System.out.println("We are in 1 ");
 			
 			String colname =rsmd.getColumnName(j);
@@ -322,6 +323,7 @@ for(int i=1;i<=no_of_clauses;i++)
 			
 				for(int k=j+1;k<=colno;k++)
 				{	
+					if(i==no_of_clauses)
 					System.out.println("We are in 2");
 					
 					System.out.println("STarting val of flagx = "+flagx);
@@ -362,9 +364,11 @@ for(int i=1;i<=no_of_clauses;i++)
 					}
 						
 				}
-				
+				if(i==no_of_clauses)
+				{
 				System.out.println("Val of flagx = "+flagx);
 				System.out.println("Val of lflag ="+lflag);
+				}
 				/*
 				if(flag==0)
 					//System.out.println("There is only 1");
@@ -408,6 +412,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					cnt--;
 					System.out.println("inp1 ="+inp1);
 					System.out.println("We are printing the range here - xyz flag");
+					System.out.println("Val of flagx = "+flagx+" Val of lflag = "+lflag);
 
 				}
 				else // This means that there is more than 1
@@ -420,16 +425,18 @@ for(int i=1;i<=no_of_clauses;i++)
 					cnt--;
 					System.out.println("inp1 = "+inp1);
 					System.out.println("We are printing the range here - abc flag");
-					lflag=1;
+					lflag=1;					
+					System.out.println("Val of flagx = "+flagx+" Val of lflag = "+lflag);
+
 
 				}
 				System.out.println("No1 = "+no1);
 			}
 
 		}
-		if(i==no_of_clauses)
+		if(i==no_of_clauses && lflag==1)//added a lflag
 		{
-			System.out.println("Printing at 3");
+			System.out.println("Printing at 3 a bracket");
 			outputStream.write(")");
 			temp+=")";
 		}
@@ -569,6 +576,7 @@ for(int i=1;i<=no_of_clauses;i++)
 									temp+="(range "+inp2+" "+ll+" "+rr+")";
 									}
 									System.out.println("We are printing the range here in inpxx");
+									cnt=-1;//checking if 
 									/*
 									System.out.println("The value of cnt in inpxx = "+cnt);
 									
@@ -747,7 +755,7 @@ for(int i=1;i<=no_of_clauses;i++)
 									//checking here
 									if(i==no_of_clauses)//change from ! to equal
 									{
-										System.out.println("Printing at 1");
+										System.out.println("Printing at 1 just a single bracket");
 										outputStream.write(")");
 										temp+=")";
 									}
@@ -781,7 +789,7 @@ for(int i=1;i<=no_of_clauses;i++)
 					{
 						if(i==no_of_clauses)
 						{
-							System.out.println("Printing at 2");
+							System.out.println("Printing at 2 just a single bracket");
 							outputStream.write(")");
 							temp+=")";
 						}
