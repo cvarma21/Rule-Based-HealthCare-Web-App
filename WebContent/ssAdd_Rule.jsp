@@ -32,8 +32,15 @@ System.out.println("File Created!");
 
 
 System.out.println(request.getParameter("outputstring"));
+outputStream.write(";Helper function declaration");
 
+outputStream.println();
 outputStream.write("(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))");
+outputStream.println();
+outputStream.println();
+
+
+
 //outputStream.println();
 //outputStream.close();
 /*
@@ -216,7 +223,8 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	PreparedStatement statement111=con.prepareStatement("select * from parameters ");
 	ResultSet rs111=statement111.executeQuery();
-	
+	outputStream.write(";Declaration of input and output variables");
+	outputStream.println();
 	while(rs111.next())
 	{
 		String para = rs111.getString("parameterName");
@@ -246,6 +254,10 @@ for(int i=1;i<=no_of_clauses;i++)
 	
 	ResultSet rs3=statement3.executeQuery();//rs3 contains the rules in ascending order 
 	String col="";
+	outputStream.println();
+
+	outputStream.write(";Declaration of range for input variables");
+	outputStream.println();
 	while(rs3.next())
 	{
 		int no2=rs3.getInt("rule_name");
@@ -828,6 +840,48 @@ for(int i=1;i<=no_of_clauses;i++)
 
 		
 }
+outputStream.write(";Declaration of rules for output variables");
+outputStream.println();
+// Now time to populate the outputs for each rule
+PreparedStatement statement1=con.prepareStatement("SELECT * FROM clause1 order by rule_name+0 asc;");
+ResultSet rs1=statement1.executeQuery();
+
+ResultSetMetaData rsmd = rs1.getMetaData();
+
+int colno = rsmd.getColumnCount();
+
+while(rs1.next())
+{
+	int rule_num = rs1.getInt(1);int val=0;
+	String val1="";
+	System.out.println("Currently in rule number = "+rule_num);
+	int outr=1;
+	for(int x=0;x<outputvalues.length;x++)
+	{
+		String outcheck = outputvalues[x];
+		System.out.println("Output Value = "+outcheck);
+		
+		
+		//val=rs1.getInt(outcheck);
+		val1=rs1.getString(outcheck);
+		System.out.println("The value of val = "+val1);
+		
+		if(val1!=null)
+		{
+			val=rs1.getInt(outcheck);
+			System.out.println("Val = "+val);
+			outputStream.write("(define-fun output"+(rule_num-1)+"_rule"+(outr)+" Int (ite rule"+rule_num+"_applies "+val+" "+outcheck+"))");
+			outr++;
+			outputStream.println();
+			
+		}
+		
+		
+	}
+	
+	outputStream.println();
+}
+
 outputStream.close();
 
 

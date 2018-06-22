@@ -1,23 +1,73 @@
 
+;Helper function declaration
 (define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))
-))))))))))
-)))))))))))
+
+;Declaration of input and output variables
 (declare-fun abc () Int)
 (declare-fun def () Int)
 (declare-fun hel () Int)
-(declare-fun okc () Int)
 (declare-fun outp () Int)
+(declare-fun outpp () Int)
+
+;Declaration of range for input variables
 (define-fun rule1_applies () Bool (and (range abc 10 20)))
-(define-fun rule2_applies () Bool (and (or (range abc 10 20 )(range def 20 30))))
-(define-fun rule3_applies () Bool (and (or (range abc 10 20 )(range def 20 30)(range hel 20 30))))
-(define-fun rule4_applies () Bool (and (or (range abc 10 20 )(range def 20 30)(range hel 20 30)(range okc 20 30))))
-(define-fun rule5_applies () Bool (and (range abc 10 20)(range def 20 30)))
-(define-fun rule6_applies () Bool (and (range abc 10 20)(or (range abc 10 20)(range def 20 30))))
-(define-fun rule7_applies () Bool (and (range abc 10 20)(or (range abc 10 20)(range def 20 30)(range hel 20 30))))
-(define-fun rule8_applies () Bool (and (or (range abc 10 20 )(range def 20 30))))
-(define-fun rule9_applies () Bool (and (or (range abc 10 20 )(range def 20 30))(or (range abc 10 20)(range def 20 30)(range hel 20 30))))
-(define-fun rule10_applies () Bool (and (or (range abc 10 20 )(range def 20 30)(range hel 20 30)(range okc 20 30))(or (range abc 10 20)(range def 20 30)(range hel 20 30))(or (range hel 20 30)(range okc 20 30))))
-(define-fun rule11_applies () Bool (and (or (range abc 10 20 )(range def 20 30)(range hel 20 30)(range okc 20 30))(or (range abc 10 20)(range def 20 30)(range hel 20 30))(or (range hel 20 30)(range okc 20 30))))
-(define-fun rule12_applies () Bool (and (or (range abc 10 20 )(range def 20 30)(range hel 20 30)(range okc 20 30))(or (range abc 10 20)(range def 20 30)(range hel 20 30))(or (range hel 20 30)(range okc 20 30))))
-(define-fun rule13_applies () Bool (and (or (range abc 10 20 )(range def 20 30)(range hel 20 30)(range okc 20 30))(or (range abc 10 20)(range def 20 30)(range hel 20 30))(or (range hel 20 30)(range okc 20 30))(range okc 20 30)))
+(define-fun rule2_applies () Bool (and (range abc 10 20)))
+(define-fun rule3_applies () Bool (and (range abc 10 20)))
+(define-fun rule4_applies () Bool (and (range abc 10 20)))
+(define-fun rule5_applies () Bool (and (range abc 10 20)))
+(define-fun rule6_applies () Bool (and (range abc 10 20)))
+(define-fun rule7_applies () Bool (and (range abc 10 20)))
+(define-fun rule8_applies () Bool (and (range abc 10 20)))
+(define-fun rule9_applies () Bool (and (range abc 10 20)))
+(define-fun rule10_applies () Bool (and (range abc 10 20)))
+(define-fun rule11_applies () Bool (and (range abc 10 20)))
+(define-fun rule12_applies () Bool (and (range abc 10 20)))
+(define-fun rule13_applies () Bool (and (range abc 10 20)))
+(define-fun rule14_applies () Bool (and (range abc 10 20)))
+(define-fun rule15_applies () Bool (and (range abc 10 20)))
+
+;Declaration of rules for output variables
+(define-fun output0_rule1 Int (ite rule1_applies 100 outp))
+
+(define-fun output1_rule1 Int (ite rule2_applies 100 outp))
+(define-fun output1_rule2 Int (ite rule2_applies 200 outpp))
+
+(define-fun output2_rule1 Int (ite rule3_applies 100 outp))
+(define-fun output2_rule2 Int (ite rule3_applies 200 outpp))
+
+(define-fun output3_rule1 Int (ite rule4_applies 100 outp))
+(define-fun output3_rule2 Int (ite rule4_applies 200 outpp))
+
+(define-fun output4_rule1 Int (ite rule5_applies 100 outp))
+(define-fun output4_rule2 Int (ite rule5_applies 200 outpp))
+
+(define-fun output5_rule1 Int (ite rule6_applies 100 outp))
+(define-fun output5_rule2 Int (ite rule6_applies 200 outpp))
+
+(define-fun output6_rule1 Int (ite rule7_applies 100 outp))
+(define-fun output6_rule2 Int (ite rule7_applies 200 outpp))
+
+(define-fun output7_rule1 Int (ite rule8_applies 100 outp))
+(define-fun output7_rule2 Int (ite rule8_applies 200 outpp))
+
+(define-fun output8_rule1 Int (ite rule9_applies 100 outp))
+(define-fun output8_rule2 Int (ite rule9_applies 200 outpp))
+
+(define-fun output9_rule1 Int (ite rule10_applies 100 outp))
+(define-fun output9_rule2 Int (ite rule10_applies 200 outpp))
+
+(define-fun output10_rule1 Int (ite rule11_applies 100 outp))
+(define-fun output10_rule2 Int (ite rule11_applies 200 outpp))
+
+(define-fun output11_rule1 Int (ite rule12_applies 100 outp))
+(define-fun output11_rule2 Int (ite rule12_applies 200 outpp))
+
+(define-fun output12_rule1 Int (ite rule13_applies 100 outp))
+(define-fun output12_rule2 Int (ite rule13_applies 200 outpp))
+
+(define-fun output13_rule1 Int (ite rule14_applies 100 outp))
+(define-fun output13_rule2 Int (ite rule14_applies 200 outpp))
+
+(define-fun output14_rule1 Int (ite rule15_applies 100 outp))
+(define-fun output14_rule2 Int (ite rule15_applies 200 outpp))
 
