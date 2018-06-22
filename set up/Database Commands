@@ -1,0 +1,11 @@
+CREATE DATABASE tele;
+USE tele;
+
+CREATE TABLE parameters (parameterName varchar(45),type varchar(45),datatype varchar(45), PRIMARY KEY (parameterName,type)); 
+CREATE TABLE max_clauses(no int(255));
+INSERT INTO max_clauses values(0);
+CREATE TABLE Variables (name varchar(100) DEFAULT NULL, colname varchar(100) DEFAULT NULL, tabname varchar (100) DEFAULT NULL, row varchar(100) DEFAULT NULL);
+create table patdetails (sno int(11) NOT NULL AUTO_INCREMENT, ht int (11) DEFAULT NULL, wt int(11) DEFAULT NULL, sa int(11) DEFAULT NULL, PRIMARY KEY (sno));
+create table za3(sno int(11) NOT NULL AUTO_INCREMENT, mpDose int, mtxDose int, PRIMARY KEY(sno));
+insert into za3 (mpDose, mtxDose) values (100,200);
+create table formula (id varchar(50) NOT NULL, formula varchar(550) DEFAULT NULL, PRIMARY KEY (id));

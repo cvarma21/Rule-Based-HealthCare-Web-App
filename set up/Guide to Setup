@@ -1,0 +1,20 @@
+Softwares required:
+Eclipse (Neon)
+Apache Tomcat 8.5
+MySQL
+
+Download Eclipse Java EE version from the website and unzip it. Run the native file, and it will ask for some options and do the configurations automatically. Just follow the guides.
+Same with Tomcat, get the .tar.gz, and you can follow the following guide: http://www.coreservlets.com/Apache-Tomcat-Tutorial/tomcat-7-with-eclipse.html
+Configue Eclipse as said here. Then start Tomcat and see if 8080 is showing the welcome page. Once that is set up, start a new project (Dynamic Web project as shown in above guide). Then copy paste the jsp files into the WebContent folder of the created project. This should make the jsp files usable now.
+
+Download mysql using the apt way mentioned on the website. Run it with the software installer or the dpkg command as in their official documentation. Then apt-get the mysql-server as shown. Somewhere here they will ask for the root password, provide one and remember it as it will be used everywhere. You can log into mysql from the terminal itself by using the "mysql -u root -p" command which will then ask for the password. This setup, follow the "Steps for a Fresh Installation of MySQL" from https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
+
+After this, follow https://dev.mysql.com/doc/refman/5.7/en/postinstallation.html and ignore initialising up a data directory. Perform "Starting the Server" and "Testing the Server"
+
+Create the correct database and the tables using the commands in the file "Database Commands".
+
+Download Connector/J from MySQL website and go to project properties (- Java Build Path - Libraries - Add external Jar - Give the path the to the jar file which was extracted fromm the Connector/J) in eclipse to include the jar in this folder for the project. This is required for connecting/talking of files to the database. 
+Go to Deplyoment Assembly - Add - Java Path Build Entries - add the connector path
+(include the connector in both "Java Build Path" and "Deployment Assembly" to get the project working).
+
+Modify JSP files with the correct database, user, and password, and the entire project should be up and running. Right click "New.jsp" and select "Run as" and Tomcat from that, to test the files.

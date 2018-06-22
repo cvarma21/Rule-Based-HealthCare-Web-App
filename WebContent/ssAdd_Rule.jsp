@@ -576,6 +576,8 @@ for(int i=1;i<=no_of_clauses;i++)
 									temp+="(range "+inp2+" "+ll+" "+rr+")";
 									}
 									System.out.println("We are printing the range here in inpxx");
+									int chf=1;
+									check=1;//check if it changes
 									cnt=-1;//checking if 
 									/*
 									System.out.println("The value of cnt in inpxx = "+cnt);
