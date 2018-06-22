@@ -1,15 +1,12 @@
 
-(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))(declare-fun abc () Int)
+(define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))
+
+
+(declare-fun abc () Int)
 (declare-fun def () Int)
 (declare-fun hel () Int)
 (declare-fun okc () Int)
 (declare-fun outp () Int)
-(define-fun rule1_applies () Bool (and (range abc 10 20)(range def 20 30))(range hel 30 40))(range okc 40 50))
-(define-fun rule2_applies () Bool (and (range abc 10 20)(range def 20 30))(range hel 30 40))(range okc 40 50))
-(define-fun rule3_applies () Bool (and (range abc 10 20)(range def 20 30))(range hel 30 40))(range okc 40 50))
-(define-fun rule4_applies () Bool (and (range abc 10 20)(range def 20 30))(range hel 30 40))(range okc 40 50))
-(define-fun rule5_applies () Bool (and (range abc 10 20)(range def 20 30))(range hel 30 40))(range okc 40 50))
-(define-fun rule6_applies () Bool (and (range abc 10 20)(range def 20 30))(range hel 30 40))(range okc 40 50))
-(define-fun rule7_applies () Bool (and (range abc 10 20)(range def 20 30)))
-(define-fun rule8_applies () Bool (and (or (range abc 10 20 )(range def 20 30))))
+(define-fun rule1_applies () Bool (and (range abc 10 20)(range def 10 20)(range hel 10 20)(range okc 10 20)))
+(define-fun rule2_applies () Bool (and (range abc 10 20)(range def 10 20)(range hel 10 20)(range okc 10 20)))
 
