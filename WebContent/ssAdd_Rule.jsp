@@ -681,7 +681,7 @@ for(int i=1;i<=no_of_clauses;i++)
 											flast=0;
 											n=colno+1;
 										}
-										/*
+																				/*
 										//here
 										int lb = 0, rb = 0, diff=0;
 										for(int l=0;l<temp.length();l++)
@@ -763,6 +763,14 @@ for(int i=1;i<=no_of_clauses;i++)
 										outputStream.write(")");
 										temp+=")";
 									}
+									
+									if(i!=1 && check==1 && n==(colno+1))//change from ! to equal
+									{
+										System.out.println("Printing at 1 just a single bracket");
+										outputStream.write(")");
+										temp+=")";
+									}
+
 						
 								}
 							}
