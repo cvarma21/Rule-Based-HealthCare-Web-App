@@ -137,7 +137,7 @@ if(ii!=0){ %>
             <option selected><%= result.getString("parameterName")%></option>
         <% } %>
         </select>
-<input type="submit" value="CHECK" name="action" ></input> <br><br>
+<input type="submit" value="CHECK" name="action" ></input> 
 <input type="submit" value="DEL" name="action" ></input> <br><br>
 
 </form>

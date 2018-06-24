@@ -233,5 +233,6 @@ Enter Variable to Delete:
 
 <a href="/rulebase/Home_page.jsp" class="btn btn-info" role="button">Home Page</a> 
 </form>
+
 </body>
 </html>

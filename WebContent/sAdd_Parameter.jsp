@@ -290,6 +290,9 @@ else if(action.equals("CHECK"))
 					{
 						out.println("Do you want to continue ? Number of rules existing =  "+rs5.getString(1));
 						flg=1;
+						
+						%><br><a href="Add_Parameter.jsp">Click here to go back</a><%
+
 					}
 				}
 				
@@ -317,7 +320,7 @@ else if(action.equals("CHECK"))
 				PreparedStatement statement3=con.prepareStatement("select count(*) from clause"+i+" where "+check+i+" is not null");
 				System.out.println("The statement is = "+"select count(*) from clause"+i+" where "+check+i+" is not null");
 				rs2=statement3.executeQuery();
-				
+				int flagp=1;
 				while(rs2.next())
 				{
 					//out.println("In rs2");
@@ -328,15 +331,23 @@ else if(action.equals("CHECK"))
 						out.println("<br>");
 						out.newLine();
 						flg1=1;
+						if(flagp==1)
+						{
+								%><a href="Add_Parameter.jsp">Click here to go back</a><%
+								flagp=0;
+						}
+
 					}
+
 				}
 				
 			
 			}
-			
+		
 			if(flg1==0)
 			{
 				out.println("No rules existing. Parameter can be safely deleted");
+				%><a href="Add_Parameter.jsp">Click here to go back</a><%
 			}
 		}
 	}
