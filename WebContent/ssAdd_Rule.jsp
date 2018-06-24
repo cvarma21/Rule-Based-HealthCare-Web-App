@@ -870,7 +870,7 @@ while(rs1.next())
 		{
 			val=rs1.getInt(outcheck);
 			System.out.println("Val = "+val);
-			outputStream.write("(define-fun output"+(rule_num-1)+"_rule"+(outr)+" Int (ite rule"+rule_num+"_applies "+val+" "+outcheck+"))");
+			outputStream.write("(define-fun output"+x+"_rule"+(rule_num)+" Int (ite rule"+rule_num+"_applies "+val+" "+outcheck+"))");
 			outr++;
 			outputStream.println();
 			
@@ -881,7 +881,28 @@ while(rs1.next())
 	
 	outputStream.println();
 }
+outputStream.println();
+ResultSet rs2=statement1.executeQuery();
 
+outputStream.write("(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) ");
+
+while(rs2.next())
+{
+	String rule=rs2.getString("rule_name");
+	
+	outputStream.write("rule"+rule+"_applies"+" ");
+}
+
+outputStream.write("))");
+outputStream.println();
+
+// Now we need to iterate for the number of output variables and set the violation constraints
+
+for(int x=0;x<outputvalues.length;x++)
+{
+	String outcheck = outputvalues[x];
+	System.out.println("Output Variable Name = "+outcheck);
+}
 outputStream.close();
 
 
