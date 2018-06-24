@@ -882,6 +882,10 @@ while(rs1.next())
 	outputStream.println();
 }
 outputStream.println();
+outputStream.println(";Define a helper function");
+//outputStream.println();
+
+
 ResultSet rs2=statement1.executeQuery();
 
 outputStream.write("(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) ");
@@ -895,13 +899,34 @@ while(rs2.next())
 
 outputStream.write("))");
 outputStream.println();
+outputStream.println();
+
 
 // Now we need to iterate for the number of output variables and set the violation constraints
+outputStream.println(";Define the violation for the output variables");
 
 for(int x=0;x<outputvalues.length;x++)
 {
 	String outcheck = outputvalues[x];
 	System.out.println("Output Variable Name = "+outcheck);
+	
+	outputStream.write("(define-fun violation_output"+x+"() Bool (and atleast_two_rules_fire ( distinct ");
+	
+	PreparedStatement statement2=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null");
+	ResultSet rs3=statement2.executeQuery();
+	
+	while(rs3.next())
+	{
+		String rul=  rs3.getString("rule_name");
+		outputStream.write(" output"+x+"_rule"+rul+" ");
+		
+	}
+	
+	outputStream.write(" )))");
+	outputStream.println(" ");
+	outputStream.println(" ");
+
+	
 }
 outputStream.close();
 
