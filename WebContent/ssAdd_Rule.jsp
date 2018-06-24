@@ -870,7 +870,7 @@ while(rs1.next())
 		{
 			val=rs1.getInt(outcheck);
 			System.out.println("Val = "+val);
-			outputStream.write("(define-fun output"+x+"_rule"+(rule_num)+" Int (ite rule"+rule_num+"_applies "+val+" "+outcheck+"))");
+			outputStream.write("(define-fun output"+x+"_rule"+(rule_num)+" () Int (ite rule"+rule_num+"_applies "+val+" "+outcheck+"))");
 			outr++;
 			outputStream.println();
 			
@@ -910,7 +910,7 @@ for(int x=0;x<outputvalues.length;x++)
 	String outcheck = outputvalues[x];
 	System.out.println("Output Variable Name = "+outcheck);
 	
-	outputStream.write("(define-fun violation_output"+x+"() Bool (and atleast_two_rules_fire ( distinct ");
+	outputStream.write("(define-fun violation_output"+x+" () Bool (and atleast_two_rules_fire ( distinct ");
 	
 	PreparedStatement statement2=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null order by rule_name+0 asc");
 	ResultSet rs3=statement2.executeQuery();

@@ -40,105 +40,113 @@
 (define-fun rule30_applies () Bool (and (range abc 10 20)))
 (define-fun rule31_applies () Bool (and (range abc 10 20)))
 (define-fun rule32_applies () Bool (and (range abc 10 20)))
+(define-fun rule33_applies () Bool (and (range abc 10 20)))
+(define-fun rule34_applies () Bool (and (range abc 10 20)))
 
 ;Declaration of rules for output variables
-(define-fun output0_rule1 Int (ite rule1_applies 100 outp))
+(define-fun output0_rule1 () Int (ite rule1_applies 100 outp))
 
-(define-fun output0_rule2 Int (ite rule2_applies 100 outp))
-(define-fun output1_rule2 Int (ite rule2_applies 200 outpp))
+(define-fun output0_rule2 () Int (ite rule2_applies 100 outp))
+(define-fun output1_rule2 () Int (ite rule2_applies 200 outpp))
 
-(define-fun output0_rule3 Int (ite rule3_applies 100 outp))
-(define-fun output1_rule3 Int (ite rule3_applies 200 outpp))
+(define-fun output0_rule3 () Int (ite rule3_applies 100 outp))
+(define-fun output1_rule3 () Int (ite rule3_applies 200 outpp))
 
-(define-fun output0_rule4 Int (ite rule4_applies 100 outp))
-(define-fun output1_rule4 Int (ite rule4_applies 200 outpp))
+(define-fun output0_rule4 () Int (ite rule4_applies 100 outp))
+(define-fun output1_rule4 () Int (ite rule4_applies 200 outpp))
 
-(define-fun output0_rule5 Int (ite rule5_applies 100 outp))
-(define-fun output1_rule5 Int (ite rule5_applies 200 outpp))
+(define-fun output0_rule5 () Int (ite rule5_applies 100 outp))
+(define-fun output1_rule5 () Int (ite rule5_applies 200 outpp))
 
-(define-fun output0_rule6 Int (ite rule6_applies 100 outp))
-(define-fun output1_rule6 Int (ite rule6_applies 200 outpp))
+(define-fun output0_rule6 () Int (ite rule6_applies 100 outp))
+(define-fun output1_rule6 () Int (ite rule6_applies 200 outpp))
 
-(define-fun output0_rule7 Int (ite rule7_applies 100 outp))
-(define-fun output1_rule7 Int (ite rule7_applies 200 outpp))
+(define-fun output0_rule7 () Int (ite rule7_applies 100 outp))
+(define-fun output1_rule7 () Int (ite rule7_applies 200 outpp))
 
-(define-fun output0_rule8 Int (ite rule8_applies 100 outp))
-(define-fun output1_rule8 Int (ite rule8_applies 200 outpp))
+(define-fun output0_rule8 () Int (ite rule8_applies 100 outp))
+(define-fun output1_rule8 () Int (ite rule8_applies 200 outpp))
 
-(define-fun output0_rule9 Int (ite rule9_applies 100 outp))
-(define-fun output1_rule9 Int (ite rule9_applies 200 outpp))
+(define-fun output0_rule9 () Int (ite rule9_applies 100 outp))
+(define-fun output1_rule9 () Int (ite rule9_applies 200 outpp))
 
-(define-fun output0_rule10 Int (ite rule10_applies 100 outp))
-(define-fun output1_rule10 Int (ite rule10_applies 200 outpp))
+(define-fun output0_rule10 () Int (ite rule10_applies 100 outp))
+(define-fun output1_rule10 () Int (ite rule10_applies 200 outpp))
 
-(define-fun output0_rule11 Int (ite rule11_applies 100 outp))
-(define-fun output1_rule11 Int (ite rule11_applies 200 outpp))
+(define-fun output0_rule11 () Int (ite rule11_applies 100 outp))
+(define-fun output1_rule11 () Int (ite rule11_applies 200 outpp))
 
-(define-fun output0_rule12 Int (ite rule12_applies 100 outp))
-(define-fun output1_rule12 Int (ite rule12_applies 200 outpp))
+(define-fun output0_rule12 () Int (ite rule12_applies 100 outp))
+(define-fun output1_rule12 () Int (ite rule12_applies 200 outpp))
 
-(define-fun output0_rule13 Int (ite rule13_applies 100 outp))
-(define-fun output1_rule13 Int (ite rule13_applies 200 outpp))
+(define-fun output0_rule13 () Int (ite rule13_applies 100 outp))
+(define-fun output1_rule13 () Int (ite rule13_applies 200 outpp))
 
-(define-fun output0_rule14 Int (ite rule14_applies 100 outp))
-(define-fun output1_rule14 Int (ite rule14_applies 200 outpp))
+(define-fun output0_rule14 () Int (ite rule14_applies 100 outp))
+(define-fun output1_rule14 () Int (ite rule14_applies 200 outpp))
 
-(define-fun output0_rule15 Int (ite rule15_applies 100 outp))
-(define-fun output1_rule15 Int (ite rule15_applies 200 outpp))
+(define-fun output0_rule15 () Int (ite rule15_applies 100 outp))
+(define-fun output1_rule15 () Int (ite rule15_applies 200 outpp))
 
-(define-fun output0_rule16 Int (ite rule16_applies 100 outp))
-(define-fun output1_rule16 Int (ite rule16_applies 200 outpp))
+(define-fun output0_rule16 () Int (ite rule16_applies 100 outp))
+(define-fun output1_rule16 () Int (ite rule16_applies 200 outpp))
 
-(define-fun output0_rule17 Int (ite rule17_applies 100 outp))
-(define-fun output1_rule17 Int (ite rule17_applies 200 outpp))
+(define-fun output0_rule17 () Int (ite rule17_applies 100 outp))
+(define-fun output1_rule17 () Int (ite rule17_applies 200 outpp))
 
-(define-fun output0_rule18 Int (ite rule18_applies 100 outp))
-(define-fun output1_rule18 Int (ite rule18_applies 200 outpp))
+(define-fun output0_rule18 () Int (ite rule18_applies 100 outp))
+(define-fun output1_rule18 () Int (ite rule18_applies 200 outpp))
 
-(define-fun output0_rule19 Int (ite rule19_applies 100 outp))
-(define-fun output1_rule19 Int (ite rule19_applies 200 outpp))
+(define-fun output0_rule19 () Int (ite rule19_applies 100 outp))
+(define-fun output1_rule19 () Int (ite rule19_applies 200 outpp))
 
-(define-fun output0_rule20 Int (ite rule20_applies 100 outp))
-(define-fun output1_rule20 Int (ite rule20_applies 200 outpp))
+(define-fun output0_rule20 () Int (ite rule20_applies 100 outp))
+(define-fun output1_rule20 () Int (ite rule20_applies 200 outpp))
 
-(define-fun output0_rule21 Int (ite rule21_applies 100 outp))
-(define-fun output1_rule21 Int (ite rule21_applies 200 outpp))
+(define-fun output0_rule21 () Int (ite rule21_applies 100 outp))
+(define-fun output1_rule21 () Int (ite rule21_applies 200 outpp))
 
-(define-fun output0_rule22 Int (ite rule22_applies 100 outp))
-(define-fun output1_rule22 Int (ite rule22_applies 200 outpp))
+(define-fun output0_rule22 () Int (ite rule22_applies 100 outp))
+(define-fun output1_rule22 () Int (ite rule22_applies 200 outpp))
 
-(define-fun output0_rule25 Int (ite rule25_applies 100 outp))
-(define-fun output1_rule25 Int (ite rule25_applies 200 outpp))
+(define-fun output0_rule25 () Int (ite rule25_applies 100 outp))
+(define-fun output1_rule25 () Int (ite rule25_applies 200 outpp))
 
-(define-fun output0_rule26 Int (ite rule26_applies 100 outp))
-(define-fun output1_rule26 Int (ite rule26_applies 200 outpp))
+(define-fun output0_rule26 () Int (ite rule26_applies 100 outp))
+(define-fun output1_rule26 () Int (ite rule26_applies 200 outpp))
 
-(define-fun output0_rule27 Int (ite rule27_applies 100 outp))
-(define-fun output1_rule27 Int (ite rule27_applies 200 outpp))
+(define-fun output0_rule27 () Int (ite rule27_applies 100 outp))
+(define-fun output1_rule27 () Int (ite rule27_applies 200 outpp))
 
-(define-fun output0_rule28 Int (ite rule28_applies 100 outp))
-(define-fun output1_rule28 Int (ite rule28_applies 200 outpp))
+(define-fun output0_rule28 () Int (ite rule28_applies 100 outp))
+(define-fun output1_rule28 () Int (ite rule28_applies 200 outpp))
 
-(define-fun output0_rule29 Int (ite rule29_applies 100 outp))
-(define-fun output1_rule29 Int (ite rule29_applies 200 outpp))
+(define-fun output0_rule29 () Int (ite rule29_applies 100 outp))
+(define-fun output1_rule29 () Int (ite rule29_applies 200 outpp))
 
-(define-fun output0_rule30 Int (ite rule30_applies 100 outp))
-(define-fun output1_rule30 Int (ite rule30_applies 200 outpp))
+(define-fun output0_rule30 () Int (ite rule30_applies 100 outp))
+(define-fun output1_rule30 () Int (ite rule30_applies 200 outpp))
 
-(define-fun output0_rule31 Int (ite rule31_applies 100 outp))
-(define-fun output1_rule31 Int (ite rule31_applies 200 outpp))
+(define-fun output0_rule31 () Int (ite rule31_applies 100 outp))
+(define-fun output1_rule31 () Int (ite rule31_applies 200 outpp))
 
-(define-fun output0_rule32 Int (ite rule32_applies 100 outp))
-(define-fun output1_rule32 Int (ite rule32_applies 200 outpp))
+(define-fun output0_rule32 () Int (ite rule32_applies 100 outp))
+(define-fun output1_rule32 () Int (ite rule32_applies 200 outpp))
+
+(define-fun output0_rule33 () Int (ite rule33_applies 100 outp))
+(define-fun output1_rule33 () Int (ite rule33_applies 200 outpp))
+
+(define-fun output0_rule34 () Int (ite rule34_applies 100 outp))
+(define-fun output1_rule34 () Int (ite rule34_applies 200 outpp))
 
 
 ;Define a helper function
-(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) rule1_applies rule2_applies rule3_applies rule4_applies rule5_applies rule6_applies rule7_applies rule8_applies rule9_applies rule10_applies rule11_applies rule12_applies rule13_applies rule14_applies rule15_applies rule16_applies rule17_applies rule18_applies rule19_applies rule20_applies rule21_applies rule22_applies rule25_applies rule26_applies rule27_applies rule28_applies rule29_applies rule30_applies rule31_applies rule32_applies ))
+(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) rule1_applies rule2_applies rule3_applies rule4_applies rule5_applies rule6_applies rule7_applies rule8_applies rule9_applies rule10_applies rule11_applies rule12_applies rule13_applies rule14_applies rule15_applies rule16_applies rule17_applies rule18_applies rule19_applies rule20_applies rule21_applies rule22_applies rule25_applies rule26_applies rule27_applies rule28_applies rule29_applies rule30_applies rule31_applies rule32_applies rule33_applies rule34_applies ))
 
 ;Define the violation for the output variables
-(define-fun violation_output0() Bool (and atleast_two_rules_fire ( distinct  output0_rule1  output0_rule2  output0_rule3  output0_rule4  output0_rule5  output0_rule6  output0_rule7  output0_rule8  output0_rule9  output0_rule10  output0_rule11  output0_rule12  output0_rule13  output0_rule14  output0_rule15  output0_rule16  output0_rule17  output0_rule18  output0_rule19  output0_rule20  output0_rule21  output0_rule22  output0_rule25  output0_rule26  output0_rule27  output0_rule28  output0_rule29  output0_rule30  output0_rule31  output0_rule32  ))) 
+(define-fun violation_output0 () Bool (and atleast_two_rules_fire ( distinct  output0_rule1  output0_rule2  output0_rule3  output0_rule4  output0_rule5  output0_rule6  output0_rule7  output0_rule8  output0_rule9  output0_rule10  output0_rule11  output0_rule12  output0_rule13  output0_rule14  output0_rule15  output0_rule16  output0_rule17  output0_rule18  output0_rule19  output0_rule20  output0_rule21  output0_rule22  output0_rule25  output0_rule26  output0_rule27  output0_rule28  output0_rule29  output0_rule30  output0_rule31  output0_rule32  output0_rule33  output0_rule34  ))) 
  
-(define-fun violation_output1() Bool (and atleast_two_rules_fire ( distinct  output1_rule2  output1_rule3  output1_rule4  output1_rule5  output1_rule6  output1_rule7  output1_rule8  output1_rule9  output1_rule10  output1_rule11  output1_rule12  output1_rule13  output1_rule14  output1_rule15  output1_rule16  output1_rule17  output1_rule18  output1_rule19  output1_rule20  output1_rule21  output1_rule22  output1_rule25  output1_rule26  output1_rule27  output1_rule28  output1_rule29  output1_rule30  output1_rule31  output1_rule32  ))) 
+(define-fun violation_output1 () Bool (and atleast_two_rules_fire ( distinct  output1_rule2  output1_rule3  output1_rule4  output1_rule5  output1_rule6  output1_rule7  output1_rule8  output1_rule9  output1_rule10  output1_rule11  output1_rule12  output1_rule13  output1_rule14  output1_rule15  output1_rule16  output1_rule17  output1_rule18  output1_rule19  output1_rule20  output1_rule21  output1_rule22  output1_rule25  output1_rule26  output1_rule27  output1_rule28  output1_rule29  output1_rule30  output1_rule31  output1_rule32  output1_rule33  output1_rule34  ))) 
  
 ;Define the final violation constrain
 (define-fun violation () Bool (or violation_output0 violation_output1 ))
