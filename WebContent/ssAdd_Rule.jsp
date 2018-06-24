@@ -912,7 +912,7 @@ for(int x=0;x<outputvalues.length;x++)
 	
 	outputStream.write("(define-fun violation_output"+x+"() Bool (and atleast_two_rules_fire ( distinct ");
 	
-	PreparedStatement statement2=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null");
+	PreparedStatement statement2=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null order by rule_name+0 asc");
 	ResultSet rs3=statement2.executeQuery();
 	
 	while(rs3.next())
@@ -927,7 +927,30 @@ for(int x=0;x<outputvalues.length;x++)
 	outputStream.println(" ");
 
 	
+	
+
+	
 }
+outputStream.println(";Define the final violation constrain");
+
+outputStream.write("(define-fun violation () Bool (or ");
+
+for(int x=0;x<outputvalues.length;x++)
+{
+	
+	outputStream.write("violation_output"+x+" ");
+}
+
+outputStream.write("))");
+outputStream.println();
+outputStream.println();
+
+outputStream.println("(assert violation)");
+outputStream.println();
+outputStream.println("(check-sat)");
+
+
+	
 outputStream.close();
 
 

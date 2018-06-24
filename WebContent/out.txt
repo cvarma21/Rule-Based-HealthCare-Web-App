@@ -2,6 +2,45 @@
 ;Helper function declaration
 (define-fun range ((x Int) (lower Int) (upper Int)) Bool (and (< lower x) (< x upper)))
 
+;Declaration of input and output variables
+(declare-fun abc () Int)
+(declare-fun def () Int)
+(declare-fun hel () Int)
+(declare-fun outp () Int)
+(declare-fun outpp () Int)
+
+;Declaration of range for input variables
+(define-fun rule1_applies () Bool (and (range abc 10 20)))
+(define-fun rule2_applies () Bool (and (range abc 10 20)))
+(define-fun rule3_applies () Bool (and (range abc 10 20)))
+(define-fun rule4_applies () Bool (and (range abc 10 20)))
+(define-fun rule5_applies () Bool (and (range abc 10 20)))
+(define-fun rule6_applies () Bool (and (range abc 10 20)))
+(define-fun rule7_applies () Bool (and (range abc 10 20)))
+(define-fun rule8_applies () Bool (and (range abc 10 20)))
+(define-fun rule9_applies () Bool (and (range abc 10 20)))
+(define-fun rule10_applies () Bool (and (range abc 10 20)))
+(define-fun rule11_applies () Bool (and (range abc 10 20)))
+(define-fun rule12_applies () Bool (and (range abc 10 20)))
+(define-fun rule13_applies () Bool (and (range abc 10 20)))
+(define-fun rule14_applies () Bool (and (range abc 10 20)))
+(define-fun rule15_applies () Bool (and (range abc 10 20)))
+(define-fun rule16_applies () Bool (and (range abc 10 20)))
+(define-fun rule17_applies () Bool (and (range abc 10 20)))
+(define-fun rule18_applies () Bool (and (range abc 10 20)))
+(define-fun rule19_applies () Bool (and (range abc 10 20)))
+(define-fun rule20_applies () Bool (and (range abc 10 20)))
+(define-fun rule21_applies () Bool (and (range abc 10 20)))
+(define-fun rule22_applies () Bool (and (range abc 10 20)))
+(define-fun rule25_applies () Bool (and (range abc 10 20)))
+(define-fun rule26_applies () Bool (and (range abc 10 20)))
+(define-fun rule27_applies () Bool (and (range abc 10 20)))
+(define-fun rule28_applies () Bool (and (range abc 10 20)))
+(define-fun rule29_applies () Bool (and (range abc 10 20)))
+(define-fun rule30_applies () Bool (and (range abc 10 20)))
+(define-fun rule31_applies () Bool (and (range abc 10 20)))
+(define-fun rule32_applies () Bool (and (range abc 10 20)))
+
 ;Declaration of rules for output variables
 (define-fun output0_rule1 Int (ite rule1_applies 100 outp))
 
@@ -68,12 +107,42 @@
 (define-fun output0_rule22 Int (ite rule22_applies 100 outp))
 (define-fun output1_rule22 Int (ite rule22_applies 200 outpp))
 
+(define-fun output0_rule25 Int (ite rule25_applies 100 outp))
+(define-fun output1_rule25 Int (ite rule25_applies 200 outpp))
+
+(define-fun output0_rule26 Int (ite rule26_applies 100 outp))
+(define-fun output1_rule26 Int (ite rule26_applies 200 outpp))
+
+(define-fun output0_rule27 Int (ite rule27_applies 100 outp))
+(define-fun output1_rule27 Int (ite rule27_applies 200 outpp))
+
+(define-fun output0_rule28 Int (ite rule28_applies 100 outp))
+(define-fun output1_rule28 Int (ite rule28_applies 200 outpp))
+
+(define-fun output0_rule29 Int (ite rule29_applies 100 outp))
+(define-fun output1_rule29 Int (ite rule29_applies 200 outpp))
+
+(define-fun output0_rule30 Int (ite rule30_applies 100 outp))
+(define-fun output1_rule30 Int (ite rule30_applies 200 outpp))
+
+(define-fun output0_rule31 Int (ite rule31_applies 100 outp))
+(define-fun output1_rule31 Int (ite rule31_applies 200 outpp))
+
+(define-fun output0_rule32 Int (ite rule32_applies 100 outp))
+(define-fun output1_rule32 Int (ite rule32_applies 200 outpp))
+
 
 ;Define a helper function
-(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) rule1_applies rule2_applies rule3_applies rule4_applies rule5_applies rule6_applies rule7_applies rule8_applies rule9_applies rule10_applies rule11_applies rule12_applies rule13_applies rule14_applies rule15_applies rule16_applies rule17_applies rule18_applies rule19_applies rule20_applies rule21_applies rule22_applies ))
+(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) rule1_applies rule2_applies rule3_applies rule4_applies rule5_applies rule6_applies rule7_applies rule8_applies rule9_applies rule10_applies rule11_applies rule12_applies rule13_applies rule14_applies rule15_applies rule16_applies rule17_applies rule18_applies rule19_applies rule20_applies rule21_applies rule22_applies rule25_applies rule26_applies rule27_applies rule28_applies rule29_applies rule30_applies rule31_applies rule32_applies ))
 
 ;Define the violation for the output variables
-(define-fun violation_output0() Bool (and atleast_two_rules_fire ( distinct  output0_rule1  output0_rule10  output0_rule11  output0_rule12  output0_rule13  output0_rule14  output0_rule15  output0_rule16  output0_rule17  output0_rule18  output0_rule19  output0_rule2  output0_rule20  output0_rule21  output0_rule22  output0_rule3  output0_rule4  output0_rule5  output0_rule6  output0_rule7  output0_rule8  output0_rule9  ))) 
+(define-fun violation_output0() Bool (and atleast_two_rules_fire ( distinct  output0_rule1  output0_rule2  output0_rule3  output0_rule4  output0_rule5  output0_rule6  output0_rule7  output0_rule8  output0_rule9  output0_rule10  output0_rule11  output0_rule12  output0_rule13  output0_rule14  output0_rule15  output0_rule16  output0_rule17  output0_rule18  output0_rule19  output0_rule20  output0_rule21  output0_rule22  output0_rule25  output0_rule26  output0_rule27  output0_rule28  output0_rule29  output0_rule30  output0_rule31  output0_rule32  ))) 
  
-(define-fun violation_output1() Bool (and atleast_two_rules_fire ( distinct  output1_rule10  output1_rule11  output1_rule12  output1_rule13  output1_rule14  output1_rule15  output1_rule16  output1_rule17  output1_rule18  output1_rule19  output1_rule2  output1_rule20  output1_rule21  output1_rule22  output1_rule3  output1_rule4  output1_rule5  output1_rule6  output1_rule7  output1_rule8  output1_rule9  ))) 
+(define-fun violation_output1() Bool (and atleast_two_rules_fire ( distinct  output1_rule2  output1_rule3  output1_rule4  output1_rule5  output1_rule6  output1_rule7  output1_rule8  output1_rule9  output1_rule10  output1_rule11  output1_rule12  output1_rule13  output1_rule14  output1_rule15  output1_rule16  output1_rule17  output1_rule18  output1_rule19  output1_rule20  output1_rule21  output1_rule22  output1_rule25  output1_rule26  output1_rule27  output1_rule28  output1_rule29  output1_rule30  output1_rule31  output1_rule32  ))) 
  
+;Define the final violation constrain
+(define-fun violation () Bool (or violation_output0 violation_output1 ))
+
+(assert violation)
+
+(check-sat)
