@@ -948,7 +948,7 @@ outputStream.println();
 
 // Now we need to iterate for the number of output variables and set the violation constraints
 outputStream.println(";Define the violation for the output variables");
-
+/*
 for(int x=0;x<outputvalues.length;x++)
 {
 	int count = 0;
@@ -986,15 +986,61 @@ for(int x=0;x<outputvalues.length;x++)
 	outputStream.println(" ");
 
 	
-	
-
-	
 }
-outputStream.println(";Define the final violation constrain");
+*/
+
+PreparedStatement statement3=con.prepareStatement("select * from tele.parameters where type='o';");
+ResultSet rs3=statement2.executeQuery();
+
+while(rs3.next())
+{
+int count = 0;
+	
+	String outcheck = rs3.getString("parameterName");
+	
+	System.out.println("Output Variable Name = "+outcheck);
+	for( z=0;z<outpc;z++)
+	{
+		if(outpar[z].equals(outcheck))
+			break;
+	}
+	
+	outputStream.write("(define-fun violation_output"+z+" () Bool (and atleast_two_rules_fire " );
+	PreparedStatement statement4=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null order by rule_name+0 asc");
+	ResultSet rs9=statement4.executeQuery();
+	
+	while(rs9.next())
+	{
+		++count;
+	}
+	if(count==1)
+	{
+		outputStream.write(" false ))");
+	}
+	else
+	{
+		rs9=statement4.executeQuery();
+		outputStream.write(" ( distinct");
+		while(rs9.next())
+		{
+			String rul=  rs9.getString("rule_name");
+			outputStream.write(" output"+z+"_rule"+rul+" ");
+			
+		}
+		outputStream.write(" )))");
+
+	}
+	
+	//outputStream.write(" )))");
+	outputStream.println(" ");
+	outputStream.println(" ");
+}
+
+outputStream.println(";Define the final violation constraint");
 
 outputStream.write("(define-fun violation () Bool (or ");
 
-for(int x=0;x<outputvalues.length;x++)
+for(int x=0;x<outpc;x++)
 {
 	
 	outputStream.write("violation_output"+x+" ");
