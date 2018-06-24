@@ -12,7 +12,7 @@
 
 <% 
 
-String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.txt";
+String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.smt";
 PrintWriter outputStream = null;
 
 try
@@ -840,6 +840,17 @@ for(int i=1;i<=no_of_clauses;i++)
 
 		
 }
+String[] outpar=new String[100];
+PreparedStatement statement2=con.prepareStatement("select * from tele.parameters where type='o';");
+ResultSet rs2=statement2.executeQuery();
+int outpc=0;
+while(rs2.next())
+{
+	String outpara=rs2.getString("parameterName");
+	outpar[outpc++]=outpara;
+	
+}
+//outpc shall now contain the length of the output parameters
 outputStream.write(";Declaration of rules for output variables");
 outputStream.println();
 // Now time to populate the outputs for each rule
@@ -847,7 +858,7 @@ PreparedStatement statement1=con.prepareStatement("SELECT * FROM clause1 order b
 ResultSet rs1=statement1.executeQuery();
 
 ResultSetMetaData rsmd = rs1.getMetaData();
-
+int z=0;
 int colno = rsmd.getColumnCount();
 
 while(rs1.next())
@@ -856,6 +867,11 @@ while(rs1.next())
 	String val1="";
 	System.out.println("Currently in rule number = "+rule_num);
 	int outr=1;
+	PreparedStatement statement3=con.prepareStatement("select * from tele.parameters where type='o';");
+	ResultSet rs3=statement3.executeQuery();
+
+
+	/*
 	for(int x=0;x<outputvalues.length;x++)
 	{
 		String outcheck = outputvalues[x];
@@ -875,9 +891,37 @@ while(rs1.next())
 			outputStream.println();
 			
 		}
+		*/
+		
+		while(rs3.next())
+		{
+			String outcheck = rs3.getString("parameterName");
+			System.out.println("Output Value = "+outcheck);
+			
+			
+			//val=rs1.getInt(outcheck);
+			val1=rs1.getString(outcheck);
+			System.out.println("The value of val = "+val1);
+			
+			if(val1!=null)
+			{
+				val=rs1.getInt(outcheck);
+				System.out.println("Val = "+val);
+				for( z=0;z<outpc;z++)
+				{
+					if(outpar[z].equals(outcheck))
+						break;
+				}
+				outputStream.write("(define-fun output"+z+"_rule"+(rule_num)+" () Int (ite rule"+rule_num+"_applies "+val+" "+outcheck+"))");
+				outr++;
+				outputStream.println();
+				
+			}
+
+		}
 		
 		
-	}
+	
 	
 	outputStream.println();
 }
@@ -886,7 +930,7 @@ outputStream.println(";Define a helper function");
 //outputStream.println();
 
 
-ResultSet rs2=statement1.executeQuery();
+ rs2=statement1.executeQuery();
 
 outputStream.write("(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) ");
 
@@ -907,22 +951,37 @@ outputStream.println(";Define the violation for the output variables");
 
 for(int x=0;x<outputvalues.length;x++)
 {
+	int count = 0;
+	
 	String outcheck = outputvalues[x];
 	System.out.println("Output Variable Name = "+outcheck);
 	
-	outputStream.write("(define-fun violation_output"+x+" () Bool (and atleast_two_rules_fire ( distinct ");
-	
-	PreparedStatement statement2=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null order by rule_name+0 asc");
-	ResultSet rs3=statement2.executeQuery();
+	outputStream.write("(define-fun violation_output"+x+" () Bool (and atleast_two_rules_fire " );
+	PreparedStatement statement4=con.prepareStatement("SELECT * FROM clause1 where "+outcheck+" is not null order by rule_name+0 asc");
+	ResultSet rs3=statement4.executeQuery();
 	
 	while(rs3.next())
 	{
-		String rul=  rs3.getString("rule_name");
-		outputStream.write(" output"+x+"_rule"+rul+" ");
-		
+		++count;
+	}
+	if(count==1)
+	{
+		outputStream.write(" false ))");
+	}
+	else
+	{
+		rs3=statement4.executeQuery();
+		while(rs3.next())
+		{
+			String rul=  rs3.getString("rule_name");
+			outputStream.write(" output"+x+"_rule"+rul+" ");
+			
+		}
+		outputStream.write(" )))");
+
 	}
 	
-	outputStream.write(" )))");
+	//outputStream.write(" )))");
 	outputStream.println(" ");
 	outputStream.println(" ");
 
