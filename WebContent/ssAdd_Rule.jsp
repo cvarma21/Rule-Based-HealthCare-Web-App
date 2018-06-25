@@ -12,7 +12,7 @@
 
 <% 
 
-String filename = "/home/chaitanya/workspace/rulebase/WebContent/out.smt";
+String filename = "/home/chaitanya/workspace/rulebase/WebContent/smt/out.smt";
 PrintWriter outputStream = null;
 
 try
@@ -844,12 +844,30 @@ String[] outpar=new String[100];
 PreparedStatement statement2=con.prepareStatement("select * from tele.parameters where type='o';");
 ResultSet rs2=statement2.executeQuery();
 int outpc=0;
+String outpara="";
 while(rs2.next())
 {
-	String outpara=rs2.getString("parameterName");
+	 outpara=rs2.getString("parameterName");
 	outpar[outpc++]=outpara;
 	
 }
+
+int actoutpc=0;//actual number of output parameters being declared
+
+for(int i=0;i<outpc;i++)
+{
+	outpara=outpar[i];
+	System.out.println("Outpara = "+outpara);
+	PreparedStatement statement0=con.prepareStatement("select count(*) from clause1 where "+outpara+" is not null;");
+	ResultSet rs0=statement0.executeQuery();
+	rs0.next();
+
+	String count=rs0.getString(1);
+	if(count.equals("0")==false)
+		actoutpc++;
+}
+
+System.out.println("Actual outpc = "+actoutpc);
 //outpc shall now contain the length of the output parameters
 outputStream.write(";Declaration of rules for output variables");
 outputStream.println();
@@ -948,8 +966,14 @@ outputStream.println();
 
 // Now we need to iterate for the number of output variables and set the violation constraints
 outputStream.println(";Define the violation for the output variables");
-/*
+
+System.out.println("Printing output values = ");
+/*	
 for(int x=0;x<outputvalues.length;x++)
+{
+	System.out.println(outputvalues[x]);
+}
+for(int x=0;x<actoutpc;x++)
 {
 	int count = 0;
 	
@@ -1044,7 +1068,7 @@ outputStream.println(";Define the final violation constraint");
 
 outputStream.write("(define-fun violation () Bool (or ");
 
-for(int x=0;x<outpc;x++)
+for(int x=0;x<actoutpc;x++)
 {
 	
 	outputStream.write("violation_output"+x+" ");
@@ -1062,12 +1086,59 @@ outputStream.println("(check-sat)");
 	
 outputStream.close();
 
+Process ls=null;
+BufferedReader input1=null;
+String line=null;
 
-if(suc==1){
+    try {
+
+           //ls= Runtime.getRuntime().exec("z3 example1.smt");
+           
+           ls= Runtime.getRuntime().exec(" z3 out.smt", null, new File("/home/chaitanya/workspace/rulebase/WebContent/smt"));
+           
+           input1 = new BufferedReader(new InputStreamReader(ls.getInputStream()));
+
+	        } catch (IOException e1) {
+            e1.printStackTrace();  
+            System.out.println("In try 1");
+            		
+            System.exit(1);
+        }
+        
+       int flag1=0;
+       try {
+               while( (line=input1.readLine())!=null)
+               {
+                System.out.println(line);
+                if(line.equals("sat"))
+                	flag1=1;
+                	
+                //System.out.println("In printing stage");
+               }
+
+        } catch (IOException e1) {
+            e1.printStackTrace();  
+            System.out.println("In try 2");
+            		
+            System.exit(0);
+        }         
+		if(flag1==1)
+			System.out.println("SAT");
+            		else
+            			System.out.println("UNSAT");
+            		
+            	
+            		
+if(suc==1 && flag1==0){
 			%><a href="Add_Rule.jsp">Success ! Go to Add rule page</a>
-			<%}else {%>
-			<a href="Add_Rule.jsp">Fail! Try again</a>
+			<%}else if(suc==1 && flag1==1){%>
+			<a href="Add_Rule.jsp">Conflict in rule ! Try again</a>
 			<%} %>
+			
+			<% if(suc==0) {%>
+			<a href="Add_Rule.jsp">Rule exists ! Try again</a>
+			<%} %>
+			
 
 
 </body>
