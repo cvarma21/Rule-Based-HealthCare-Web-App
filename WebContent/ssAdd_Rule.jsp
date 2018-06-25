@@ -1020,14 +1020,14 @@ int count = 0;
 	else
 	{
 		rs9=statement4.executeQuery();
-		outputStream.write(" ( distinct");
+		outputStream.write(" (not (=");
 		while(rs9.next())
 		{
 			String rul=  rs9.getString("rule_name");
 			outputStream.write(" output"+z+"_rule"+rul+" ");
 			
 		}
-		outputStream.write(" )))");
+		outputStream.write(" ))))");
 
 	}
 	
