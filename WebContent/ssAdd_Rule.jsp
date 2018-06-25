@@ -948,7 +948,7 @@ outputStream.println();
 
 // Now we need to iterate for the number of output variables and set the violation constraints
 outputStream.println(";Define the violation for the output variables");
-/*
+
 for(int x=0;x<outputvalues.length;x++)
 {
 	int count = 0;
@@ -971,13 +971,17 @@ for(int x=0;x<outputvalues.length;x++)
 	else
 	{
 		rs3=statement4.executeQuery();
+		outputStream.write(" (not (=");
+
 		while(rs3.next())
 		{
 			String rul=  rs3.getString("rule_name");
 			outputStream.write(" output"+x+"_rule"+rul+" ");
 			
 		}
-		outputStream.write(" )))");
+		
+		outputStream.write(" ))))");
+
 
 	}
 	
@@ -987,8 +991,8 @@ for(int x=0;x<outputvalues.length;x++)
 
 	
 }
-*/
 
+/*
 PreparedStatement statement3=con.prepareStatement("select * from tele.parameters where type='o';");
 ResultSet rs3=statement2.executeQuery();
 
@@ -1035,12 +1039,12 @@ int count = 0;
 	outputStream.println(" ");
 	outputStream.println(" ");
 }
-
+*/
 outputStream.println(";Define the final violation constraint");
 
 outputStream.write("(define-fun violation () Bool (or ");
 
-for(int x=0;x<outpc;x++)
+for(int x=0;x<outputvalues.length;x++)
 {
 	
 	outputStream.write("violation_output"+x+" ");

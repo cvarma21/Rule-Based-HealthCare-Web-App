@@ -172,15 +172,16 @@ if(hello.equals("DEL RULE") && hello.equals("null")==false)
 
 }
 else 
-	//if(hello.equals("SHOW TABLES")==false)
 {
 
 //System.out.println("inot "+input);
 if((input == null) || (output == null))
 {
 	response.sendRedirect("Add_Rule.jsp?io_flag=0");	
+	
 }
 
+System.out.println("In show tables");
 
 try{
 	
@@ -195,27 +196,7 @@ try{
 		}
 		
 		
-		/*for(int i=0;i<input.length;i++)
-			{
-			
-			if(i!=(input.length-1))
-			inputstring+=input[i]+",";
-			else
-			inputstring+=input[i];
-			}
-		*/
-
-		/*
-		<select>
-		  <option value="volvo">Volvo</option>
-		  <option value="saab">Saab</option>
-		  <option value="opel">Opel</option>
-		  <option value="audi">Audi</option>
-		</select>
-		  
 		
-		
-		*/
 		
 		
 		Class.forName("com.mysql.jdbc.Driver");
@@ -301,12 +282,10 @@ try{
 			}
 			
 			table1+="<tr>";
-			//rs2.next();
 			
 			while(rs2.next())
 			{
 				int flag=0;
-				//table1+="<input id=\"myRadio\" type=\"radio \" </input>";
 				for(int j=1;j<=colno;j++)
 				{
 					
@@ -314,7 +293,6 @@ try{
 					String colval = rs2.getString(j);
 					String colname =rsmd.getColumnName(j);
 
-					System.out.println("String = "+colval);
 					
 					if(j!=1 && flag==0 )
 					{
@@ -350,32 +328,7 @@ try{
 		
 		
 		response.sendRedirect("Add_Rule.jsp?tables="+inputtables+"&inputdrop="+inputdrop+"&outputtext="+outputtext+"&inputstring="+inputstring+"&outputstring="+outputstring);
-		
-	/*
-		PreparedStatement statement2=con.prepareStatement("select * from max_clauses");
-		
-
-		ResultSet rs2 = statement2.executeQuery();
-		
-		rs1.next();
-		//String no = rs1.getString(1);
-		int no1 = rs2.getInt(1);
-		System.out.println("Max clauses= "+no1);
-		
-		for( int k=1;k<=no1;k++)
-		{
-			PreparedStatement statement3=con.prepareStatement("select *  FROM clause"+k);
-			ResultSet rs3=statement3.executeQuery();
-			
-			while(rs3.next())
-			{
-				int no2=rs3.getInt("rule_name");
-				System.out.println("no = "+no);
-				
-			}
-		}
-		*/
-		
+	
 }
 catch(Exception e)
 {
