@@ -272,10 +272,13 @@ for(int i=1;i<=no;i++)
 			
 	}
 	
+	
+	
 
 }
+String table1="";
 
-/*
+
 try{
 	
 		
@@ -289,11 +292,9 @@ try{
 		}
 		
 		
+		//ok
 		
 		
-		
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
 		
 		
 		
@@ -303,110 +304,109 @@ try{
 		outputtext+=output[i]+"<input type='text' name='"+output[i]+"'  id='"+output[i]+"'></input><input type='button' value='Formula' onclick='formula_open()'></input><br><br>";
 			
 		}
+		//ok
 		
 		for(int i=0;i<input.length;i++)
 		{
-		String table="<table>";
-		PreparedStatement statement=con.prepareStatement("select * from "+input[i]);
-		
-		ResultSet result=statement.executeQuery();
-		ResultSetMetaData rsmd = result.getMetaData();
-		int columnsNumber = rsmd.getColumnCount();
-		if(columnsNumber==3)
-		{
-			table+="<table border='1'><th>id</th><th>left_limit</th><th>right_limit</th>";
-			while(result.next())
+			String table="<table>";
+			PreparedStatement statement=con.prepareStatement("select * from "+input[i]);
+			
+			ResultSet result=statement.executeQuery();
+			ResultSetMetaData rsmd = result.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			if(columnsNumber==3)
 			{
-				inputstring+=result.getString(1)+",";
-			inputdrop+="<option value="+result.getString(1)+">"+result.getString(1)+"</option>";
-			table+="<tr><td>"+result.getString(1)+"</td><td>"+result.getString(2)+"</td><td>"+result.getString(3)+"</td></tr>";	
+				table+="<table border='1'><th>id</th><th>left_limit</th><th>right_limit</th>";
+				while(result.next())
+				{
+					inputstring+=result.getString(1)+",";
+					inputdrop+="<option value="+result.getString(1)+">"+result.getString(1)+"</option>";
+					table+="<tr><td>"+result.getString(1)+"</td><td>"+result.getString(2)+"</td><td>"+result.getString(3)+"</td></tr>";	
+				}
+				table+="</table>";
 			}
-			table+="</table>";
-		}
-		else
-		{
-			table+="<table border='1'><th>id</th><th>value</th>";
-			while(result.next())
+			else
 			{
-				inputstring+=result.getString(1)+",";
-			inputdrop+="<option value="+result.getString(1)+">"+result.getString(1)+"</option>";
-			table+="<tr><td>"+result.getString(1)+"</td><td>"+result.getString(2)+"</td></tr>";	
+				table+="<table border='1'><th>id</th><th>value</th>";
+				while(result.next())
+				{
+					inputstring+=result.getString(1)+",";
+					inputdrop+="<option value="+result.getString(1)+">"+result.getString(1)+"</option>";
+					table+="<tr><td>"+result.getString(1)+"</td><td>"+result.getString(2)+"</td></tr>";	
+				}
+				table+="</table>";
 			}
-			table+="</table>";
-		}
 		
-		inputtables+="<br>"+table;
+			inputtables+="<br>"+table;
 		
 		
 		}
 		
-		PreparedStatement statement1=con.prepareStatement("select * from max_clauses");
-		ResultSet rs1 = statement1.executeQuery();
+		PreparedStatement statement11=con.prepareStatement("select * from mytable  order by rule_name+0 asc;");
+		ResultSet rs1 = statement11.executeQuery();
 		
-		rs1.next();
-		//String no = rs1.getString(1);
-		int no = rs1.getInt(1);
-		System.out.println("Max clauses= "+no);
-		String table1="<table>";
+		ResultSetMetaData rsmd = rs1.getMetaData();
+		
+		int colno = rsmd.getColumnCount();
+		System.out.println("Number of columns = "+colno);
+		
+		table1+="<table border='1'>";
 
-		int colno;
-		for(int i=1;i<=no;i++)
+		
+		for(int j=1;j<=colno;j++)
 		{
-			PreparedStatement statement2=con.prepareStatement("select * from clause"+i+" order by rule_name + 0 ASC");
-			ResultSet rs2=statement2.executeQuery();
-			ResultSetMetaData rsmd = rs2.getMetaData();
-			
-			colno = rsmd.getColumnCount();
-			System.out.println("Number of columns = "+colno);
-			
-			table1+="<table border='1'>";
+			String colname =rsmd.getColumnName(j);
+			System.out.println("Column Name = "+colname);
+			//table1+="<td>"+"<th>"+colname+"</th>";	
+			//table1+="<td>"+colname;	
+			table1+="<th>"+colname+"</th>";	
 
 			
+			
+		}
+		
+		table1+="<tr>";
+		
+		while(rs1.next())
+		{
+			int flag=0;
 			for(int j=1;j<=colno;j++)
 			{
+				
+
+				String colval = rs1.getString(j);
 				String colname =rsmd.getColumnName(j);
-				//System.out.println("Column Name = "+colname);
-				//table1+="<td>"+"<th>"+colname+"</th>";	
-				//table1+="<td>"+colname;	
-				table1+="<th>"+colname+"</th>";	
 
 				
-				
+				if(j!=1 && flag==0 )
+				{
+					table1+="<input id=\"myRadio\" type= \"radio\" name=\"rule\"  value = "+rs1.getString(1)+" </input>"; 
+					flag=1;
+				}
+				table1+="<td>"+colval;	
+				//table1+="<td><input id=\"myRadio\" type=\"radio \" </input>"+colval;
 			}
 			
 			table1+="<tr>";
-			
-			while(rs2.next())
-			{
-				int flag=0;
-				for(int j=1;j<=colno;j++)
-				{
-					
-
-					String colval = rs2.getString(j);
-					String colname =rsmd.getColumnName(j);
-
-					
-					if(j!=1 && flag==0 )
-					{
-						table1+="<input id=\"myRadio\" type= \"radio\" name=\"rule\"  value = "+rs2.getString(1)+" </input>"; 
-						flag=1;
-					}
-					table1+="<td>"+colval;	
-					//table1+="<td><input id=\"myRadio\" type=\"radio \" </input>"+colval;
-				}
-				
-				table1+="<tr>";
-			}
-			
-			table1+="<br>";
-
-			
-			
-			
-			
-
 		}
+		
+		table1+="<br>";
+	
+
+		PreparedStatement statement111=con.prepareStatement("select * from mytable  order by rule_name+0 asc;");
+
+			
+			
+			
+
+}
+catch(Exception e)
+{
+	System.out.println("Exception to Add rule : " + e);	
+	
+}
+
+		
 		table1+="</table>";
 		inputtables+="<br>"+table1+"<br>";
 
@@ -416,18 +416,14 @@ try{
 		inputtables+="</div>";
 		outputtext+="</div>";
 		
+		System.out.println("inputstring = "+inputstring);
 		inputstring=inputstring.substring(0,inputstring.length()-1);
 		
 		
 		response.sendRedirect("Add_Rule.jsp?tables="+inputtables+"&inputdrop="+inputdrop+"&outputtext="+outputtext+"&inputstring="+inputstring+"&outputstring="+outputstring);
 	
-}
-catch(Exception e)
-{
-	System.out.println("Exception to Add rule : " + e);	
-	
-}
-*/
+
+
 }
 %>
 <body>
