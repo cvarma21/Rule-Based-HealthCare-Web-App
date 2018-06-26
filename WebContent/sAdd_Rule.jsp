@@ -196,9 +196,10 @@ rs2.next();
 //String no = rs1.getString(1);
 int no = rs2.getInt(1);
 System.out.println("Max clauses= "+no);
-
+int flag1=0;
 for(int i=1;i<=no;i++)
 {
+	System.out.println("Current clause is = "+i);
 	PreparedStatement statement3=con.prepareStatement("select * from clause"+i);
 	ResultSet rs3 = statement3.executeQuery();
 	
@@ -215,19 +216,20 @@ for(int i=1;i<=no;i++)
 		statement4.execute();
 		}
 		
-		
-
 	}
-	PreparedStatement statement0=con.prepareStatement("select * from clause1");
-	ResultSet rs0=statement0.executeQuery();
-	
-	while(rs0.next())
+	if(flag1==0)
 	{
-		System.out.println("insert into mytable (rule_name) values ('"+rs0.getString(1)+"');");
-		PreparedStatement statement00=con.prepareStatement("insert into mytable (rule_name) values ('"+rs0.getString(1)+"');");
-		statement00.executeUpdate();
+		PreparedStatement statement0=con.prepareStatement("select * from clause1");
+		ResultSet rs0=statement0.executeQuery();
+		
+		while(rs0.next())
+		{
+			System.out.println("insert into mytable (rule_name) values ('"+rs0.getString(1)+"');");
+			PreparedStatement statement00=con.prepareStatement("insert into mytable (rule_name) values ('"+rs0.getString(1)+"');");
+			statement00.executeUpdate();
+		}
+		flag1=1;
 	}
-
 	
 	// Now all the tables have been generated
 	
@@ -248,12 +250,12 @@ for(int i=1;i<=no;i++)
 				String colname = rsmd.getColumnName(j);
 				System.out.println("Colname = "+colname);
 				
-				PreparedStatement statement6=con.prepareStatement("select "+colname+" from clause1 where rule_name='"+rul+"'");
+				PreparedStatement statement6=con.prepareStatement("select "+colname+" from clause"+i+" where rule_name='"+rul+"'");
 	
 				ResultSet rs6=statement6.executeQuery();
-				rs6.next();
-				
-				String check=rs6.getString(1);
+				String check="";
+				if(rs6.next())
+				 check=rs6.getString(1);
 				System.out.println("Check = "+check);
 				
 				
@@ -393,8 +395,8 @@ try{
 		table1+="<br>";
 	
 
-		PreparedStatement statement111=con.prepareStatement("select * from mytable  order by rule_name+0 asc;");
-
+		PreparedStatement statement111=con.prepareStatement("drop table mytable;");
+		statement111.executeUpdate();
 			
 			
 			
