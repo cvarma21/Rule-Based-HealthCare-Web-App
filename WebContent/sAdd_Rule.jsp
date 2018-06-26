@@ -185,7 +185,7 @@ System.out.println("In show tables");
 
 Class.forName("com.mysql.jdbc.Driver");
 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
-PreparedStatement statement1 = con.prepareStatement("create table mytable ( rule_name varchar(20))");
+PreparedStatement statement1 = con.prepareStatement("create table mytable ( rule_name varchar(20), primary key (rule_name))");
 statement1.execute();
 PreparedStatement statement2=con.prepareStatement("select * from max_clauses");
 
@@ -218,6 +218,16 @@ for(int i=1;i<=no;i++)
 		
 
 	}
+	PreparedStatement statement0=con.prepareStatement("select * from clause1");
+	ResultSet rs0=statement0.executeQuery();
+	
+	while(rs0.next())
+	{
+		System.out.println("insert into mytable (rule_name) values ('"+rs0.getString(1)+"');");
+		PreparedStatement statement00=con.prepareStatement("insert into mytable (rule_name) values ('"+rs0.getString(1)+"');");
+		statement00.executeUpdate();
+	}
+
 	
 	// Now all the tables have been generated
 	
@@ -239,6 +249,7 @@ for(int i=1;i<=no;i++)
 				System.out.println("Colname = "+colname);
 				
 				PreparedStatement statement6=con.prepareStatement("select "+colname+" from clause1 where rule_name='"+rul+"'");
+	
 				ResultSet rs6=statement6.executeQuery();
 				rs6.next();
 				
@@ -248,8 +259,12 @@ for(int i=1;i<=no;i++)
 				
 				if(check!=null)
 				{
-					PreparedStatement statement7=con.prepareStatement("insert into mytable (rule_name, "+colname+") values ("+rul+","+check+");");
+					//System.out.println("insert into mytable (rule_name, "+colname+") values ("+rul+","+check+");");
+					//PreparedStatement statement7=con.prepareStatement("insert into mytable (rule_name, "+colname+") values ('"+rul+"','"+check+"');");
+					PreparedStatement statement7=con.prepareStatement("update mytable set "+colname+" = '"+check+"' where rule_name = '"+rul+"';");
+					System.out.println("update mytable set "+colname+" = '"+check+"' where rule_name = '"+rul+"';");
 					statement7.execute();
+					
 
 				}
 
