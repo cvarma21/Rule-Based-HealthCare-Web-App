@@ -15,6 +15,7 @@
 (define-fun rule2_applies () Bool (and (range abc 10 20)(range abc 10 20)(range abc 10 20)))
 (define-fun rule3_applies () Bool (and (range abc 10 20)(range abc 10 20)(range abc 10 20)(range abc 10 20)))
 (define-fun rule4_applies () Bool (and (range abc 10 20)))
+(define-fun rule5_applies () Bool (and (range abc 10 20)))
 
 ;Declaration of rules for output variables
 (define-fun output1_rule1 () Int (ite rule1_applies 200 outpp))
@@ -23,19 +24,21 @@
 
 (define-fun output1_rule3 () Int (ite rule3_applies 200 outpp))
 
-(define-fun output1_rule4 () Int (ite rule4_applies 201 outpp))
+(define-fun output0_rule4 () Int (ite rule4_applies 200 outp))
+
+(define-fun output1_rule5 () Int (ite rule5_applies 200 outpp))
 
 
 ;Define a helper function
-(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) rule1_applies rule2_applies rule3_applies rule4_applies ))
+(define-fun atleast_two_rules_fire () Bool ((_ at-least 2) rule1_applies rule2_applies rule3_applies rule4_applies rule5_applies ))
 
 ;Define the violation for the output variables
-(define-fun violation_output0 () Bool (and atleast_two_rules_fire  (not (= )))) 
+(define-fun violation_output0 () Bool (and atleast_two_rules_fire  false )) 
  
-(define-fun violation_output1 () Bool (and atleast_two_rules_fire  (not (= output1_rule1  output1_rule2  output1_rule3  output1_rule4  )))) 
+(define-fun violation_output1 () Bool (and atleast_two_rules_fire  (not (= output1_rule1  output1_rule2  output1_rule3  output1_rule5  )))) 
  
 ;Define the final violation constraint
-(define-fun violation () Bool (or violation_output0 ))
+(define-fun violation () Bool (or violation_output0 violation_output1 ))
 
 (assert violation)
 

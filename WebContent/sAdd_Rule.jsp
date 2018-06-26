@@ -131,7 +131,6 @@ if(hello.equals("DEL RULE") && hello.equals("null")==false)
 	for(int i=1;i<=no;i++)
 	{
 		PreparedStatement statement2=con.prepareStatement("delete  FROM clause"+i+" WHERE rule_name="+rule);
-		System.out.println("Rule  = "+statement2);
 		statement2.executeUpdate();
 		
 		PreparedStatement statement3=con.prepareStatement("select count(*) from clause"+i);

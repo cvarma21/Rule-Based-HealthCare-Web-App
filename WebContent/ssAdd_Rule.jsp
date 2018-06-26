@@ -1123,10 +1123,66 @@ String line=null;
             System.exit(0);
         }         
 		if(flag1==1)
+		{
 			System.out.println("SAT");
+			String rul =request.getParameter("rule_name");
+			System.out.println("rul = "+rul);
+			
+
+			PreparedStatement statement1X=con.prepareStatement("select * from max_clauses");
+			
+
+			ResultSet rs1X = statement1X.executeQuery();
+			
+			rs1X.next();
+			//String no = rs1.getString(1);
+			 no = rs1X.getInt(1);
+			System.out.println("Max clauses= "+no);
+			String check="";
+			for(int i=1;i<=no;i++)
+			{
+				
+				System.out.println("Current clause number = "+i);
+				PreparedStatement statement2X=con.prepareStatement("delete  FROM clause"+i+" WHERE rule_name="+rul);
+				statement2X.executeUpdate();
+				
+				PreparedStatement statement3X=con.prepareStatement("select count(*) from clause"+i);
+				ResultSet rs3X=statement3X.executeQuery();
+
+				if(rs3X.next())
+				 check=rs3X.getString(1);
+				System.out.println("Number of tuples in clause"+i+" = "+check);
+				
+				
+				if(check.equals("0"))
+				{
+					System.out.println("Tuples = 0");
+					
+					PreparedStatement statement4=con.prepareStatement("drop table clause"+i);
+					statement4.executeUpdate();
+					System.out.println("Table dropped");
+					
+					int no1=no-1;
+					PreparedStatement statement5=con.prepareStatement("update max_clauses set no="+no1);
+					statement5.executeUpdate();
+					
+					System.out.println("New numbe rof max_clauses = "+no1);
+					
+
+				}
+				
+
+				
+				
+
+
+			}
+
+		}
             		else
             		{
             			System.out.println("UNSAT");
+            			
             		}
             		
             		
