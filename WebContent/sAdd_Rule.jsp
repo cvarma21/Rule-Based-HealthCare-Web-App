@@ -183,6 +183,84 @@ if((input == null) || (output == null))
 
 System.out.println("In show tables");
 
+Class.forName("com.mysql.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/tele","root","root");
+PreparedStatement statement1 = con.prepareStatement("create table mytable ( rule_name varchar(20))");
+statement1.execute();
+PreparedStatement statement2=con.prepareStatement("select * from max_clauses");
+
+
+ResultSet rs2 = statement2.executeQuery();
+
+rs2.next();
+//String no = rs1.getString(1);
+int no = rs2.getInt(1);
+System.out.println("Max clauses= "+no);
+
+for(int i=1;i<=no;i++)
+{
+	PreparedStatement statement3=con.prepareStatement("select * from clause"+i);
+	ResultSet rs3 = statement3.executeQuery();
+	
+	ResultSetMetaData rsmd = rs3.getMetaData();
+	
+	int colno = rsmd.getColumnCount();
+	
+	for(int j=1;j<=colno;j++)
+	{
+		String colname =rsmd.getColumnName(j);
+		if(colname.equals("rule_name")==false)
+		{
+		PreparedStatement statement4=con.prepareStatement("alter table mytable add column "+colname+" varchar(20)");
+		statement4.execute();
+		}
+		
+		
+
+	}
+	
+	// Now all the tables have been generated
+	
+	PreparedStatement statement5=con.prepareStatement("select * from clause1");
+	ResultSet rs5=statement5.executeQuery();
+	
+	while(rs5.next())
+	{
+			String rul=rs5.getString("rule_name");
+			System.out.println("Current rule  = "+ rul);
+			
+			 rsmd = rs3.getMetaData();
+			
+			 colno = rsmd.getColumnCount();
+			
+			for( int j=2;j<=colno;j++)
+			{
+				String colname = rsmd.getColumnName(j);
+				System.out.println("Colname = "+colname);
+				
+				PreparedStatement statement6=con.prepareStatement("select "+colname+" from clause1 where rule_name='"+rul+"'");
+				ResultSet rs6=statement6.executeQuery();
+				rs6.next();
+				
+				String check=rs6.getString(1);
+				System.out.println("Check = "+check);
+				
+				
+				if(check!=null)
+				{
+					PreparedStatement statement7=con.prepareStatement("insert into mytable (rule_name, "+colname+") values ("+rul+","+check+");");
+					statement7.execute();
+
+				}
+
+			}
+			
+	}
+	
+
+}
+
+/*
 try{
 	
 		
@@ -307,7 +385,6 @@ try{
 			}
 			
 			table1+="<br>";
-			//table1+="</table>";
 
 			
 			
@@ -335,7 +412,7 @@ catch(Exception e)
 	System.out.println("Exception to Add rule : " + e);	
 	
 }
-
+*/
 }
 %>
 <body>
