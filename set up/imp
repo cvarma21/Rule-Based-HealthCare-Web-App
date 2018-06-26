@@ -1,0 +1,3 @@
+1. Please make sure to change the login credentials for your mysql server - my password was root. Please change the files as per your own password.
+2. Also, we are generating a script which is stored in WebContent/smt folder and is a file of the name- out.smt. Please correct the path as per your own system in the ssAddRule.jsp file on line number 1097.
+

@@ -27,7 +27,7 @@ catch(IOException e)
     System.err.println("error is: "+e.getMessage());
 }
 
-System.out.println("File Created!");
+//System.out.println("File Created!");
 
 
 
@@ -261,14 +261,14 @@ for(int i=1;i<=no_of_clauses;i++)
 	while(rs3.next())
 	{
 		int no2=rs3.getInt("rule_name");
-		System.out.println("Current rule No = "+no2);
+		//System.out.println("Current rule No = "+no2);
 		
 		
 		for(int l=0;l<select.length;l++)
 		{
 			int in=select[l].indexOf("_");
 			 col=select[l].substring(0,in);
-			System.out.println("Col = "+col);
+			//System.out.println("Col = "+col);
 			
 			//outputStream.write("(declare-fun "+col+" () Int)");
 			//outputStream.println();
@@ -338,8 +338,8 @@ for(int i=1;i<=no_of_clauses;i++)
 					if(i==no_of_clauses)
 					System.out.println("We are in 2");
 					
-					System.out.println("STarting val of flagx = "+flagx);
-					System.out.println("Starting val of lflag = "+lflag);
+					//System.out.println("STarting val of flagx = "+flagx);
+					//System.out.println("Starting val of lflag = "+lflag);
 					if(flagx==1)
 						lflag=1;
 					String colname1 =rsmd.getColumnName(k);
@@ -378,8 +378,8 @@ for(int i=1;i<=no_of_clauses;i++)
 				}
 				if(i==no_of_clauses)
 				{
-				System.out.println("Val of flagx = "+flagx);
-				System.out.println("Val of lflag ="+lflag);
+				//System.out.println("Val of flagx = "+flagx);
+				//System.out.println("Val of lflag ="+lflag);
 				}
 				/*
 				if(flag==0)
@@ -422,9 +422,9 @@ for(int i=1;i<=no_of_clauses;i++)
 					temp+="(range "+inp1+" "+ll+" "+rr+" )";
 					}
 					cnt--;
-					System.out.println("inp1 ="+inp1);
-					System.out.println("We are printing the range here - xyz flag");
-					System.out.println("Val of flagx = "+flagx+" Val of lflag = "+lflag);
+					//System.out.println("inp1 ="+inp1);
+					//System.out.println("We are printing the range here - xyz flag");
+					//System.out.println("Val of flagx = "+flagx+" Val of lflag = "+lflag);
 
 				}
 				else // This means that there is more than 1
@@ -435,20 +435,20 @@ for(int i=1;i<=no_of_clauses;i++)
 					temp+="(or (range "+inp1+" "+ll+" "+rr+" )";
 					}
 					cnt--;
-					System.out.println("inp1 = "+inp1);
-					System.out.println("We are printing the range here - abc flag");
+					//System.out.println("inp1 = "+inp1);
+					//System.out.println("We are printing the range here - abc flag");
 					lflag=1;					
-					System.out.println("Val of flagx = "+flagx+" Val of lflag = "+lflag);
+					//System.out.println("Val of flagx = "+flagx+" Val of lflag = "+lflag);
 
 
 				}
-				System.out.println("No1 = "+no1);
+				//System.out.println("No1 = "+no1);
 			}
 
 		}
 		if(i==no_of_clauses && lflag==1)//added a lflag
 		{
-			System.out.println("Printing at 3 a bracket");
+			//System.out.println("Printing at 3 a bracket");
 			outputStream.write(")");
 			temp+=")";
 		}
@@ -457,7 +457,7 @@ for(int i=1;i<=no_of_clauses;i++)
 		// Now we will check the same rule for other clauses/tables - run a loop for the number of clauses
 		for(int m = 2;m<=no1;m++)
 		{	ResultSet rs6=null;
-			System.out.println("In clause = "+m+"and the value of no2 = "+no2);
+			//System.out.println("In clause = "+m+"and the value of no2 = "+no2);
 			
 			PreparedStatement statement6=con.prepareStatement("select * from clause"+m+" where rule_name = '"+no2+"'");
 			try{
@@ -472,11 +472,11 @@ for(int i=1;i<=no_of_clauses;i++)
 
 			while(rs6.next())
 			{
-				System.out.println("In the rs6 loop");
+				//System.out.println("In the rs6 loop");
 				//rs6.next();
 				// IN the specific rule
 				colno = rsmd1.getColumnCount();
-						System.out.println("Number of columns = "+colno);
+						//System.out.println("Number of columns = "+colno);
 						String inpx="";
 						int flag=1;
 						int flast=0;
@@ -484,11 +484,11 @@ for(int i=1;i<=no_of_clauses;i++)
 						{
 							//int flag=1;
 							//int flast=0;
-							System.out.println("Value of N currently is = "+n);
+							//System.out.println("Value of N currently is = "+n);
 							String colname =rsmd1.getColumnName(n);
 							
 							inpx = rs6.getString(colname);
-							System.out.println("inpx = "+inpx);
+							//System.out.println("inpx = "+inpx);
 							boolean numeric  = true;
 						
 							if(inpx!=null)
@@ -521,10 +521,10 @@ for(int i=1;i<=no_of_clauses;i++)
 									flast=0;// It wasnt the last variable
 									flag=1;
 									String colname1 =rsmd1.getColumnName(o);
-									System.out.println("Column Name in the loop = "+colname1);
+									//System.out.println("Column Name in the loop = "+colname1);
 									
 									 inpx = rs6.getString(colname1);
-									System.out.println("inpx in the loop = "+inpx);
+									//System.out.println("inpx in the loop = "+inpx);
 									
 									
 									 boolean numeric1  = true;
@@ -546,7 +546,7 @@ for(int i=1;i<=no_of_clauses;i++)
 								        
 									if(inpx!=null && numeric1==false)
 									{
-										System.out.println("There is a value which is not null and it is equal to = "+inpx);
+										//System.out.println("There is a value which is not null and it is equal to = "+inpx);
 										cnt++;
 										flaganother=1;
 										
@@ -558,7 +558,7 @@ for(int i=1;i<=no_of_clauses;i++)
 								}
 								if(flaganother==0 && inpxx!=null)
 								{
-									System.out.println("There is no other variable in this table");
+									//System.out.println("There is no other variable in this table");
 									
 									String inp2 = inpxx.substring(0, inpxx.length()-2);
 									//System.out.println("Inp1 = "+inp1);
@@ -578,16 +578,16 @@ for(int i=1;i<=no_of_clauses;i++)
 									int ll = rs7.getInt(inp1l);
 									int rr = rs7.getInt(inp1r);
 									
-									System.out.println("Left limit = "+ll);
-									System.out.println("Right limit = "+rr);
+									//System.out.println("Left limit = "+ll);
+									//System.out.println("Right limit = "+rr);
 									
-									System.out.println("Inp2 in inpxx = "+inp2);
+									//System.out.println("Inp2 in inpxx = "+inp2);
 									if(i==no_of_clauses)
 									{
 									outputStream.write("(range "+inp2+" "+ll+" "+rr+")");
 									temp+="(range "+inp2+" "+ll+" "+rr+")";
 									}
-									System.out.println("We are printing the range here in inpxx");
+									//System.out.println("We are printing the range here in inpxx");
 									int chf=1;
 									check=1;//check if it changes
 									cnt=-1;//checking if 
@@ -626,21 +626,21 @@ for(int i=1;i<=no_of_clauses;i++)
 								}
 								if(flaganother==1 && flast==0)// if there is another variable and it is not the last of the table
 								{
-									System.out.println("It was not the last and that is why we are here");
+									//System.out.println("It was not the last and that is why we are here");
 									//outputStream.write("( ");
 									if(i==no_of_clauses)
 									{
 										outputStream.write("(or ");
 										temp+="(or ";
 									}
-									System.out.println("We are printing or here");
+									//System.out.println("We are printing or here");
 									for(int o=1;o<=colno;o++)
 									{
 										String colname1 =rsmd1.getColumnName(o);
-										System.out.println("Column Name in the loop = "+colname1);
+										//System.out.println("Column Name in the loop = "+colname1);
 										
 										 inpx = rs6.getString(colname1);
-										System.out.println("inpx in the loop = "+inpx);
+										//System.out.println("inpx in the loop = "+inpx);
 										
 										
 										 boolean numeric1  = true;
@@ -680,8 +680,8 @@ for(int i=1;i<=no_of_clauses;i++)
 											int ll = rs7.getInt(inp1l);
 											int rr = rs7.getInt(inp1r);
 											
-											System.out.println("Left limit = "+ll);
-											System.out.println("Right limit = "+rr);
+											//System.out.println("Left limit = "+ll);
+											//System.out.println("Right limit = "+rr);
 											if(i==no_of_clauses)
 											{
 											outputStream.write("(range "+inp2+" "+ll+" "+rr+")");
@@ -734,7 +734,7 @@ for(int i=1;i<=no_of_clauses;i++)
 									
 									if(flast==1  && check==0)
 									{
-										System.out.println("In flast");
+										//System.out.println("In flast");
 										
 										String inp2 = inpx.substring(0, inpx.length()-2);
 										//System.out.println("Inp1 = "+inp1);
@@ -754,13 +754,13 @@ for(int i=1;i<=no_of_clauses;i++)
 										int ll = rs7.getInt(inp1l);
 										int rr = rs7.getInt(inp1r);
 										
-										System.out.println("Left limit = "+ll);
-										System.out.println("Right limit = "+rr);
+										//System.out.println("Left limit = "+ll);
+										//System.out.println("Right limit = "+rr);
 										if(i==no_of_clauses)
 										{
 										outputStream.write("(range "+inp2+" "+ll+" "+rr);
 										temp+="(range "+inp2+" "+ll+" "+rr;
-										System.out.println("We are printing the range here - 111 flag");
+										//System.out.println("We are printing the range here - 111 flag");
 										}
 
 										//no1=0;
@@ -771,14 +771,14 @@ for(int i=1;i<=no_of_clauses;i++)
 									//checking here
 									if(i!=1 && check==0 && n==(colno+1))//change from ! to equal
 									{
-										System.out.println("Printing at 1 just a single bracket");
+										//System.out.println("Printing at 1 just a single bracket");
 										outputStream.write(")");
 										temp+=")";
 									}
 									
 									if(i!=1 && check==1 && n==(colno+1))//change from ! to equal
 									{
-										System.out.println("Printing at 1 just a single bracket");
+										//System.out.println("Printing at 1 just a single bracket");
 										outputStream.write(")");
 										temp+=")";
 									}
@@ -806,8 +806,8 @@ for(int i=1;i<=no_of_clauses;i++)
 				
 				if(lb>rb)
 					 diff=lb-rb;
-				System.out.println("cnt= "+cnt);
-				System.out.println("check = "+check);
+				//System.out.println("cnt= "+cnt);
+				//System.out.println("check = "+check);
 				if(check==1)
 					cnt=-1;
 				if(cnt==-1)
@@ -829,12 +829,12 @@ for(int i=1;i<=no_of_clauses;i++)
 								if(i==no_of_clauses)
 								{
 									outputStream.println();
-									System.out.println("Printing in the next line 1");
+									//System.out.println("Printing in the next line 1");
 								}
 			}
 			
 			outputStream.println();
-			System.out.println("Printing in the next line 2");
+			//System.out.println("Printing in the next line 2");
 			
 
 
@@ -883,7 +883,7 @@ while(rs1.next())
 {
 	int rule_num = rs1.getInt(1);int val=0;
 	String val1="";
-	System.out.println("Currently in rule number = "+rule_num);
+	//System.out.println("Currently in rule number = "+rule_num);
 	int outr=1;
 	PreparedStatement statement3=con.prepareStatement("select * from tele.parameters where type='o';");
 	ResultSet rs3=statement3.executeQuery();
@@ -914,17 +914,17 @@ while(rs1.next())
 		while(rs3.next())
 		{
 			String outcheck = rs3.getString("parameterName");
-			System.out.println("Output Value = "+outcheck);
+			//System.out.println("Output Value = "+outcheck);
 			
 			
 			//val=rs1.getInt(outcheck);
 			val1=rs1.getString(outcheck);
-			System.out.println("The value of val = "+val1);
+			//System.out.println("The value of val = "+val1);
 			
 			if(val1!=null)
 			{
 				val=rs1.getInt(outcheck);
-				System.out.println("Val = "+val);
+				//System.out.println("Val = "+val);
 				for( z=0;z<outpc;z++)
 				{
 					if(outpar[z].equals(outcheck))
@@ -1151,22 +1151,22 @@ String line=null;
 
 				if(rs3X.next())
 				 check=rs3X.getString(1);
-				System.out.println("Number of tuples in clause"+i+" = "+check);
+				//System.out.println("Number of tuples in clause"+i+" = "+check);
 				
 				
 				if(check.equals("0"))
 				{
-					System.out.println("Tuples = 0");
+					//System.out.println("Tuples = 0");
 					
 					PreparedStatement statement4=con.prepareStatement("drop table clause"+i);
 					statement4.executeUpdate();
-					System.out.println("Table dropped");
+					//System.out.println("Table dropped");
 					
 					int no1=no-1;
 					PreparedStatement statement5=con.prepareStatement("update max_clauses set no="+no1);
 					statement5.executeUpdate();
 					
-					System.out.println("New numbe rof max_clauses = "+no1);
+					//System.out.println("New numbe rof max_clauses = "+no1);
 					
 
 				}
