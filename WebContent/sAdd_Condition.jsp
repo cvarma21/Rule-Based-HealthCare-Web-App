@@ -199,6 +199,7 @@ else if(action.equals("Delete Condition"))
 <p><%=datatype %></p>
 
 <p><%=radiobutton %></p>
+<div><%=table %></div>
 
 
 <% 
@@ -213,13 +214,11 @@ Make Condition:
 <%}
 else if(datatype.equals("number") && action.equals("Delete Condition"))
 {%>
-Enter Variable to Delete: 
-<%=radiobutton %> = <input type="text" name="val" value="Enter name" id='val'><input type="submit" value="Delete Condition" name="action" onclick="alert();" ></input>
+<input type="submit" value="Delete Condition" name="action" onclick="alert();" ></input>
 
 
 <% }%>
 
-<div><%=table %></div>
 
 <input type="hidden" value='<%=radiobutton%>' id="radiobutton" name="radiobutton" ></input>
 <input type="hidden" value='<%=datatype%>' id="datatype" name="datatype" ></input>

@@ -314,13 +314,13 @@ else if(action.equals("CHECK"))
 			int no=rs6.getInt(1);
 			System.out.println("No of clauses = "+no);
 			int flg1=0;
+			int flagp=0;
 
 			for(int i=1;i<=no;i++)
 			{
 				PreparedStatement statement3=con.prepareStatement("select count(*) from clause"+i+" where "+check+i+" is not null");
 				System.out.println("The statement is = "+"select count(*) from clause"+i+" where "+check+i+" is not null");
 				rs2=statement3.executeQuery();
-				int flagp=1;
 				while(rs2.next())
 				{
 					//out.println("In rs2");
@@ -331,11 +331,7 @@ else if(action.equals("CHECK"))
 						out.println("<br>");
 						out.newLine();
 						flg1=1;
-						if(flagp==1)
-						{
-								%><a href="Add_Parameter.jsp">Click here to go back</a><%
-								flagp=0;
-						}
+						flagp=1;
 
 					}
 					
@@ -344,6 +340,14 @@ else if(action.equals("CHECK"))
 				
 			
 			}
+			
+
+			if(flagp==1)
+			{
+					%><a href="Add_Parameter.jsp">Click here to go back</a><%
+					flagp=0;
+			}
+			
 		
 			if(flg1==0)
 			{
