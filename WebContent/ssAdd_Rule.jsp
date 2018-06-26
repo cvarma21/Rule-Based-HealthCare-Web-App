@@ -1125,7 +1125,10 @@ String line=null;
 		if(flag1==1)
 			System.out.println("SAT");
             		else
+            		{
             			System.out.println("UNSAT");
+            		}
+            		
             		
             	
             		
